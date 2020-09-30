@@ -10,10 +10,61 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_29_211816) do
+ActiveRecord::Schema.define(version: 2020_09_30_193717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "areas", force: :cascade do |t|
+    t.string "description"
+    t.string "coordinates"
+    t.float "extension"
+    t.boolean "status"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "address"
+    t.bigint "cities_id", null: false
+    t.bigint "basin_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["basin_id"], name: "index_areas_on_basin_id"
+    t.index ["cities_id"], name: "index_areas_on_cities_id"
+    t.index ["user_id"], name: "index_areas_on_user_id"
+  end
+
+  create_table "basins", force: :cascade do |t|
+    t.string "name"
+    t.string "coordinates"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string "name"
+    t.string "coordinates"
+    t.bigint "states_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["states_id"], name: "index_cities_on_states_id"
+  end
+
+  create_table "states", force: :cascade do |t|
+    t.string "name"
+    t.string "coordinates"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "trades", force: :cascade do |t|
+    t.string "status"
+    t.bigint "user_id", null: false
+    t.bigint "area_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["area_id"], name: "index_trades_on_area_id"
+    t.index ["user_id"], name: "index_trades_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -23,8 +74,21 @@ ActiveRecord::Schema.define(version: 2020_09_29_211816) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
+    t.string "document_number"
+    t.string "phone_number"
+    t.string "address"
+    t.bigint "city_id", null: false
+    t.index ["city_id"], name: "index_users_on_city_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "areas", "basins"
+  add_foreign_key "areas", "cities", column: "cities_id"
+  add_foreign_key "areas", "users"
+  add_foreign_key "cities", "states", column: "states_id"
+  add_foreign_key "trades", "areas"
+  add_foreign_key "trades", "users"
+  add_foreign_key "users", "cities"
 end
