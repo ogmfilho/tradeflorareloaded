@@ -5,3 +5,17 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'open-uri'
+require 'json'
+
+puts "Deleting all states"
+
+State.delete_all
+
+URL = "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
+
+states = JSON.parse(open(URL).read)
+states.each do |object|
+  new_state = State.create!(name: object["nome"])
+  puts "Creating #{new_state.name}"
+end
