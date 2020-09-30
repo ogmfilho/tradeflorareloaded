@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_30_193717) do
+ActiveRecord::Schema.define(version: 2020_09_30_195231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,16 @@ ActiveRecord::Schema.define(version: 2020_09_30_193717) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["states_id"], name: "index_cities_on_states_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.bigint "trade_id", null: false
+    t.bigint "user_id", null: false
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["trade_id"], name: "index_reviews_on_trade_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "states", force: :cascade do |t|
@@ -88,6 +98,8 @@ ActiveRecord::Schema.define(version: 2020_09_30_193717) do
   add_foreign_key "areas", "cities", column: "cities_id"
   add_foreign_key "areas", "users"
   add_foreign_key "cities", "states", column: "states_id"
+  add_foreign_key "reviews", "trades"
+  add_foreign_key "reviews", "users"
   add_foreign_key "trades", "areas"
   add_foreign_key "trades", "users"
   add_foreign_key "users", "cities"
