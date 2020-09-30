@@ -1,3 +1,5 @@
+require 'brazilian_documents'
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -7,6 +9,12 @@ class User < ApplicationRecord
   has_many :reviews
   has_many :trades, dependent: :destroy
   has_many :areas, dependent: :destroy
+  
+  validates :name, :phone_number, :address, presence: true
+  validates :document_number, presence: true, if: :document_valid?
 
-  validates :name, :document_number, :phone_number, :address, presence: true
+  def document_valid?
+    BRDocuments::CPF.valid?(:document_number) ||  BRDocuments::CNPJ.valid?(:document_number)
+  end
+
 end

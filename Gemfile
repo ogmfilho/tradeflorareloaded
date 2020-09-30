@@ -36,6 +36,9 @@ gem 'geocoder'
 # For db seeding
 gem 'faker'
 
+# For db seeding and User validates
+gem 'brazilian_documents', '~> 0.1.4'
+
 # For locales
 gem 'rails-i18n'
 
