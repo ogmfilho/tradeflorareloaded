@@ -10,6 +10,12 @@ require 'json'
 
 puts "Deleting all states"
 
+puts "Deleting all cities"
+
+
+
+City.delete_all
+
 State.delete_all
 
 URL = "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
@@ -20,15 +26,13 @@ states.each do |object|
   puts "Creating #{new_state.name}"
 end
 
-# puts "Deleting all cities"
 
-# City.delete_all
 
-# URL2 = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios"
+URL2 = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios"
+data = JSON.parse(open(URL2).read).sample(100)
+data.each do |object|
+  new_city = City.create!(name: object["nome"], state_id: State.find_by(name: object["microrregiao"]["mesorregiao"]["UF"]["nome"])[:id])
+  puts "Creating #{new_city.name}"
+end
 
-# cities = JSON.parse(open(URL2).read)
-# cities.each do |object|
-#   uf = object["microrregião"]["mesorregiao"]["UF"]["nome"]
-#   new_city = City.create!(name: object["nome"], state_id: State.where(name: uf)
-#   puts "Creating #{new_city.name}"
-# end
+# (name: object["microrregiao"]["mesorregiao"]["UF"]["nome"])
