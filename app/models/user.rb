@@ -4,8 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :reviews
-  has_many :trades
-  has_many :areas
+  has_many :trades, dependent: :destroy
+  has_many :areas, dependent: :destroy
 
   validates :name, :document_number, :phone_number, :address,  presence: true
 end
