@@ -1,35 +1,90 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <%= link_to "#", class: "navbar-brand" do %>
-    <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" %>
-    <% end %>
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<!-- Navbar importada de https://dsgov.estaleiro.serpro.gov.br/ds/components/header -->
 
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <% if user_signed_in? %>
-        <li class="nav-item active">
-          <%= link_to "Home", "#", class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Messages", "#", class: "nav-link" %>
-        </li>
-        <li class="nav-item dropdown">
-          <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <%= link_to "Action", "#", class: "dropdown-item" %>
-            <%= link_to "Another action", "#", class: "dropdown-item" %>
-            <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+<div class="br-header" no-functions>
+  <div class="container-lg">
+    <div class="flex-container">
+      <div class="logo">
+        <!--img(src="https://picsum.photos/200/300" alt="logo")--><img src="https://www.gov.br/++theme++padrao_govbr/img/govbr-colorido-b.png" alt="logo">
+        <div class="sign">Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis</div>
+      </div>
+      <div class="actions">
+        <div class="links">
+          <button class="br-button" type="button" circle mini><i class="fas fa-ellipsis-v"></i>
+          </button>
+          <ul>
+            <li class="title">Acesso Rápido</li>
+            <!-- Implementar após criados rota e controller de areas: -->
+            <%#= link_to "Áreas Disponíveis", areas_path %>
+            <%#= link_to "Criar Área", new_area_path %>
+            <li><a href="javascript:void(0);">Áreas Disponíveis</a></li>
+            <li><a href="javascript:void(0);">Criar Área</a></li>
+<!--             <li><a href="javascript:void(0);">Link de acesso 3</a></li>
+            <li><a href="javascript:void(0);">Link de acesso 4</a></li> -->
+          </ul>
+        </div>
+        <div class="functions">
+          <button class="br-button" type="button" circle mini><i class="fas fa-th"></i>
+          </button>
+          <ul>
+            <li class="title">Funcionalidades do Sistema</li>
+            <li>
+              <button class="br-button" type="button" circle mini> <i class="fas fa-chart-bar"></i><span class="text">Funcionalidade 1</span>
+              </button>
+            </li>
+            <li>
+              <button class="br-button" type="button" circle mini> <i class="fas fa-headset"></i><span class="text">Funcionalidade 2</span>
+              </button>
+            </li>
+            <li>
+              <button class="br-button" type="button" circle mini><i class="fas fa-comment"></i><span class="text">Funcionalidade 3</span>
+              </button>
+            </li>
+            <li>
+              <button class="br-button" type="button" circle mini><i class="fas fa-adjust"></i><span class="text">Funcionalidade 4</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="search-btn">
+          <button class="br-button" type="button" circle mini><i class="fas fa-search"></i>
+          </button>
+        </div>
+        <div class="login">
+          <button class="br-button" type="button" mini><i class="fas fa-user"></i><span class="ml-1">Entrar</span>
+          </button>
+        </div>
+        <div class="avatar">
+          <div class="br-badge" danger>
+            <div class="icon">5</div>
+            <div class="content">
+              <div class="br-avatar">
+                <div class="image"><img src="https://picsum.photos/id/823/400" alt="Avatar"></div>
+              </div>
+            </div>
           </div>
-        </li>
-      <% else %>
-        <li class="nav-item">
-          <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-        </li>
-      <% end %>
-    </ul>
+          <button class="br-button" type="button" mini circle><i class="fas fa-angle-down"></i>
+          </button>
+        </div>
+      </div>
+      <div class="menu">
+<!--         <button class="br-button" type="button" circle mini><i class="fas fa-bars"></i>
+        </button> -->
+        <div class="title">TradeFlora</div>
+        <!-- Atenção, colocada ml-0 para alinhar o subtitle à esquerda, porque tirei o hamburger icon /// se for voltar o hamburger icon tirar o 'ml-0' da classe abaixo-->
+        <div class="subtitle ml-0">Programa de Compensação Ambiental</div>
+      </div>
+      <div class="search">
+        <div class="br-input has-icon">
+          <label></label>
+          <input class="has-icon" type="text" placeholder="O que você procura?">
+          <button class="icon" type="button"><span class="icon"><i class="fas fa-search"></i></span></button>
+        </div>
+        <button class="br-button search-close" type="button" circle mini><i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
   </div>
 </div>
+
+<script src="../js/dsgov.js"></script>
