@@ -8,7 +8,7 @@ class CreateAreas < ActiveRecord::Migration[6.0]
       t.float :latitude
       t.float :longitude
       t.string :address
-      t.references :cities, null: false, foreign_key: true
+      t.references :city, null: false, foreign_key: true
       t.references :basin, null: false, foreign_key: true
       t.references :user, null: false, foreign_key: true
 

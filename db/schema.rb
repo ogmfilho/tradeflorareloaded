@@ -23,13 +23,13 @@ ActiveRecord::Schema.define(version: 2020_09_30_195231) do
     t.float "latitude"
     t.float "longitude"
     t.string "address"
-    t.bigint "cities_id", null: false
+    t.bigint "city_id", null: false
     t.bigint "basin_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["basin_id"], name: "index_areas_on_basin_id"
-    t.index ["cities_id"], name: "index_areas_on_cities_id"
+    t.index ["city_id"], name: "index_areas_on_city_id"
     t.index ["user_id"], name: "index_areas_on_user_id"
   end
 
@@ -43,10 +43,10 @@ ActiveRecord::Schema.define(version: 2020_09_30_195231) do
   create_table "cities", force: :cascade do |t|
     t.string "name"
     t.string "coordinates"
-    t.bigint "states_id", null: false
+    t.bigint "state_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["states_id"], name: "index_cities_on_states_id"
+    t.index ["state_id"], name: "index_cities_on_state_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -95,9 +95,9 @@ ActiveRecord::Schema.define(version: 2020_09_30_195231) do
   end
 
   add_foreign_key "areas", "basins"
-  add_foreign_key "areas", "cities", column: "cities_id"
+  add_foreign_key "areas", "cities"
   add_foreign_key "areas", "users"
-  add_foreign_key "cities", "states", column: "states_id"
+  add_foreign_key "cities", "states"
   add_foreign_key "reviews", "trades"
   add_foreign_key "reviews", "users"
   add_foreign_key "trades", "areas"
