@@ -2,13 +2,13 @@
 <div class="m-3 px-3">
   <h1>Áreas cadastradas</h1>
 </div>
-<div class="content px-3">
+<div class="contentareas px-3">
   <% if @areas.empty? %>
     <div id="paddingleft16">
       <p>Nenhuma área encontrada com os parâmetros da busca</p>
     </div>
   <% else %>
-    <div class="cards row col-md-8 col-lg-9">
+    <div class="row col-md-8 col-lg-9">
         <% @areas.each do |area| %>
           <div class="br-card card-trip col-md-5 col-lg-4">
             <img src="assets/<%=area.basin.name%>.jpg">
@@ -27,7 +27,7 @@
                   </li>
                 </ul>
                 <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
-                
+
               </div>
             </div>
           </div>
