@@ -12,11 +12,12 @@ class User < ApplicationRecord
   has_many :trades, dependent: :destroy
   has_many :areas, dependent: :destroy
 
-  validates :name, :phone_number, :address, presence: true
-  validates :document_number, presence: true, if: :document_valid?
+  validates :name, :phone_number, :address, :document_number, presence: true
+  validate :document_valid
 
-  def document_valid?
-    BRDocuments::CPF.valid?(:document_number) ||  BRDocuments::CNPJ.valid?(:document_number)
+  private 
+  def document_valid
+    errors.add(:document_number, 'Número do documento inválido.') unless BRDocuments::CPF.valid?(document_number) ||  BRDocuments::CNPJ.valid?(document_number)
   end
 
 end
