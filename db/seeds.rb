@@ -213,6 +213,30 @@ require 'brazilian_documents'
 
 
 
+
+  # Area seeds for aleatory users
+    25.times do
+      basin_seed = Basin.all.sample
+      city_seed = City.all.sample
+
+      area_latlong_sample = area_latlong_faker.find { |basin| basin[:name] == basin_seed[:name] }
+
+      attributes = {
+         description: area_description_faker.sample,
+         # coordinates: "{}"
+         # extension: 10
+         # status: true
+         latitude: rand(area_latlong_sample[:range_lat]),
+         longitude: rand(area_latlong_sample[:range_long]),
+         # address:
+         city_id: city_seed[:id],
+         basin_id: basin_seed[:id],
+         user_id: users_ids.sample
+      }
+      new_area = Area.create!(attributes)
+      puts "Area created for user #{new_area[:user_id]}"
+    end
+
   # Area seeds for test user Wátila Machado
     4.times do
       basin_seed = Basin.all.sample
@@ -239,30 +263,6 @@ require 'brazilian_documents'
       puts "Area created for user #{new_area[:user_id]}"
     end
 
-
-
-  # Area seeds for aleatory users
-    25.times do
-      basin_seed = Basin.all.sample
-      city_seed = City.all.sample
-
-      area_latlong_sample = area_latlong_faker.find { |basin| basin[:name] == basin_seed[:name] }
-
-      attributes = {
-         description: area_description_faker.sample,
-         # coordinates: "{}"
-         # extension: 10
-         # status: true
-         latitude: rand(area_latlong_sample[:range_lat]),
-         longitude: rand(area_latlong_sample[:range_long]),
-         # address:
-         city_id: city_seed[:id],
-         basin_id: basin_seed[:id],
-         user_id: users_ids.sample
-      }
-      new_area = Area.create!(attributes)
-      puts "Area created for user #{new_area[:user_id]}"
-    end
 
 
   # Variables for support in other seed operations

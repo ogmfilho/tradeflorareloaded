@@ -15,8 +15,8 @@ class TradesController < ApplicationController
       # if area.save
       #  redirect_to user_path(area.user_id), notice: 'Nova trade criada.'
         # end
-      # redirect_to my_trades_path, notice: 'Nova trade criada.'
-      redirect_to root_path, notice: 'Nova trade criada.'
+      redirect_to my_trades_path, notice: 'Nova trade criada.'
+      # redirect_to root_path, notice: 'Nova trade criada.'
     else
       render :new
     end
