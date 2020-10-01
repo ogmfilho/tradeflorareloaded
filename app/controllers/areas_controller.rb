@@ -24,6 +24,10 @@ class AreasController < ApplicationController
     @area = Area.new
     @basins = Basin.all
     @cities = City.all
+    @markers = [{
+        lat: @area.latitude,
+        lng: @area.longitude
+      }]
   end
 
   def edit
