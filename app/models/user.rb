@@ -6,10 +6,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  belongs_to :city
+
   has_many :reviews
   has_many :trades, dependent: :destroy
   has_many :areas, dependent: :destroy
-  
+
   validates :name, :phone_number, :address, presence: true
   validates :document_number, presence: true, if: :document_valid?
 

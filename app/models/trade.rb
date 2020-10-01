@@ -2,7 +2,7 @@ class Trade < ApplicationRecord
   belongs_to :user
   belongs_to :area
 
-  has_many :trades, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   validates :status, inclusion: {
     in: ['Proposta', 'Visualizada', 'Aceita', 'Recusada', 'Concluída'],
