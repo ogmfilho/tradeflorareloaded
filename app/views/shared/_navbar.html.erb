@@ -1,12 +1,8 @@
-<!-- Navbar importada de https://dsgov.estaleiro.serpro.gov.br/ds/components/header -->
-
-
-<div class="br-header" no-functions>
+<div class="br-header">
   <div class="container-lg">
     <div class="flex-container">
-      <div class="logo">
-        <!--img(src="https://picsum.photos/200/300" alt="logo")--><img src="https://www.gov.br/++theme++padrao_govbr/img/govbr-colorido-b.png" alt="logo">
-        <div class="sign">Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis</div>
+      <div class="logo"><img src="https://www.gov.br/++theme++padrao_govbr/img/govbr-colorido-b.png" alt="logo">
+        <div class="sign">TradeFlora</div>
       </div>
       <div class="actions">
         <div class="links">
@@ -24,6 +20,9 @@
             <li><%= link_to "Sair", destroy_user_session_path, method: "delete"%></li>
 <!--             <li><a href="javascript:void(0);">Link de acesso 3</a></li>
             <li><a href="javascript:void(0);">Link de acesso 4</a></li> -->
+
+          
+
           </ul>
         </div>
         <div class="functions">
@@ -54,10 +53,9 @@
           </button>
         </div>
         <div class="login">
-          <button class="br-button" type="button" mini><i class="fas fa-user"></i><span class="ml-1">Entrar</span>
-          </button>
-        </div>
-        <div class="avatar">
+          <% if user_signed_in? %>
+
+        </div><a class="avatar" href="javascript:void(0)">
           <div class="br-badge" danger>
             <div class="icon">5</div>
             <div class="content">
@@ -65,19 +63,43 @@
                 <div class="image"><img src="https://picsum.photos/id/823/400" alt="Avatar"></div>
               </div>
             </div>
+          </div></a>
+        <div class="br-notification" notification>
+          <div class="notification-header">
+            <div class="user-name">Fulano da Silva</div>
+            <div class="user-email">fulano.silva@email.com</div>
           </div>
-          <button class="br-button" type="button" mini circle><i class="fas fa-angle-down"></i>
-          </button>
+          <div class="notification-body">
+            <div class="br-tabs">
+              <nav class="tab-nav">
+                <ul>
+                  <li class="tab-item">
+                    <button type="button" data-panel="panel-1"><span class="name">Configurações<i class="fas fa-cog"></i></span></button>
+                  </li>
+                  <li class="tab-item is-active">
+                    <button type="button" data-panel="panel-2"><span class="name">Notificações<i class="fas fa-bell"></i></span></button>
+                  </li>
+                  <li class="tab-item">
+                    <button type="button" data-panel="panel-3"><span class="name">Mensagens<i class="fas fa-envelope"></i></span></button>
+                  </li>
+                </ul>
+              </nav>
+              <% else %>
+              <button class="br-button" type="button" mini><i class="fas fa-user"></i><span class="ml-1">Entrar</span>
+              </button>
+              <% end %>
+
+            </div>
+          </div>
         </div>
       </div>
-      <div class="menu">
-<!--         <button class="br-button" type="button" circle mini><i class="fas fa-bars"></i>
+      <!-- <div class="menu"> -->
+        <!-- <button class="br-button" type="button" circle mini><i class="fas fa-bars"></i>
         </button> -->
-        <div class="title">TradeFlora</div>
-        <!-- Atenção, colocada ml-0 para alinhar o subtitle à esquerda, porque tirei o hamburger icon /// se for voltar o hamburger icon tirar o 'ml-0' da classe abaixo-->
-        <div class="subtitle ml-0">Programa de Compensação Ambiental</div>
-      </div>
-      <div class="search">
+        <!-- <div class="title">Título Padrão do Cabeçalho</div>
+        <div class="subtitle ml-0">Subtítulo do Cabeçalho</div>
+      </div> -->
+      <!-- <div class="search">
         <div class="br-input has-icon">
           <label></label>
           <input class="has-icon" type="text" placeholder="O que você procura?">
@@ -85,9 +107,11 @@
         </div>
         <button class="br-button search-close" type="button" circle mini><i class="fas fa-times"></i>
         </button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
 
+
 <!-- <script src="../js/dsgov.js"></script> -->
+
