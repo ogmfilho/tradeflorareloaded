@@ -29,7 +29,9 @@
                     label: "Telefone",
                     required: true,
                     autofocus: true,
-                    input_html: { autocomplete: "phone-number" } %>        
+                    input_html: { autocomplete: "phone-number" } %>
+        <%= f.input :city_id, prompt: 'Selecione o seu município', 
+                    label: 'Município', collection: City.all %>        
         <%= f.input :password,
                     label: "Senha",
                     required: true,
