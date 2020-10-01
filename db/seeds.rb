@@ -2,13 +2,41 @@ require 'open-uri'
 require 'json'
 require 'faker'
 require 'brazilian_documents'
-require 'byebug'
 
-# start ============ STATES ======================
+
+
+
+# start ============ CLEAR TABLES ======================
+
+
+  puts "Clearing Reviews table"
+  Review.destroy_all
+
+  puts "Clearing Trades table"
+  Trade.destroy_all
+
+  puts "Clearing Areas table"
+  Area.destroy_all
+
+  puts "Clearing Users table"
+  User.destroy_all
+
   puts "Deleting all cities"
   City.delete_all
+
   puts "Deleting all states"
   State.delete_all
+
+  puts "Clearing Basins table"
+  Basin.destroy_all
+
+# end ============ CLEAR TABLES ======================
+
+
+
+
+
+# start ============ STATES ======================
 
   URL = "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
 
@@ -26,7 +54,7 @@ require 'byebug'
 # start ============ CITIES ======================
 
   URL2 = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios"
-  data = JSON.parse(open(URL2).read).sample(10)
+  data = JSON.parse(open(URL2).read).sample(100)
   data.each do |object|
     new_city = City.create!(name: object["nome"], state_id: State.find_by(name: object["microrregiao"]["mesorregiao"]["UF"]["nome"])[:id])
     puts "Creating #{new_city.name}"
@@ -40,8 +68,7 @@ require 'byebug'
 
 
 # start ============ BASINS ======================
-  puts "Clearing Basins table"
-  Basin.destroy_all
+
 
   puts "Seeding Basins table"
   Basin.create!(name: "Amazônica", coordinates: "{}")
@@ -66,6 +93,7 @@ require 'byebug'
 
 
 # start ============ USERS ======================
+
   # Usuário Wátila Machado
     1.times do
       attributes = {name: "Wátila Machado",
@@ -75,7 +103,7 @@ require 'byebug'
                    address: Faker::Address.street_address
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
-     attributes[:email]="#{normalized_name.split.last}@mail.com"
+     attributes[:email]="watila@mail.com"
      attributes[:city_id] = City.all.sample.id
      new_user = User.create!(attributes)
      puts "Creating #{new_user[:name]}"
@@ -91,7 +119,7 @@ require 'byebug'
                    address: Faker::Address.street_address
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
-     attributes[:email]="#{normalized_name.split.first}.#{normalized_name.split.last}@mail.com"
+     attributes[:email]="bali@mail.com"
      attributes[:city_id] = City.all.sample.id
      new_user = User.create!(attributes)
      puts "Creating #{new_user[:name]}"
@@ -99,7 +127,7 @@ require 'byebug'
 
 
   # Pessoa Física
-    5.times do
+    20.times do
      attributes = {name: Faker::Name.unique.name,
                    password: "123456",
                    document_number: BRDocuments::CPF.generate,
@@ -107,7 +135,7 @@ require 'byebug'
                    address: Faker::Address.street_address
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
-     attributes[:email]="#{normalized_name.split.first}.#{normalized_name.split.last}@mail.com"
+     attributes[:email]="#{normalized_name.split.first}.#{normalized_name.split.last}.#{rand(10.1000)}@mail.com"
      attributes[:city_id] = City.all.sample.id
      new_user = User.create!(attributes)
      puts "Creating #{new_user[:name]}"
@@ -115,7 +143,7 @@ require 'byebug'
 
 
   # Pessoa Jurídica
-    5.times do
+    20.times do
      attributes = {name: Faker::Company.unique.name,
                    password: "123456",
                    document_number: BRDocuments::CNPJ.generate,
@@ -123,7 +151,7 @@ require 'byebug'
                    address: Faker::Address.street_address
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
-     attributes[:email]="#{normalized_name.split.last}@mail.com"
+     attributes[:email]="#{normalized_name.split.first}.#{normalized_name.split.last}.#{rand(10.1000)}@mail.com"
      attributes[:city_id] = City.all.sample.id
      new_user = User.create!(attributes)
      puts "Creating #{new_user[:name]}"
@@ -152,8 +180,6 @@ require 'byebug'
 
 # start ============ AREAS ======================
 
-  puts "Clearing Areas table"
-  Area.destroy_all
 
   puts "Seeding Areas table"
 
@@ -260,8 +286,7 @@ require 'byebug'
 
 
 # start ============ TRADES ======================
-puts "Clearing Trades table"
-Trade.destroy_all
+
 
 puts "Seeding Trades table"
 
@@ -274,7 +299,8 @@ puts "Seeding Trades table"
       user_id: user_bali[:id],
       area_id: watila_areas.sample[:id]
     }
-    Trade.create!(attributes)
+    new_trade = Trade.create!(attributes)
+    puts "Trade created for user #{new_trade[:user_id]}"
   end
 
 
@@ -285,7 +311,8 @@ puts "Seeding Trades table"
         user_id: users_ids.sample,
         area_id: areas_ids.sample
       }
-      Trade.create!(attributes)
+      new_trade = Trade.create!(attributes)
+      puts "Trade created for user #{new_trade[:user_id]}"
     end
 
 
@@ -300,10 +327,7 @@ puts "Seeding Trades table"
 
 # start ============ REVIEWS ======================
 
-  puts "Clearing Reviews table"
-
-  Review.destroy_all
-
+  puts "Seeding Reviews table"
   # Support variables for Review seeding
     review_description_faker = [
       "Gostei muito. Recomendo.",
@@ -319,16 +343,17 @@ puts "Seeding Trades table"
     finished_trades = Trade.where(status: 'Concluída')
 
   # Review seeding for every Trade seeded as finished
-    finished_trades.each do |fn_trade|
+    finished_trades.each do |finished_trade|
       attributes = {
-        trade_id: fn_trade[:id],
-        user_id: fn_trade[:user_id],
+        trade_id: finished_trade[:id],
+        user_id: finished_trade[:user_id],
         description: review_description_faker.sample
       }
-      Review.create!(attributes)
+      new_review = Review.create!(attributes)
+      puts "Review created for trade #{new_review[:trade_id]}"
     end
 
+  puts "Reviews seeded!"
 
-  puts "Seeding Reviews table"
 
 #  end ============= REVIEWS ======================
