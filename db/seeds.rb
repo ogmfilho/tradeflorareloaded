@@ -99,7 +99,7 @@ require 'brazilian_documents'
       attributes = {name: "Wátila Machado",
                    password: "123456",
                    document_number: BRDocuments::CPF.generate,
-                   phone_number:Faker::PhoneNumber.phone_number,
+                   phone_number:Faker::PhoneNumber.cell_phone,
                    address: Faker::Address.street_address
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
@@ -115,7 +115,7 @@ require 'brazilian_documents'
       attributes = {name: "Bali Mineradora",
                    password: "123456",
                    document_number: BRDocuments::CNPJ.generate,
-                   phone_number:Faker::PhoneNumber.phone_number,
+                   phone_number:Faker::PhoneNumber.cell_phone,
                    address: Faker::Address.street_address
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
@@ -131,11 +131,11 @@ require 'brazilian_documents'
      attributes = {name: Faker::Name.unique.name,
                    password: "123456",
                    document_number: BRDocuments::CPF.generate,
-                   phone_number:Faker::PhoneNumber.phone_number,
+                   phone_number:Faker::PhoneNumber.cell_phone,
                    address: Faker::Address.street_address
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
-     attributes[:email]="#{normalized_name.split.first}.#{normalized_name.split.last}.#{rand(10.1000)}@mail.com"
+     attributes[:email]="#{normalized_name.split.first}.#{rand(10.1000)}@mail.com"
      attributes[:city_id] = City.all.sample.id
      new_user = User.create!(attributes)
      puts "Creating #{new_user[:name]}"
@@ -147,11 +147,11 @@ require 'brazilian_documents'
      attributes = {name: Faker::Company.unique.name,
                    password: "123456",
                    document_number: BRDocuments::CNPJ.generate,
-                   phone_number:Faker::PhoneNumber.phone_number,
+                   phone_number:Faker::PhoneNumber.cell_phone,
                    address: Faker::Address.street_address
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
-     attributes[:email]="#{normalized_name.split.first}.#{normalized_name.split.last}.#{rand(10.1000)}@mail.com"
+     attributes[:email]="#{normalized_name.split.first}.#{rand(10.1000)}@mail.com"
      attributes[:city_id] = City.all.sample.id
      new_user = User.create!(attributes)
      puts "Creating #{new_user[:name]}"
@@ -224,8 +224,8 @@ require 'brazilian_documents'
       attributes = {
          description: area_description_faker.sample,
          # coordinates: "{}"
-         # extension: 10
-         # status: true
+         extension: rand(10..100),
+         status: true,
          latitude: rand(area_latlong_sample[:range_lat]),
          longitude: rand(area_latlong_sample[:range_long]),
          # address:
@@ -250,8 +250,8 @@ require 'brazilian_documents'
       attributes = {
          description: area_description_faker.sample,
          # coordinates: "{}"
-         # extension: 10
-         # status: true
+         extension: rand(10..100),
+         status: true,
          latitude: rand(area_latlong_sample[:range_lat]),
          longitude: rand(area_latlong_sample[:range_long]),
          # address:
@@ -291,10 +291,19 @@ require 'brazilian_documents'
 puts "Seeding Trades table"
 
   trade_status_options = ['Proposta', 'Visualizada', 'Aceita', 'Recusada', 'Concluída']
+  trade_details_faker = [
+    "Tenho interesse na área. Poderia me contatar?",
+    "Por favor, entre em contato.",
+    "Gostaria de reflorestar nessa bacia. Podemos conversar?",
+    "Como poderíamos fazer? Preciso fazer a compensação ambiental nesta região.",
+    "Seguem os meus contatos. Fico aguardando.",
+    "Temos interesse em realizar o reflorestamento da sua área."
+  ]
 
   # Trades seed for test user Wátila Machado
   3.times do
     attributes = {
+      details: trade_details_faker.sample,
       status: "Proposta",
       user_id: user_bali[:id],
       area_id: watila_areas.sample[:id]
@@ -307,6 +316,7 @@ puts "Seeding Trades table"
   # Trades seeds for aleatory users
     30.times do
       attributes = {
+        details: trade_details_faker.sample,
         status:  trade_status_options.sample,
         user_id: users_ids.sample,
         area_id: areas_ids.sample

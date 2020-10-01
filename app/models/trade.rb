@@ -8,6 +8,7 @@ class Trade < ApplicationRecord
     in: ['Proposta', 'Visualizada', 'Aceita', 'Recusada', 'Concluída'],
     message: "%{value} não é um status válido."
   }
+  validates :details, presence: true
 
   validates_associated :user
   validates_associated :area
