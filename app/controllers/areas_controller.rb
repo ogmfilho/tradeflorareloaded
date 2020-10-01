@@ -23,12 +23,13 @@ class AreasController < ApplicationController
   def new
     @area = Area.new
     @basins = Basin.all
+    @cities = City.all
   end
 
   def edit
     @area = Area.find(params[:id])
     @basins = Basin.all
-    #raise
+    @cities = City.all
   end
 
   def create
@@ -70,6 +71,6 @@ class AreasController < ApplicationController
   private
 
   def area_params
-    params.require(:area).permit(:lat, :long, :description, :basin_id)
+    params.require(:area).permit(:lat, :long, :description, :basin_id, :city_id)
   end
 end
