@@ -1,8 +1,8 @@
-<div class="br-header">
+<div class="br-header" no-search no-functions sticky>
   <div class="container-lg">
     <div class="flex-container">
       <div class="logo"><img src="https://www.gov.br/++theme++padrao_govbr/img/govbr-colorido-b.png" alt="logo">
-        <div class="sign">TradeFlora</div>
+        <div class="sign">Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis</div>
       </div>
       <div class="actions">
         <div class="links">
@@ -10,19 +10,9 @@
           </button>
           <ul>
             <li class="title">Acesso Rápido</li>
-            <!-- Implementar após criados rota e controller de areas: -->
-
-            <%#= link_to "Criar Área", new_area_path %>
             <li><%= link_to "Áreas Disponíveis", areas_path %></li>
             <li><%= link_to "Criar Área", new_area_path %></li>
-            <li><%= link_to "Entrar", "/users/sign_in" %></li>
-            <li><%= link_to "Cadastre-se", "/users/sign_up" %></li>
             <li><%= link_to "Sair", destroy_user_session_path, method: "delete"%></li>
-<!--             <li><a href="javascript:void(0);">Link de acesso 3</a></li>
-            <li><a href="javascript:void(0);">Link de acesso 4</a></li> -->
-
-          
-
           </ul>
         </div>
         <div class="functions">
@@ -52,10 +42,8 @@
           <button class="br-button" type="button" circle mini><i class="fas fa-search"></i>
           </button>
         </div>
-        <div class="login">
-          <% if user_signed_in? %>
-
-        </div><a class="avatar" href="javascript:void(0)">
+        <% if user_signed_in? %>
+        <div class="avatar d-block">
           <div class="br-badge" danger>
             <div class="icon">5</div>
             <div class="content">
@@ -63,43 +51,49 @@
                 <div class="image"><img src="https://picsum.photos/id/823/400" alt="Avatar"></div>
               </div>
             </div>
-          </div></a>
+          </div></div>
         <div class="br-notification" notification>
           <div class="notification-header">
-            <div class="user-name">Fulano da Silva</div>
-            <div class="user-email">fulano.silva@email.com</div>
+            <div class="user-name"><%= current_user.name %></div>
+            <div class="user-email"><%= current_user.email %></div>
           </div>
           <div class="notification-body">
             <div class="br-tabs">
               <nav class="tab-nav">
                 <ul>
                   <li class="tab-item">
-                    <button type="button" data-panel="panel-1"><span class="name">Configurações<i class="fas fa-cog"></i></span></button>
+                    <button type="button" data-panel="panel-1"><span class="name">Meu Perfil<i class="fas fa-user-circle"></i></span></button>
                   </li>
                   <li class="tab-item is-active">
-                    <button type="button" data-panel="panel-2"><span class="name">Notificações<i class="fas fa-bell"></i></span></button>
+                    <%= link_to edit_user_registration_path do %>
+                    <button type="button" data-panel="panel-2"><span class="name">Editar Meus Dados<i class="fas fa-edit"></i></span></button>
+                    <% end %>
                   </li>
                   <li class="tab-item">
-                    <button type="button" data-panel="panel-3"><span class="name">Mensagens<i class="fas fa-envelope"></i></span></button>
+                    <%= link_to destroy_user_session_path do %>
+                    <button type="button" data-panel="panel-3"><span class="name">Sair<i class="fas fa-sign-out-alt"></i></span></button>
+                    <% end %>
                   </li>
                 </ul>
               </nav>
-              <% else %>
-              <button class="br-button" type="button" mini><i class="fas fa-user"></i><span class="ml-1">Entrar</span>
-              </button>
-              <% end %>
-
             </div>
           </div>
         </div>
+        <% else %>
+        <div class="login">
+          <%= link_to new_user_session_path do %>
+          <button class="br-button" type="button" mini><i class="fas fa-user"></i><span class="ml-1">Entrar</span>
+          </button>
+          <% end %>
+        </div>
+        <% end %>
       </div>
-      <!-- <div class="menu"> -->
+      <div class="menu">
         <!-- <button class="br-button" type="button" circle mini><i class="fas fa-bars"></i>
         </button> -->
-        <!-- <div class="title">Título Padrão do Cabeçalho</div>
-        <div class="subtitle ml-0">Subtítulo do Cabeçalho</div>
-      </div> -->
-      <!-- <div class="search">
+        <div class="title">TradeFlora</div>
+      </div>
+      <div class="search">
         <div class="br-input has-icon">
           <label></label>
           <input class="has-icon" type="text" placeholder="O que você procura?">
@@ -107,11 +101,8 @@
         </div>
         <button class="br-button search-close" type="button" circle mini><i class="fas fa-times"></i>
         </button>
-      </div> -->
+      </div>
     </div>
   </div>
 </div>
-
-
-<!-- <script src="../js/dsgov.js"></script> -->
-
+<script src="../js/dsgov.js"></script>
