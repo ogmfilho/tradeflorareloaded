@@ -2,8 +2,11 @@ require 'open-uri'
 require 'json'
 require 'faker'
 require 'brazilian_documents'
+require 'byebug'
 
 # start ============ STATES ======================
+  puts "Deleting all cities"
+  City.delete_all
   puts "Deleting all states"
   State.delete_all
 
@@ -21,8 +24,6 @@ require 'brazilian_documents'
 
 
 # start ============ CITIES ======================
-  puts "Deleting all cities"
-  City.delete_all
 
   URL2 = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios"
   data = JSON.parse(open(URL2).read).sample(10)
@@ -74,7 +75,7 @@ require 'brazilian_documents'
                    address: Faker::Address.street_address
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
-     attributes[:email]="#{normalized_name.split.first}@mail.com"
+     attributes[:email]="#{normalized_name.split.last}@mail.com"
      attributes[:city_id] = City.all.sample.id
      new_user = User.create!(attributes)
      puts "Creating #{new_user[:name]}"
@@ -90,7 +91,7 @@ require 'brazilian_documents'
                    address: Faker::Address.street_address
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
-     attributes[:email]="#{normalized_name.split.first}@mail.com"
+     attributes[:email]="#{normalized_name.split.first}.#{normalized_name.split.last}@mail.com"
      attributes[:city_id] = City.all.sample.id
      new_user = User.create!(attributes)
      puts "Creating #{new_user[:name]}"
@@ -99,14 +100,14 @@ require 'brazilian_documents'
 
   # Pessoa Física
     5.times do
-     attributes = {name: Faker::Name.name,
+     attributes = {name: Faker::Name.unique.name,
                    password: "123456",
                    document_number: BRDocuments::CPF.generate,
                    phone_number:Faker::PhoneNumber.phone_number,
                    address: Faker::Address.street_address
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
-     attributes[:email]="#{normalized_name.split.first}@mail.com"
+     attributes[:email]="#{normalized_name.split.first}.#{normalized_name.split.last}@mail.com"
      attributes[:city_id] = City.all.sample.id
      new_user = User.create!(attributes)
      puts "Creating #{new_user[:name]}"
@@ -115,14 +116,14 @@ require 'brazilian_documents'
 
   # Pessoa Jurídica
     5.times do
-     attributes = {name: Faker::Company.name,
+     attributes = {name: Faker::Company.unique.name,
                    password: "123456",
                    document_number: BRDocuments::CNPJ.generate,
                    phone_number:Faker::PhoneNumber.phone_number,
                    address: Faker::Address.street_address
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
-     attributes[:email]="#{normalized_name.split.first}@mail.com"
+     attributes[:email]="#{normalized_name.split.last}@mail.com"
      attributes[:city_id] = City.all.sample.id
      new_user = User.create!(attributes)
      puts "Creating #{new_user[:name]}"
@@ -160,12 +161,16 @@ require 'brazilian_documents'
 
     area_description_faker = [
       "Uma área rural disponível para reflorestamento",
-      "Área para reflorestamento na Bacia #{basin_seed[:name]}",
       "Área para reflorestamento.",
-      "Disponibilizo área na Bacia #{basin_seed[:name]}"
+      "Área para reflorestamento urgente!",
+      "Preciso reflorestar.",
+      "Disponível para reflorestamento. Fácil acesso.",
+      "Cedo para reflorestamento."
+      # "Área para reflorestamento na Bacia #{basin_seed[:name]}", # Não consigo resolver o acesso à variável, que só pode ser criada na iteração...
+      # "Disponibilizo área na Bacia #{basin_seed[:name]}"
     ]
 
-    area_coordinates_faker = [
+    area_latlong_faker = [
       { name:"Amazônica", range_lat:(-9.297093..-0.165376), range_long:(-65.171125..-52.210211) },
       { name:"Atlântico Leste", range_lat:(-12.904332..-10.925327), range_long:(-39.934120..-38.771828) },
       { name:"Atlântico Nordeste Oriental", range_lat:(-7.049664..-5.594422), range_long:(-39.119006..-35.858550) },
@@ -185,21 +190,27 @@ require 'brazilian_documents'
   # Area seeds for test user Wátila Machado
     4.times do
       basin_seed = Basin.all.sample
+      city_seed = City.all.sample
 
-      area_coordinates_faker.select! {|hash| hash[:name] == basin_seed[:name]}
+
+
+      area_latlong_sample = area_latlong_faker.find { |basin| basin[:name] == basin_seed[:name] }
+
+
       attributes = {
          description: area_description_faker.sample,
          # coordinates: "{}"
          # extension: 10
          # status: true
-         latitude: rand(area_coordinates_faker.first[:range_lat]),
-         longitude: rand(area_coordinates_faker.first[:range_long]),
+         latitude: rand(area_latlong_sample[:range_lat]),
+         longitude: rand(area_latlong_sample[:range_long]),
          # address:
-         # city_id:
+         city_id: city_seed[:id],
          basin_id: basin_seed[:id],
          user_id: user_watila[:id]
       }
-      Area.create!(attributes)
+      new_area = Area.create!(attributes)
+      puts "Area created for user #{new_area[:user_id]}"
     end
 
 
@@ -207,21 +218,24 @@ require 'brazilian_documents'
   # Area seeds for aleatory users
     25.times do
       basin_seed = Basin.all.sample
+      city_seed = City.all.sample
 
-      area_coordinates_faker.select! {|hash| hash[:name] == basin_seed[:name]}
+      area_latlong_sample = area_latlong_faker.find { |basin| basin[:name] == basin_seed[:name] }
+
       attributes = {
          description: area_description_faker.sample,
          # coordinates: "{}"
          # extension: 10
          # status: true
-         latitude: rand(area_coordinates_faker.first[:range_lat]),
-         longitude: rand(area_coordinates_faker.first[:range_long]),
+         latitude: rand(area_latlong_sample[:range_lat]),
+         longitude: rand(area_latlong_sample[:range_long]),
          # address:
-         # city_id:
+         city_id: city_seed[:id],
          basin_id: basin_seed[:id],
          user_id: users_ids.sample
       }
-      Area.create!(attributes)
+      new_area = Area.create!(attributes)
+      puts "Area created for user #{new_area[:user_id]}"
     end
 
 
