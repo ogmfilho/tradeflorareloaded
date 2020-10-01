@@ -99,7 +99,7 @@ require 'brazilian_documents'
       attributes = {name: "Wátila Machado",
                    password: "123456",
                    document_number: BRDocuments::CPF.generate,
-                   phone_number:Faker::PhoneNumber.phone_number,
+                   phone_number:Faker::PhoneNumber.cell_phone,
                    address: Faker::Address.street_address
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
@@ -115,7 +115,7 @@ require 'brazilian_documents'
       attributes = {name: "Bali Mineradora",
                    password: "123456",
                    document_number: BRDocuments::CNPJ.generate,
-                   phone_number:Faker::PhoneNumber.phone_number,
+                   phone_number:Faker::PhoneNumber.cell_phone,
                    address: Faker::Address.street_address
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
@@ -131,7 +131,7 @@ require 'brazilian_documents'
      attributes = {name: Faker::Name.unique.name,
                    password: "123456",
                    document_number: BRDocuments::CPF.generate,
-                   phone_number:Faker::PhoneNumber.phone_number,
+                   phone_number:Faker::PhoneNumber.cell_phone,
                    address: Faker::Address.street_address
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
@@ -147,7 +147,7 @@ require 'brazilian_documents'
      attributes = {name: Faker::Company.unique.name,
                    password: "123456",
                    document_number: BRDocuments::CNPJ.generate,
-                   phone_number:Faker::PhoneNumber.phone_number,
+                   phone_number:Faker::PhoneNumber.cell_phone,
                    address: Faker::Address.street_address
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
@@ -224,8 +224,8 @@ require 'brazilian_documents'
       attributes = {
          description: area_description_faker.sample,
          # coordinates: "{}"
-         # extension: 10
-         # status: true
+         extension: rand(10..100)
+         status: true
          latitude: rand(area_latlong_sample[:range_lat]),
          longitude: rand(area_latlong_sample[:range_long]),
          # address:
@@ -250,8 +250,8 @@ require 'brazilian_documents'
       attributes = {
          description: area_description_faker.sample,
          # coordinates: "{}"
-         # extension: 10
-         # status: true
+         extension: rand(10..100)
+         status: true
          latitude: rand(area_latlong_sample[:range_lat]),
          longitude: rand(area_latlong_sample[:range_long]),
          # address:
