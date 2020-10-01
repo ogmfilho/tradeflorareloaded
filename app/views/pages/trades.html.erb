@@ -7,22 +7,26 @@
       <table class="table table-bordered">
         <tbody>
           <thead>
-            <th>Tamanho (m²)</th>
+            <th>Descrição da Área</th>
+            <th>Tamanho (ha)</th>
             <th>Bacia</th>
             <th>Proprietário</th>
             <th>Email</th>
             <th>Telefone</th>
             <th>Status</th>
+            <th>Detalhes da proposta</th>
           </thead>
          <% @my_trades.each do |trade| %>
          <% area = trade.area %>
             <tr>
               <td><%= area.description %></td>
+              <td><%= area.extension %></td>
               <td><%= area.basin.name %></td>
               <td><%= area.user.name %></td>
               <td><%= area.user.email %></td>
               <td><%= area.user.phone_number %></td>
               <td><%= trade.status %></td>
+              <td><%= trade.details %></td>
 
             </tr>
           <% end %>
