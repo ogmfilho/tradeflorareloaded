@@ -1,12 +1,12 @@
 <!-- Navbar importada de https://dsgov.estaleiro.serpro.gov.br/ds/components/header -->
 
 
-<div class="br-header" no-functions>
+<div class="br-header" no-login>
   <div class="container-lg">
     <div class="flex-container">
       <div class="logo">
         <!--img(src="https://picsum.photos/200/300" alt="logo")--><img src="https://www.gov.br/++theme++padrao_govbr/img/govbr-colorido-b.png" alt="logo">
-        <div class="sign">Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis</div>
+        <div class="sign">Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis </div>
       </div>
       <div class="actions">
         <div class="links">
@@ -14,16 +14,13 @@
           </button>
           <ul>
             <li class="title">Acesso Rápido</li>
-            <!-- Implementar após criados rota e controller de areas: -->
-            <%#= link_to "Áreas Disponíveis", areas_path %>
-            <%#= link_to "Criar Área", new_area_path %>
+            <li><a href="javascript:void(0);">Página Principal</a></li>
             <li><a href="javascript:void(0);">Áreas Disponíveis</a></li>
             <li><a href="javascript:void(0);">Criar Área</a></li>
-<!--             <li><a href="javascript:void(0);">Link de acesso 3</a></li>
-            <li><a href="javascript:void(0);">Link de acesso 4</a></li> -->
+            <button class="br-button" type="button" primary mini>Entrar</button>
           </ul>
         </div>
-        <div class="functions">
+        <!-- <div class="functions">
           <button class="br-button" type="button" circle mini><i class="fas fa-th"></i>
           </button>
           <ul>
@@ -45,7 +42,7 @@
               </button>
             </li>
           </ul>
-        </div>
+        </div> -->
         <div class="search-btn">
           <button class="br-button" type="button" circle mini><i class="fas fa-search"></i>
           </button>
@@ -71,7 +68,6 @@
 <!--         <button class="br-button" type="button" circle mini><i class="fas fa-bars"></i>
         </button> -->
         <div class="title">TradeFlora</div>
-        <!-- Atenção, colocada ml-0 para alinhar o subtitle à esquerda, porque tirei o hamburger icon /// se for voltar o hamburger icon tirar o 'ml-0' da classe abaixo-->
         <div class="subtitle ml-0">Programa de Compensação Ambiental</div>
       </div>
       <div class="search">
@@ -86,5 +82,6 @@
     </div>
   </div>
 </div>
+
 
 <script src="../js/dsgov.js"></script>
