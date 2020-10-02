@@ -48,12 +48,12 @@
 
   <% if user_signed_in? %>
     <% if current_user.id != @area.user.id %>
-      <%= link_to "Estou interessado", new_area_trade_path(@area), class: "btn btn-success button-light-shadow mb-3" %>
+      <%= link_to "Estou interessado", new_area_trade_path(@area), class: "br-button primary" %>
     <%end%>
   <%end%>
   <br>
 
-    <p> <%= link_to 'Voltar para áreas disponíveis', areas_path, class: "btn btn-success button-light-shadow" %> </p>
+    <p> <%= link_to 'Voltar para áreas disponíveis', areas_path, class: "br-button primary" %> </p>
 
   <br>
 

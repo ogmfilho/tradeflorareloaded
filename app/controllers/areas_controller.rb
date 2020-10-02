@@ -1,14 +1,14 @@
 class AreasController < ApplicationController
   #tudo copiado do tradeflorabeta
   skip_before_action :authenticate_user!, only: [:index, :show]
-  
+
   def index
     if params[:query].present?
       @areas = Area.search_by_area_user_or_basin(params[:query])
     else
       @areas = Area.all
     end
-    @areas.where(recovery:nil) 
+    @areas.where(status: true)
   end
 
   def show
@@ -67,7 +67,7 @@ class AreasController < ApplicationController
 
   def aprove
     @area = Area.find(params[:area_id])
-    @area.update(recovery: true)
+    @area.update(status: false)
 
     redirect_to @area
   end
