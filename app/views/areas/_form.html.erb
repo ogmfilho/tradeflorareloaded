@@ -6,14 +6,14 @@
   <%= f.input :longitude, label: 'Longitude', hint: 'Exemplo: -51.167934' %>
   <%= f.input :extension, label: 'Extensão em hectares' %>
 
-  <%= f.input :city_id, prompt: 'Selecione o município da sua área', label: 'Município', collection: @cities %>
+  <%= f.input :city_id, prompt: 'Selecione o município da sua área', label: 'Município', collection: @cities%>
   <%= f.input :basin_id, prompt: "Escolha uma bacia", label: 'Bacia Hidrográfica', collection: @basins %>
 
   <!-- codigo abaixo separa cidades por estados, mas ainda nao consegui adequa-lo ao simple form -->
-  <select <%= option_groups_from_collection_for_select(State.all.sort_by { |state| state[:name] }, :cities, :name, :id, :name, 6)%> >
-  </select>
-
+  
   <%= f.input :description, label: 'Descrição' %>
   <br>
-  <%= f.button :submit, "Disponibilizar", class: "btn btn-success button-light-shadow" %>
+  <div class="text-center">
+  <%= f.button :submit, "Disponibilizar", class: "br-button primary" %>
+  </div>
 <% end %>
