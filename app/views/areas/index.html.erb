@@ -35,12 +35,12 @@
     <% end %>
     </div>
     <div id="searchbox" class="col-lg-3">
-      <h4>Painel</h4>
+      <h4>Pesquisa</h4>
       <%= form_tag areas_path, method: :get do %>
         <%= text_field_tag :query,
           params[:query],
           class: "form-control",
-          placeholder: "Buscar"
+          placeholder: "Digite aqui o que deseja procurar"
         %>
         <br>
         <%= submit_tag "Procurar", class: "br-button primary" %>
@@ -50,6 +50,6 @@
         <p><%= link_to "Crie uma área", new_area_path(@area), class: "br-button primary" %></p>
         <hr>
       <%end%>
-      <p><%= link_to "Ver no Mapa", class: "br-button primary" %></p>
+      <!-- <p><%#= link_to "Ver no Mapa", class: "br-button primary" %></p> -->
     </div>
 </div>
