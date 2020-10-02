@@ -1,0 +1,165 @@
+<!-- Página importada do projeto Beta -->
+
+<div class="container">
+
+  <h2>Meu perfil</h2>
+  <br>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#areas-disponibilizadas">Áreas disponibilizadas</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#areas-de-interesse">Áreas de interesse</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#minhas-propostas">Propostas recebidas</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#dados-cadastrais">Dados cadastrais</a>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div id="areas-de-interesse" class="container tab-pane fade"><br>
+      <%if @user.trades.count > 0%>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+             <table class="table">
+                <thead>
+                  <th>Tamanho (m²)</th>
+                  <th>Bacia</th>
+                  <th>Proprietário</th>
+                  <th>Email</th>
+                  <th>Telefone</th>
+                  </thead>
+                   <tbody>
+                  <% @user.trades.each do |trade| %>
+                    <% area = trade.area %>
+                    <tr>
+                    <td><%= area.description %></td>
+                    <td><%= area.basin.name %></td>
+                    <td><%= area.user.name %></td>
+                    <td><%= area.user.email %></td>
+                    <td><%= area.user.phone_number %></td>
+                    <td style="border-top: none"><%= link_to "Detalhes", area_path(area), class: "btn btn-success button-light-shadow" %></td>
+
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <%else%>
+        <h5> Você ainda não declarou interesse por nenhuma área </h5>
+        <%= link_to areas_path do %>
+        <button class="br-button mb-3" type="button" primary>Ver Áreas Disponíveis</button>
+        <% end %>
+      <%end%>
+    </div>
+    <div id="areas-disponibilizadas" class="container tab-pane active"><br>
+      <div class="contentareas">
+        <div class="cards">
+          <%if @user.areas.count > 0%> <!--se tiver areas cadastradas, -->
+            <% @user.areas.each do |area| %>
+            <div class="br-card card-trip ">
+            <img src="assets/<%=area.basin.name%>.jpg">
+            <div class="card-trip-infos">
+              <div class="mb-5 pb-2">
+                <p class="alignright">Bacia: <%= area.basin.name %></p>
+                <h2><%= area.description %></h2>
+                <p>Área de: <%= area.user.name %></p>
+                <p><i class="fas fa-globe-americas"></i> Coordenadas:</p>
+                <ul>
+                  <li>
+                    Latitude: <%= area.latitude.round(6) %>
+                  </li>
+                  <li>
+                    Longitude: <%= area.longitude.round(6) %>
+                  </li>
+                  <!-- Corrigir problema com o link com CSS bugado abaixo-->
+                  <!-- <li> -->
+                    <%#= link_to "Detalhes", area_path(area) %>
+                  <!-- </li> -->
+                </ul>
+              </div>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+      <h5> Você ainda não disponibilizou nenhuma área </h5>
+      <p><%= link_to "Crie uma área", new_area_path(@area), class: "btn btn-success button-light-shadow" %></p>
+    <% end %>
+    </div>
+
+     <div id="minhas-propostas" class="container tab-pane fade"><br>
+    <%if @user.proposals.count > 0 %>
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <h3>Propostas Recebidas</h3>
+          <table class="table">
+            <thead>
+              <th>Area</th>
+              <th>Bacia</th>
+              <th>Interessado</th>
+              <th>Email</th>
+              <th>Telefone</th>
+              <th>Proposta</th>
+            </thead>
+            <tbody>
+              <% @user.proposals.each do |proposal| %>
+                <% user = proposal.user %>
+                <% area = proposal.area %>
+                <tr>
+                <td><%= area.description %></td>
+                <td><%= area.basin.name %></td>
+                <td><%= user.name %></td>
+                <td><%= user.email %></td>
+                <td><%= user.phone_number %></td>
+                <td>
+                  <a href="#"><i class="fa fa-times-circle destroy_trade"></i></a>
+                  <br>
+                  <a href="#"><i class="fa fa-check-circle update_area"></i></a>
+                </td>
+
+                <!-- <td style="border-top: none"><%#= link_to area_trades_path(area.id, area.trades.id), method: :delete, data: { confirm: "Recusar proposta?" } do %>
+                    <i class="fa fa-times-circle destroy_trade"></i>
+
+                    <%#= link_to area_aprove_path(area), method: :patch, data: { confirm: "Aceitar proposta?" } do %>
+                    <i class="fa fa-check-circle update_area"></i>
+                  <%# end %>
+
+
+                  <%# end %> -->
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% else %>
+      <h5> Você ainda não recebeu nenhuma proposta </h5>
+    <%end%>
+    </div>
+
+      <div id="dados-cadastrais" class="container tab-pane fade"><br>
+        <h1><%=@user.name%></h1>
+        <hr>
+        <ul>
+          <li>E-mail: <%=@user.email %> </li>
+          <li>Telefone: <%= @user.phone_number %></li>
+          <li>Endereço: <%= @user.address %></li>
+          <li>Documento: <%= @user.document_number %></li>
+        </ul>
+        <hr>
+        <%= link_to edit_user_registration_path do %>
+        <button class="br-button mb-3" type="button" primary>Editar Dados</button>
+        <% end %>
+      </div>
+  </div>
+</div>
