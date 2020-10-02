@@ -54,7 +54,7 @@ require 'brazilian_documents'
 # start ============ CITIES ======================
 
   URL2 = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios"
-  data = JSON.parse(open(URL2).read).sample(100)
+  data = JSON.parse(open(URL2).read)#.sample(100)
   data.each do |object|
     new_city = City.create!(name: object["nome"], state_id: State.find_by(name: object["microrregiao"]["mesorregiao"]["UF"]["nome"])[:id])
     puts "Creating #{new_city.name}"
