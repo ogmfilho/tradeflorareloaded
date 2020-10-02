@@ -44,7 +44,7 @@
                     <td><%= area.user.name %></td>
                     <td><%= area.user.email %></td>
                     <td><%= area.user.phone_number %></td>
-                    <td style="border-top: none"><%= link_to "Detalhes", area_path(area), class: "btn btn-success button-light-shadow" %></td>
+                    <td style="border-top: none"><%= link_to "Detalhes", area_path(area), class: "br-button primary" %></td>
 
                     </tr>
                   <% end %>
@@ -93,7 +93,7 @@
       </div>
     <% else %>
       <h5> Você ainda não disponibilizou nenhuma área </h5>
-      <p><%= link_to "Crie uma área", new_area_path(@area), class: "btn btn-success button-light-shadow" %></p>
+      <p><%= link_to "Crie uma área", new_area_path(@area), class: "br-button primary" %></p>
     <% end %>
     </div>
 
@@ -104,12 +104,12 @@
           <h3>Propostas Recebidas</h3>
           <table class="table">
             <thead>
-              <th>Area</th>
-              <th>Bacia</th>
+              <th>Descrição da Área</th>
+              <th>Bacia Hidrográfica</th>
               <th>Interessado</th>
               <th>Email</th>
               <th>Telefone</th>
-              <th>Proposta</th>
+              <th>Detalhes da Proposta</th>
             </thead>
             <tbody>
               <% @user.proposals.each do |proposal| %>
@@ -121,21 +121,17 @@
                 <td><%= user.name %></td>
                 <td><%= user.email %></td>
                 <td><%= user.phone_number %></td>
-                <td>
-                  <a href="#"><i class="fa fa-times-circle destroy_trade"></i></a>
-                  <br>
-                  <a href="#"><i class="fa fa-check-circle update_area"></i></a>
-                </td>
+                <td><%= proposal.details %></td>
 
-                <!-- <td style="border-top: none"><%#= link_to area_trades_path(area.id, area.trades.id), method: :delete, data: { confirm: "Recusar proposta?" } do %>
+                <td style="border-top: none"><%= link_to area_trades_path(area.id, area.trades.ids), method: :delete, data: { confirm: "Recusar proposta?" } do %>
                     <i class="fa fa-times-circle destroy_trade"></i>
 
-                    <%#= link_to area_aprove_path(area), method: :patch, data: { confirm: "Aceitar proposta?" } do %>
+                    <%= link_to area_aprove_path(area), method: :patch, data: { confirm: "Aceitar proposta?" } do %>
                     <i class="fa fa-check-circle update_area"></i>
-                  <%# end %>
+                  <% end %>
 
 
-                  <%# end %> -->
+                  <% end %>
                 </tr>
               <% end %>
             </tbody>
