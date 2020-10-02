@@ -1,7 +1,7 @@
 <%= simple_form_for (@area) do |f| %>
 
   <%= f.input :address, label: 'Endereço'%>
-  <%= f.input :coordinates, label: 'Coordenadas'%>
+  <%= f.input :coordinates, label: 'Coordenadas', disabled: true%>
   <%= f.input :latitude, label: 'Latitude', hint: 'Exemplo: -23.316392'%>
   <%= f.input :longitude, label: 'Longitude', hint: 'Exemplo: -51.167934' %>
   <%= f.input :extension, label: 'Extensão em hectares' %>

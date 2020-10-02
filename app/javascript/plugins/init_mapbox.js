@@ -2,6 +2,10 @@ import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import MapboxDraw from "@mapbox/mapbox-gl-draw"
 
+// if (title.innerText.toLowerCase() === 'Nova Área | TradeFlora'.toLowerCase()){
+//  alert('Estou na página nova área');
+// }
+
 
 
 const addMarkersToMap = (map, markers) => {
@@ -73,7 +77,20 @@ const initMapbox = () => {
         if (e.type !== 'draw.delete')
             alert('Use the draw tools to draw a polygon!');
       }
+
       
+
+      let title = document.querySelector('title');
+
+      if (title.innerText.toLowerCase() === 'Nova Área | Trade Flora'.toLowerCase()){
+        alert('Estou na página nova área');
+        let userPolygon = data.features[0].geometry.coordinates;
+        let areaCoordinates = document.getElementById('area_coordinates');
+        areaCoordinates.value = userPolygon.toString();
+      }
+      if (title.innerText.toLowerCase() === 'Ver Área | Trade Flora'.toLowerCase()){
+        alert('Estou na página mostrar área');
+      }
     }
 
 
