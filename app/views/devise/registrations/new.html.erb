@@ -31,7 +31,7 @@
                     autofocus: true,
                     input_html: { autocomplete: "phone-number" } %>
         <%= f.input :city_id, prompt: 'Selecione o seu município',
-                    label: 'Município', collection: City.all %>
+                    label: 'Município', collection: City.all.sort_by { |city| city[:name]} %>
         <%= f.input :password,
                     label: "Senha",
                     required: true,
