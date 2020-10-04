@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_01_215434) do
+ActiveRecord::Schema.define(version: 2020_10_04_152926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "area_searches", force: :cascade do |t|
+    t.string "keywords"
+    t.integer "max_extension"
+    t.integer "min_extension"
+    t.integer "basin_id"
+    t.integer "city_id"
+    t.integer "state_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "areas", force: :cascade do |t|
     t.string "description"

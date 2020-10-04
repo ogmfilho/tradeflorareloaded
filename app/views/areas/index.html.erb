@@ -34,16 +34,29 @@
         <% end %>
     <% end %>
     </div>
+
     <div id="searchbox" class="col-lg-3">
       <h4>Pesquisa</h4>
-      <%= form_tag areas_path, method: :get do %>
-        <%= text_field_tag :query,
-          params[:query],
-          class: "form-control",
-          placeholder: "Digite aqui o que deseja procurar"
-        %>
-        <br>
-        <%= submit_tag "Procurar", class: "br-button primary" %>
+      <%= simple_form_for @search, url: area_searches_path do |s| %>
+        <div class="field">
+          <%= s.text_field :keywords %>
+        </div>
+        <div class="field">
+          <%= s.input :state_id,  prompt: 'Selecione o Estado', label: "Estado", collection: @states, input_html:  { class: "select2" }, include_blank: true %>
+        </div>
+        <div class="field">
+          <%= s.input :city_id, prompt: 'Selecione os municípios', label: 'Município', collection: @cities, input_html:  { class: "select2" }, include_blank: true %>
+        </div>     
+        <div class="field">
+          <%= s.input :basin_id, label: "Bacia hidrográfica", prompt: 'Selecione as bacias hidrográficas', collection: @basins, input_html:  { class: "select2" }, include_blank: true %>
+        </div>     
+        <div class="field">
+          <p><%= s.label "Extensão mínima (hectares)"%> - <%= s.text_field :min_extension, size: 10 %></p>
+          <p><%= s.label "Extensão máxima (hectares)"%> - <%= s.text_field :max_extension, size: 10 %></p>
+        </div>          
+          <br>
+        <div><%= s.submit "Procurar", class: "br-button primary"%>
+        </div>
       <% end %>
       <hr>
       <%if user_signed_in?%>
@@ -53,3 +66,4 @@
       <!-- <p><%#= link_to "Ver no Mapa", class: "br-button primary" %></p> -->
     </div>
 </div>
+
