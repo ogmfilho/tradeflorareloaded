@@ -2,6 +2,23 @@ import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import MapboxDraw from "@mapbox/mapbox-gl-draw"
 
+const addMarkersToMap = (map, markers) => {
+  markers.forEach((marker) => {
+    const popup = new mapboxgl.Popup().setHTML(marker.infoWindow);
+    new mapboxgl.Marker()
+    .setLngLat([ marker.lng, marker.lat ])
+    .setPopup(popup)
+    .addTo(map);
+  });
+};
+
+const fitMapToMarkers = (map, markers) => {
+  const bounds = new mapboxgl.LngLatBounds();
+  markers.forEach(marker => bounds.extend([ marker.lng, marker.lat ]));
+  map.fitBounds(bounds, { padding: 70, maxZoom: 10, duration: 1 });
+};
+
+
 
 const initMapbox = () => {
   const mapElement = document.getElementById('map');
@@ -71,61 +88,48 @@ const initMapbox = () => {
             const centroid = turf.centroid(data);
             const usercentroid = centroid.geometry.coordinates;
             const centroidlat = document.getElementById('area_latitude');
-            centroidlat.value = usercentroid[1];
+            centroidlat.value = usercentroid[1].toFixed(2);
             const centroidlong = document.getElementById('area_longitude');
-            centroidlong.value = usercentroid[0];
+            centroidlong.value = usercentroid[0].toFixed(2);
           }
       }
 
+      if (title.innerText.toLowerCase() === 'Todas as áreas | TradeFlora'.toLowerCase()){
+        const markers = JSON.parse(mapElement.dataset.markers);
+        addMarkersToMap(map, markers);
+        fitMapToMarkers(map, markers);
+      }
+
+
+
       if (title.innerText.toLowerCase() === 'Ver Área | TradeFlora'.toLowerCase()){
-         const polygon = JSON.parse(mapElement.dataset.polygon);
-         const markers = JSON.parse(mapElement.dataset.markers);
-
-        const addMarkersToMap = (map, markers) => {
-        markers.forEach((marker) => {
-        const popup = new mapboxgl.Popup().setHTML(marker.infoWindow);
-        new mapboxgl.Marker()
-       .setLngLat([ marker.lng, marker.lat ])
-       .setPopup(popup)
-       .addTo(map);
-        });
-       };
-
-
-
-const fitMapToMarkers = (map, markers) => {
-  const bounds = new mapboxgl.LngLatBounds();
-  markers.forEach(marker => bounds.extend([ marker.lng, marker.lat ]));
-  map.fitBounds(bounds, { padding: 70, maxZoom: 10, duration: 1 });
-};
-
-
+        const polygon = JSON.parse(mapElement.dataset.polygon);
+        const markers = JSON.parse(mapElement.dataset.markers);
         addMarkersToMap(map, markers);
         fitMapToMarkers(map, markers);
         map.on('load', function () {
-        map.addSource('maine', {
-        'type': 'geojson',
-        'data': {
-        'type': 'Feature',
-        'geometry': {
-        'type': 'Polygon',
-        'coordinates': [polygon]
-        }
-        }
-        });
+          map.addSource('maine', {
+            'type': 'geojson',
+            'data': {
+              'type': 'Feature',
+              'geometry': {
+                'type': 'Polygon',
+                'coordinates': [polygon]
+              }
+            }
+           });
         map.addLayer({
-        'id': 'maine',
-        'type': 'fill',
-        'source': 'maine',
-        'layout': {},
-        'paint': {
-        'fill-color': '#088',
-        'fill-opacity': 0.8
-        }
+          'id': 'maine',
+          'type': 'fill',
+          'source': 'maine',
+          'layout': {},
+          'paint': {
+            'fill-color': '#088',
+            'fill-opacity': 0.8
+          }
         });
-        });
-      }
-
+      });
+    }
   }
 };
 
