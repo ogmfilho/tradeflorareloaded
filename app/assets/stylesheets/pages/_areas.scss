@@ -64,7 +64,7 @@
   height: 100vh;
   position: sticky;
   top: 0;
-  width: 400px;
+  width: 800px;
 }
 
 .alignright {
@@ -82,9 +82,9 @@
   .cards-areas {
     grid-template-columns: 1fr;
   }
-  .search-box {
-    display: none;
-  }
+  // .search-box {
+  //   display: none;
+  // }
 }
 
 /*Small devices ()*/
@@ -102,7 +102,7 @@
   .cards-areas {
     grid-template-columns: 1fr 1fr 1fr;
   }
-  .search-box {
-    display: block;
-  }
+  // .search-box {
+  //   display: block;
+  // }
 }
