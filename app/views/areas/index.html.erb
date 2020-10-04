@@ -6,6 +6,16 @@
   <% if @areas.empty? %>
     <div id="paddingleft16">
       <p>Nenhuma área encontrada com os parâmetros da busca</p>
+      <h4>Faça uma nova busca:</h4>
+      <%= form_tag areas_path, method: :get do %>
+        <%= text_field_tag :query,
+          params[:query],
+          class: "form-control",
+          placeholder: "Digite aqui"
+        %>
+        <br>
+        <%= submit_tag "Procurar", class: "br-button primary mb-3" %>
+      <% end %>
     </div>
   <% else %>
   <div class="cards-areas">
@@ -47,149 +57,9 @@
     <% end %>
     <hr>
     <%if user_signed_in?%>
-      <p><%= link_to "Crie uma área", new_area_path(@area), class: "br-button primary" %></p>
+      <p><%= link_to "Criar Área", new_area_path(@area), class: "br-button primary" %></p>
       <hr>
     <% end %>
   <% end %>    <!-- <p><%#= link_to "Ver no Mapa", class: "br-button primary" %></p> -->
   </div>
 </div>
-
-    <!-- <div class="card-areas" style="background-image: url(http://kitt.lewagon.com/placeholder/cities/berlin)">
-      Berlin
-    </div>
-
-    <div class="card-areas" style="background-image: url(http://kitt.lewagon.com/placeholder/cities/shanghai)">
-      Shanghai
-    </div>
-
-    <div class="card-areas" style="background-image: url(http://kitt.lewagon.com/placeholder/cities/barcelona)">
-      Barcelona
-    </div>
-
-    <div class="card-areas" style="background-image: url(http://kitt.lewagon.com/placeholder/cities/paris)">
-      Paris
-    </div>
-
-    <div class="card-areas" style="background-image: url(http://kitt.lewagon.com/placeholder/cities/london)">
-      London
-    </div>
-
-    <div class="card-areas" style="background-image: url(http://kitt.lewagon.com/placeholder/cities/melbourne)">
-      Melbourne
-    </div>
-
-    <div class="card-areas" style="background-image: url(http://kitt.lewagon.com/placeholder/cities/marseille)">
-      Marseille
-    </div>
-
-    <div class="card-areas" style="background-image: url(http://kitt.lewagon.com/placeholder/cities/buenos-aires)">
-      Buenos Aires
-    </div>
-
-    <div class="card-areas" style="background-image: url(http://kitt.lewagon.com/placeholder/cities/bali)">
-      Bali
-    </div>
-
-    <div class="card-areas" style="background-image: url(http://kitt.lewagon.com/placeholder/cities/tel-aviv)">
-      Tel Aviv
-    </div>
-
-    <div class="card-areas" style="background-image: url(http://kitt.lewagon.com/placeholder/cities/kyoto)">
-      Kyoto
-    </div>
-
-    <div class="card-areas" style="background-image: url(http://kitt.lewagon.com/placeholder/cities/copenhagen)">
-      Copenhagen
-    </div>
-
-    <div class="card-areas" style="background-image: url(http://kitt.lewagon.com/placeholder/cities/lisbon)">
-      Lisbon
-    </div>
-
-    <div class="card-areas" style="background-image: url(http://kitt.lewagon.com/placeholder/cities/montreal)">
-      Montreal
-    </div>
-
-    <div class="card-areas" style="background-image: url(http://kitt.lewagon.com/placeholder/cities/nantes)">
-      Nantes
-    </div>
-
-    <div class="card-areas" style="background-image: url(http://kitt.lewagon.com/placeholder/cities/milan)">
-      Milan
-    </div>
-
-    <div class="card-areas" style="background-image: url(http://kitt.lewagon.com/placeholder/cities/tokyo)">
-      Tokyo
-    </div>
-
-    <div class="card-areas" style="background-image: url(http://kitt.lewagon.com/placeholder/cities/amsterdam)">
-      Amsterdam
-    </div>
-
-    <div class="card-areas" style="background-image: url(http://kitt.lewagon.com/placeholder/cities/lyon)">
-      Lyon
-    </div>
-  </div>
-
-
-  <img id="search-box" src='https://raw.githubusercontent.com/lewagon/layouts-demo/gh-pages/images/mapbox.png'>
-</div> -->
-
-<!-- new test above ---- -->
-
-<% if false %>
-<div class="m-3 px-3">
-  <h1>Áreas cadastradas</h1>
-</div>
-<div class="contentareas px-3">
-  <% if @areas.empty? %>
-    <div id="paddingleft16">
-      <p>Nenhuma área encontrada com os parâmetros da busca</p>
-    </div>
-  <% else %>
-    <div class="row col-md-8 col-lg-9">
-        <% @areas.each do |area| %>
-          <div class="br-card card-trip col-md-5 col-lg-4">
-            <img src="assets/<%=area.basin.name%>.jpg">
-            <div class="card-trip-infos">
-              <div class="mb-5 pb-2">
-                <p class="alignright">Bacia: <%= area.basin.name %></p>
-                <h2><%= area.description %></h2>
-                <p>Área de: <%= area.user.name %></p>
-                <p><i class="fas fa-globe-americas"></i> Coordenadas:</p>
-                <ul>
-                  <li>
-                    Latitude: <%= area.latitude.round(6) %>
-                  </li>
-                  <li>
-                    Longitude: <%= area.longitude.round(6) %>
-                  </li>
-                </ul>
-                <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
-
-              </div>
-            </div>
-          </div>
-        <% end %>
-    <% end %>
-    </div>
-    <div id="searchbox" class="col-lg-3">
-      <h4>Pesquisa</h4>
-      <%= form_tag areas_path, method: :get do %>
-        <%= text_field_tag :query,
-          params[:query],
-          class: "form-control",
-          placeholder: "Digite aqui o que deseja procurar"
-        %>
-        <br>
-        <%= submit_tag "Procurar", class: "br-button primary" %>
-      <% end %>
-      <hr>
-      <%if user_signed_in?%>
-        <p><%= link_to "Crie uma área", new_area_path(@area), class: "br-button primary" %></p>
-        <hr>
-      <%end%>
-      <!-- <p><%#= link_to "Ver no Mapa", class: "br-button primary" %></p> -->
-    </div>
-</div>
-<% end %>

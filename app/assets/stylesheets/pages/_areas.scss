@@ -46,11 +46,6 @@
   padding: 0 2rem;
 }
 
-// .card-areas a {
-//   position: absolute;
-//   bottom: 5px;
-// }
-
 .card-areas-infos {
   padding: 16px;
   // display: flex;
@@ -59,12 +54,12 @@
   // position: relative;
 }
 
-
 .search-box {
   height: 100vh;
   position: sticky;
   top: 0;
-  width: 800px;
+  margin: 0px 5px 0px 0px;
+  width: 60%;
 }
 
 .alignright {
@@ -83,7 +78,7 @@
     grid-template-columns: 1fr;
   }
   // .search-box {
-  //   display: none;
+  //   width: 265px;
   // }
 }
 
@@ -92,8 +87,8 @@
   .cards-areas {
     grid-template-columns: 1fr 1fr;
   }
-  // #searchbox {
-  //   display: none;
+  // .search-box {
+  //   width: 300px;
   // }
 }
 
@@ -103,6 +98,6 @@
     grid-template-columns: 1fr 1fr 1fr;
   }
   // .search-box {
-  //   display: block;
+  //   width: 450px;
   // }
 }
