@@ -19,7 +19,6 @@ const fitMapToMarkers = (map, markers) => {
 };
 
 
-
 const initMapbox = () => {
   const mapElement = document.getElementById('map');
   if (mapElement) { // only build a map if there's a div#map to inject into
@@ -105,8 +104,9 @@ const initMapbox = () => {
       if (title.innerText.toLowerCase() === 'Ver Área | TradeFlora'.toLowerCase()){
         const polygon = JSON.parse(mapElement.dataset.polygon);
         const markers = JSON.parse(mapElement.dataset.markers);
+        const boundpoly = JSON.parse(mapElement.dataset.boundpoly);
         addMarkersToMap(map, markers);
-        fitMapToMarkers(map, markers);
+        map.fitBounds(boundpoly, {padding: {top: 10, bottom:25, left: 15, right: 5}});
         map.on('load', function () {
           map.addSource('maine', {
             'type': 'geojson',
