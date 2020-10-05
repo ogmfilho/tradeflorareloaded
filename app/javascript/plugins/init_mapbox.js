@@ -103,10 +103,8 @@ const initMapbox = () => {
 
       if (title.innerText.toLowerCase() === 'Ver Área | TradeFlora'.toLowerCase()){
         const polygon = JSON.parse(mapElement.dataset.polygon);
-        const markers = JSON.parse(mapElement.dataset.markers);
         const boundpoly = JSON.parse(mapElement.dataset.boundpoly);
-        addMarkersToMap(map, markers);
-        map.fitBounds(boundpoly, {padding: {top: 10, bottom:25, left: 15, right: 5}});
+        map.fitBounds(boundpoly, {padding: {top: 50, bottom:50, left: 50, right: 50}});
         map.on('load', function () {
           map.addSource('maine', {
             'type': 'geojson',
@@ -125,7 +123,8 @@ const initMapbox = () => {
           'layout': {},
           'paint': {
             'fill-color': '#088',
-            'fill-opacity': 0.8
+            'fill-opacity': 0.8,
+            'fill-outline-color': '#088'
           }
         });
       });

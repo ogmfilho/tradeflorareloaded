@@ -2,7 +2,6 @@
 <div class="container">
   <div id="map"
     style="width: 100%; height: 300px;"
-    data-markers="<%= @markers.to_json %>"
     data-polygon="<%= @polygon %>"
     data-boundpoly="<%= [@polygon.first, @polygon[(@polygon.count/2).to_i]] %>"
     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
