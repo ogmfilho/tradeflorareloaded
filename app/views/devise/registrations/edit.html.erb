@@ -28,8 +28,10 @@
                     required: true,
                     autofocus: true,
                     input_html: { autocomplete: "phone-number" } %>
-        <%= f.input :city_id, prompt: 'Selecione o seu município',
-                    label: 'Município', collection: City.all %>
+        <%= f.input :city_id, prompt: 'Selecione o seu município', 
+                    label: 'Município', 
+                    collection: City.all.sort_by { |city| city[:name]}, 
+                    input_html:  { class: "select2" }%>
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
           <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
         <% end %>

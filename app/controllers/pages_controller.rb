@@ -21,13 +21,16 @@ class PagesController < ApplicationController
   def maps
     @basins = Basin.all
     @areas = Area.all
-
+    @cities = City.all
     @markers = @areas.map do |area|
       {
-        lat: area.lat,
-        lng: area.long,
+        lat: area.latitude,
+        lng: area.longitude,
         infoWindow: render_to_string(partial: "info_window", locals: { area: area })
       }
+    # coordinates = @area.coordinates.split(",").in_groups_of(2)
+    # @polygon = coordinates.map{ |pair| pair.map{ |coord| coord.to_f } }
+    #colocar para enviar na show quando a seed estiver ok
     end
   end
 end

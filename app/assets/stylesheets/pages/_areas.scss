@@ -15,6 +15,7 @@
   background: white;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   border-radius: 4px;
+  position: relative;
 }
 
 .card-areas > img {
@@ -51,7 +52,11 @@
   // display: flex;
   // justify-content: space-between;
   align-items: flex-start;
-  // position: relative;
+}
+
+.card-areas a {
+  position: absolute;
+  bottom: 10px;
 }
 
 .search-box {
@@ -76,6 +81,9 @@
 @media (min-width: 100px) and (max-width: 575px) {
   .cards-areas {
     grid-template-columns: 1fr;
+  }
+  .card-areas .br-button {
+    width: 80% !important;
   }
   // .search-box {
   //   width: 265px;

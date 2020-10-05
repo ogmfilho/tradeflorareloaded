@@ -3,12 +3,11 @@ class AreasController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
-      # raise
-    if params[:query].present?
-      @areas = Area.search_by_area_user_or_basin(params[:query])
-    else
-      @areas = Area.all.where(available?: true)
-    end
+    @areas = Area.all.where(available?: true)
+    @search = AreaSearch.new
+    @states = State.all
+    @cities = City.all
+    @basins = Basin.all
   end
 
   def show
@@ -18,16 +17,15 @@ class AreasController < ApplicationController
         lat: @area.latitude,
         lng: @area.longitude
       }]
+    coordinates = @area.coordinates.split(",").in_groups_of(2)
+    @polygon = coordinates.map{ |pair| pair.map{ |coord| coord.to_f } }
   end
 
   def new
     @area = Area.new
     @basins = Basin.all
     @cities = City.all
-    @markers = [{
-        lat: @area.latitude,
-        lng: @area.longitude
-      }]
+
   end
 
   def edit
@@ -79,6 +77,6 @@ class AreasController < ApplicationController
   private
 
   def area_params
-    params.require(:area).permit(:latitude, :longitude, :description, :address, :extension, :coordinates, :basin_id, :city_id)
+    params.require(:area).permit(:latitude, :longitude, :description, :address, :extension, :coordinates, :basin_id, :city_id, photos: [])
   end
 end

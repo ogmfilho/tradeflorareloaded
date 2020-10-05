@@ -1,19 +1,20 @@
 <%= simple_form_for (@area) do |f| %>
 
-  <%= f.input :address, label: 'Endereço'%>
-  <%= f.input :coordinates, label: 'Coordenadas', disabled: true%>
+  <p> Conforme a área delimitada no mapa </p>
+  <%= f.input :coordinates, label: 'Coordenadas'%>
   <%= f.input :latitude, label: 'Latitude', hint: 'Exemplo: -23.316392'%>
   <%= f.input :longitude, label: 'Longitude', hint: 'Exemplo: -51.167934' %>
   <%= f.input :extension, label: 'Extensão em hectares' %>
-
-  <%= f.input :city_id, prompt: 'Selecione o município da sua área', label: 'Município', collection: @cities%>
+  <%= f.input :address, label: 'Endereço'%>
+  <%= f.input :city_id, prompt: 'Selecione o município da sua área', label: 'Município', collection: State.all.sort_by {|state| state[:name]}, as: :grouped_select, group_method: :cities, input_html:  { class: "select2" }%>
   <%= f.input :basin_id, prompt: "Escolha uma bacia", label: 'Bacia Hidrográfica', collection: @basins %>
 
 
   <!-- codigo abaixo separa cidades por estados, mas ainda nao consegui adequa-lo ao simple form -->
 
-  
+
   <%= f.input :description, label: 'Descrição' %>
+  <%= f.input :photos, as: :file, input_html: { multiple: true }, label: 'Carregue as fotos da área:' %>
   <br>
   <div class="text-center">
   <%= f.button :submit, "Disponibilizar", class: "br-button primary" %>

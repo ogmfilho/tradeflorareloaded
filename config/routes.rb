@@ -9,13 +9,15 @@ Rails.application.routes.draw do
       patch "refuse", to: "trades#refuse"
     end
   end
-
+  resources :area_searches, only: [ :create, :show ]
+ 
+  
   get "my_trades", to: "pages#trades"
 
   get "my_proposals", to:"pages#proposals"
 
   get "/meu_perfil", to: "pages#meu_perfil", as: :meu_perfil
 
-  # get "maps", to:"pages#maps"
+  get "maps", to:"pages#maps"
 
 end
