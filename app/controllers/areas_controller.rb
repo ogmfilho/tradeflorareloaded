@@ -73,6 +73,6 @@ class AreasController < ApplicationController
   private
 
   def area_params
-    params.require(:area).permit(:latitude, :longitude, :description, :address, :extension, :coordinates, :basin_id, :city_id, :photo)
+    params.require(:area).permit(:latitude, :longitude, :description, :address, :extension, :coordinates, :basin_id, :city_id, photos: [])
   end
 end

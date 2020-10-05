@@ -8,15 +8,8 @@
   </div>
 
   <div class="row">
-    <div class="col-sm-12 col-md-6">
-      <h3>Área Disponibilizada por <%= @area.user.name %></h3>
-      <p>
-        <% if !@area.photo.attached? %>
-          <h3> Nenhuma Foto Carregada </h3>
-        <% else %>
-          <%= cl_image_tag @area.photo.key, height: 300, width: 400, crop: :fill %>
-        <% end %>
-      </p>
+    <div class="col-10">
+      <h3>Área Disponibilizada por <%= @area.user.name %>:</h3>
       <table class="table table-bordered">
         <tbody>
           <thead>
@@ -59,18 +52,33 @@
         </tbody>
       </table>
     </div>
-  </div>
-  <br>
 
-  <% if user_signed_in? %>
-    <% if current_user.id != @area.user.id %>
-      <%= link_to "Estou interessado", new_area_trade_path(@area), class: "br-button primary mb-3" %>
+    <br>
+    <h3>Fotos disponibilizadas por <%= @area.user.name %>:</h3>
+      <div class="col-10">
+        <% if !@area.photos.attached? %>
+            <h3> Nenhuma foto da área foi carregada </h3>
+        <% else %>
+          <div class="cards-areas">
+            <% @area.photos.each do |photo| %>
+              <div class="card-areas">
+                <%= cl_image_tag photo.key, crop: :fill %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+    <br>
+
+    <% if user_signed_in? %>
+      <% if current_user.id != @area.user.id %>
+        <%= link_to "Estou interessado", new_area_trade_path(@area), class: "br-button primary mt-5" %>
+      <%end%>
     <%end%>
-  <%end%>
-  <br>
 
-    <p> <%= link_to 'Voltar para áreas disponíveis', areas_path, class: "br-button primary" %> </p>
+   <p> <%= link_to 'Voltar para áreas disponíveis', areas_path, class: "br-button primary mt-5" %> </p>
 
-  <br>
-
+    </div>
+  </div>
 </div>

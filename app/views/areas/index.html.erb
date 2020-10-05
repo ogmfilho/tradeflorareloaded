@@ -12,10 +12,10 @@
       <div class="cards-areas">
         <% @areas.each do |area| %>
           <div class="card-areas">
-            <% if !area.photo.attached? %>
+            <% if !area.photos.attached? %>
               <img src="assets/<%=area.basin.name%>.jpg">
             <% else %>
-              <%= cl_image_tag area.photo.key, crop: :fill %>
+              <%= cl_image_tag area.photos[0].key, crop: :fill %>
             <% end %>
               <div class="card-areas-infos">
                 <p class="alignright">Bacia: <%= area.basin.name %></p>

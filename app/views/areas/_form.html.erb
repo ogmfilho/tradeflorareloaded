@@ -14,7 +14,7 @@
 
 
   <%= f.input :description, label: 'Descrição' %>
-  <%= f.input :photo, as: :file, label: 'Carregue uma foto:' %>
+  <%= f.input :photos, as: :file, input_html: { multiple: true }, label: 'Carregue as fotos da área:' %>
   <br>
   <div class="text-center">
   <%= f.button :submit, "Disponibilizar", class: "br-button primary" %>

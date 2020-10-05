@@ -5,7 +5,7 @@ class Area < ApplicationRecord
 
   has_many :trades, dependent: :destroy
 
-  has_one_attached :photo
+  has_many_attached :photos
 
   include PgSearch::Model
   pg_search_scope :search_by_area_user_or_basin,
