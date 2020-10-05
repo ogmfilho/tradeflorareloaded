@@ -3,12 +3,12 @@ class AreasController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
+      # raise
     if params[:query].present?
       @areas = Area.search_by_area_user_or_basin(params[:query])
     else
-      @areas = Area.all
+      @areas = Area.all.where(available?: true)
     end
-    @areas.where(status: true)
   end
 
   def show
@@ -67,7 +67,7 @@ class AreasController < ApplicationController
 
   def aprove
     @area = Area.find(params[:area_id])
-    @area.update(status: false)
+    @area.update(available?: false)
 
     redirect_to @area
   end
