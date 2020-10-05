@@ -7,23 +7,27 @@
       <table class="table table-bordered">
         <tbody>
           <thead>
+            <th>No. da Área</th>
             <th>Descrição da Área</th>
             <th>Bacia Hidrográfica</th>
             <th>Interessado</th>
             <th>Email</th>
             <th>Telefone</th>
             <th>Detalhes da Proposta</th>
+            <th>Situação da Proposta</th>
           </thead>
          <% @my_proposals.each do |proposals| %>
          <% user = proposals.user %>
          <% area = proposals.area %>
             <tr>
+              <td><%= area.id %></td>
               <td><%= area.description %></td>
               <td><%= area.basin.name %></td>
               <td><%= user.name %></td>
               <td><%= user.email %></td>
               <td><%= user.phone_number %></td>
               <td><%= proposals.details %></td>
+              <td><%= proposal.status %></td>
             </tr>
           <% end %>
         </tbody>

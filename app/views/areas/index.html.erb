@@ -2,6 +2,7 @@
 <div>
   <h2 id="h2-areas">Áreas cadastradas</h2>
 </div>
+
   <div class="content-areas">
     <% if @areas.empty? %>
       <div id="paddingleft16">
@@ -34,6 +35,7 @@
                 <br>
                 <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
               </div>
+
           </div>
         <% end %>
         </div>

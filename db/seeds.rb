@@ -225,7 +225,7 @@ require 'brazilian_documents'
          description: area_description_faker.sample,
          # coordinates: "{}"
          extension: rand(10..100),
-         status: true,
+         available?: true,
          latitude: rand(area_latlong_sample[:range_lat]),
          longitude: rand(area_latlong_sample[:range_long]),
          # address:
@@ -251,7 +251,7 @@ require 'brazilian_documents'
          description: area_description_faker.sample,
          # coordinates: "{}"
          extension: rand(10..100),
-         status: true,
+         available?: true,
          latitude: rand(area_latlong_sample[:range_lat]),
          longitude: rand(area_latlong_sample[:range_long]),
          # address:
