@@ -6,6 +6,7 @@ require 'brazilian_documents'
 
 
 
+
 # start ============ CLEAR TABLES ======================
 
 
@@ -212,22 +213,26 @@ require 'brazilian_documents'
     ]
 
 
-
-
   # Area seeds for aleatory users
     25.times do
       basin_seed = Basin.all.sample
       city_seed = City.all.sample
 
       area_latlong_sample = area_latlong_faker.find { |basin| basin[:name] == basin_seed[:name] }
+      lat_sample = rand(area_latlong_sample[:range_lat])
+      long_sample = rand(area_latlong_sample[:range_long])
+      coord_mark_1 = "#{long_sample + 0.01}, #{lat_sample + 0.01}"
+      coord_mark_2 = "#{long_sample + 0.01}, #{lat_sample - 0.01}"
+      coord_mark_3 = "#{long_sample - 0.01}, #{lat_sample - 0.01}"
+      coord_mark_4 = "#{long_sample - 0.01}, #{lat_sample + 0.01}"
 
       attributes = {
          description: area_description_faker.sample,
-         # coordinates: "{}"
          extension: rand(10..100),
          available?: true,
-         latitude: rand(area_latlong_sample[:range_lat]),
-         longitude: rand(area_latlong_sample[:range_long]),
+         latitude: lat_sample,
+         longitude: long_sample,
+         coordinates: "#{coord_mark_1}, #{coord_mark_2}, #{coord_mark_3}, #{coord_mark_4}, #{coord_mark_1}",
          # address:
          city_id: city_seed[:id],
          basin_id: basin_seed[:id],
@@ -245,15 +250,20 @@ require 'brazilian_documents'
 
 
       area_latlong_sample = area_latlong_faker.find { |basin| basin[:name] == basin_seed[:name] }
-
+      lat_sample = rand(area_latlong_sample[:range_lat])
+      long_sample = rand(area_latlong_sample[:range_long])
+      coord_mark_1 = "#{long_sample + 0.01}, #{lat_sample + 0.01}"
+      coord_mark_2 = "#{long_sample + 0.01}, #{lat_sample - 0.01}"
+      coord_mark_3 = "#{long_sample - 0.01}, #{lat_sample - 0.01}"
+      coord_mark_4 = "#{long_sample - 0.01}, #{lat_sample + 0.01}"
 
       attributes = {
          description: area_description_faker.sample,
-         # coordinates: "{}"
          extension: rand(10..100),
          available?: true,
-         latitude: rand(area_latlong_sample[:range_lat]),
-         longitude: rand(area_latlong_sample[:range_long]),
+         latitude: lat_sample,
+         longitude: long_sample,
+         coordinates: "#{coord_mark_1}, #{coord_mark_2}, #{coord_mark_3}, #{coord_mark_4}, #{coord_mark_1}",
          # address:
          city_id: city_seed[:id],
          basin_id: basin_seed[:id],
