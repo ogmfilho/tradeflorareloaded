@@ -2,72 +2,69 @@
 <div>
   <h2 id="h2-areas">Áreas cadastradas</h2>
 </div>
-<div class="content-areas">
-  <% if @areas.empty? %>
-    <div id="paddingleft16">
-      <p>Nenhuma área encontrada com os parâmetros da busca</p>
-
-
-    
-
-
-      <% end %>
-    </div>
-  <% else %>
-  <div class="cards-areas">
-    <% @areas.each do |area| %>
-      <div class="card-areas">
-        <img src="assets/<%=area.basin.name%>.jpg">
-        <div class="card-areas-infos">
-          <p class="alignright">Bacia: <%= area.basin.name %></p>
-          <h2><%= area.description %></h2>
-          <p class="mb-1">Área de: <%= area.user.name %></p>
-          <p><i class="fas fa-globe-americas"></i> Coordenadas:</p>
-          <ul>
-            <li>
-              Latitude: <%= area.latitude.round(6) %>
-            </li>
-            <li>
-              Longitude: <%= area.longitude.round(6) %>
-            </li>
-          </ul>
-          <br>
-          <br>
-          <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
-        </div>
+  <div class="content-areas">
+    <% if @areas.empty? %>
+      <div id="paddingleft16">
+        <p>Nenhuma área encontrada com os parâmetros da busca</p>
+        <%# end %>
       </div>
-    <% end %>
-  </div>
+    <% else %>
+      <div class="cards-areas">
+        <% @areas.each do |area| %>
+          <div class="card-areas">
+            <img src="assets/<%=area.basin.name%>.jpg">
+            <div class="card-areas-infos">
+              <p class="alignright">Bacia: <%= area.basin.name %></p>
+              <h2><%= area.description %></h2>
+              <p class="mb-1">Área de: <%= area.user.name %></p>
+              <p><i class="fas fa-globe-americas"></i> Coordenadas:</p>
+              <ul>
+                <li>
+                  Latitude: <%= area.latitude.round(6) %>
+                </li>
+                <li>
+                  Longitude: <%= area.longitude.round(6) %>
+                </li>
+              </ul>
+              <br>
+              <br>
+              <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
+            </div>
+          </div>
+        <% end %>
+        </div>
+      <% end %>
 
-<div id="searchbox" class="col-lg-3">
-  <h4>Pesquisa</h4>
-  <%= simple_form_for @search, url: area_searches_path do |s| %>
-    <div class="field">
-      <%= s.text_field :keywords %>
-     </div>
-     <div class="field">
-      <%= s.input :state_id,  prompt: 'Selecione o Estado', label: "Estado", collection: @states, input_html:  { class: "select2" }, include_blank: true %>
-     </div>
-     <div class="field">
-      <%= s.input :city_id, prompt: 'Selecione os municípios', label: 'Município', collection: @cities, input_html:  { class: "select2" }, include_blank: true %>
-     </div>     
-     <div class="field">
-      <%= s.input :basin_id, label: "Bacia hidrográfica", prompt: 'Selecione as bacias hidrográficas', collection: @basins, input_html:  { class: "select2" }, include_blank: true %>
-     </div>     
-     <div class="field">
-       <p><%= s.label "Extensão mínima (hectares)"%> - <%= s.text_field :min_extension, size: 10 %></p>
-        <p><%= s.label "Extensão máxima (hectares)"%> - <%= s.text_field :max_extension, size: 10 %></p>
-     </div>          
-     <br>
-     <div>
-       <%= s.submit "Procurar", class: "br-button primary"%>
-     </div>
-  <% end %>
-  <hr>
-  <%if user_signed_in?%>
-    <p><%= link_to "Criar Área", new_area_path(@area), class: "br-button primary" %></p>
+  <div id="searchbox" class="col-lg-3">
+    <h4>Pesquisa</h4>
+    <%= simple_form_for @search, url: area_searches_path do |s| %>
+      <div class="field">
+        <%= s.text_field :keywords %>
+       </div>
+       <div class="field">
+        <%= s.input :state_id,  prompt: 'Selecione o Estado', label: "Estado", collection: @states, input_html:  { class: "select2" }, include_blank: true %>
+       </div>
+       <div class="field">
+        <%= s.input :city_id, prompt: 'Selecione os municípios', label: 'Município', collection: @cities, input_html:  { class: "select2" }, include_blank: true %>
+       </div>
+       <div class="field">
+        <%= s.input :basin_id, label: "Bacia hidrográfica", prompt: 'Selecione as bacias hidrográficas', collection: @basins, input_html:  { class: "select2" }, include_blank: true %>
+       </div>
+       <div class="field">
+         <p><%= s.label "Extensão mínima (hectares)"%> - <%= s.text_field :min_extension, size: 10 %></p>
+          <p><%= s.label "Extensão máxima (hectares)"%> - <%= s.text_field :max_extension, size: 10 %></p>
+       </div>
+       <br>
+       <div>
+         <%= s.submit "Procurar", class: "br-button primary"%>
+       </div>
+    <% end %>
     <hr>
-  <% end %>
-  <!-- <p><%#= link_to "Ver no Mapa", class: "br-button primary" %></p> -->
+    <%if user_signed_in?%>
+      <p><%= link_to "Criar Área", new_area_path(@area), class: "br-button primary" %></p>
+      <hr>
+    <% end %>
+    <p><%= link_to "Ver no Mapa", maps_path, class: "br-button primary" %></p>
+  </div>
 </div>
 
