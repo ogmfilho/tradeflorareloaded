@@ -12,8 +12,9 @@
 
   <!-- codigo abaixo separa cidades por estados, mas ainda nao consegui adequa-lo ao simple form -->
 
-  
+
   <%= f.input :description, label: 'Descrição' %>
+  <%= f.input :photos, as: :file, input_html: { multiple: true }, label: 'Carregue as fotos da área:' %>
   <br>
   <div class="text-center">
   <%= f.button :submit, "Disponibilizar", class: "br-button primary" %>
