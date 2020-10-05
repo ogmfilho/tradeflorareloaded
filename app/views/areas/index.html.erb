@@ -1,55 +1,65 @@
 <!--página copiada do beta, falta formatação -->
-<div class="m-3 px-3">
-  <h1>Áreas cadastradas</h1>
+<div>
+  <h2 id="h2-areas">Áreas cadastradas</h2>
 </div>
-<div class="contentareas px-3">
+<div class="content-areas">
   <% if @areas.empty? %>
     <div id="paddingleft16">
       <p>Nenhuma área encontrada com os parâmetros da busca</p>
-    </div>
-  <% else %>
-    <div class="row col-md-8 col-lg-9">
-        <% @areas.each do |area| %>
-          <div class="br-card card-trip col-md-5 col-lg-4">
-            <img src="assets/<%=area.basin.name%>.jpg">
-            <div class="card-trip-infos">
-              <div class="mb-5 pb-2">
-                <p class="alignright">Bacia: <%= area.basin.name %></p>
-                <h2><%= area.description %></h2>
-                <p>Área de: <%= area.user.name %></p>
-                <p><i class="fas fa-globe-americas"></i> Coordenadas:</p>
-                <ul>
-                  <li>
-                    Latitude: <%= area.latitude.round(6) %>
-                  </li>
-                  <li>
-                    Longitude: <%= area.longitude.round(6) %>
-                  </li>
-                </ul>
-                <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
-
-              </div>
-            </div>
-          </div>
-        <% end %>
-    <% end %>
-    </div>
-    <div id="searchbox" class="col-lg-3">
-      <h4>Pesquisa</h4>
+      <h4>Faça uma nova busca:</h4>
       <%= form_tag areas_path, method: :get do %>
         <%= text_field_tag :query,
           params[:query],
           class: "form-control",
-          placeholder: "Digite aqui o que deseja procurar"
+          placeholder: "Digite aqui"
         %>
         <br>
-        <%= submit_tag "Procurar", class: "br-button primary" %>
+        <%= submit_tag "Procurar", class: "br-button primary mb-3" %>
       <% end %>
-      <hr>
-      <%if user_signed_in?%>
-        <p><%= link_to "Crie uma área", new_area_path(@area), class: "br-button primary" %></p>
-        <hr>
-      <%end%>
-      <!-- <p><%#= link_to "Ver no Mapa", class: "br-button primary" %></p> -->
     </div>
+  <% else %>
+  <div class="cards-areas">
+    <% @areas.each do |area| %>
+      <div class="card-areas">
+        <img src="assets/<%=area.basin.name%>.jpg">
+        <div class="card-areas-infos">
+          <div class="positionrelativediv">
+            <p class="alignright">Bacia: <%= area.basin.name %></p>
+            <h2><%= area.description %></h2>
+            <p class="mb-1">Área de: <%= area.user.name %></p>
+            <p><i class="fas fa-globe-americas"></i> Coordenadas:</p>
+            <ul>
+              <li>
+                Latitude: <%= area.latitude.round(6) %>
+              </li>
+              <li>
+                Longitude: <%= area.longitude.round(6) %>
+              </li>
+            </ul>
+            <br>
+            <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="search-box">
+    <h4>Pesquisa</h4>
+    <%= form_tag areas_path, method: :get do %>
+      <%= text_field_tag :query,
+        params[:query],
+        class: "form-control",
+        placeholder: "Digite aqui"
+      %>
+      <br>
+      <%= submit_tag "Procurar", class: "br-button primary" %>
+    <% end %>
+    <hr>
+    <%if user_signed_in?%>
+      <p><%= link_to "Criar Área", new_area_path(@area), class: "br-button primary" %></p>
+      <hr>
+    <% end %>
+  <% end %>    <!-- <p><%#= link_to "Ver no Mapa", class: "br-button primary" %></p> -->
+  </div>
 </div>

@@ -61,33 +61,31 @@
       <%end%>
     </div>
     <div id="areas-disponibilizadas" class="container tab-pane active"><br>
-      <div class="contentareas">
-        <div class="cards">
+      <div class="content-areas">
+        <div class="cards-areas">
           <%if @user.areas.count > 0%> <!--se tiver areas cadastradas, -->
-            <% @user.areas.each do |area| %>
-            <div class="br-card card-trip ">
-            <img src="assets/<%=area.basin.name%>.jpg">
-            <div class="card-trip-infos">
-              <div class="mb-5 pb-2">
-                <p class="alignright">Bacia: <%= area.basin.name %></p>
-                <h2><%= area.description %></h2>
-                <p>Área de: <%= area.user.name %></p>
-                <p><i class="fas fa-globe-americas"></i> Coordenadas:</p>
-                <ul>
-                  <li>
-                    Latitude: <%= area.latitude.round(6) %>
-                  </li>
-                  <li>
-                    Longitude: <%= area.longitude.round(6) %>
-                  </li>
-                  <!-- Corrigir problema com o link com CSS bugado abaixo-->
-                  <!-- <li> -->
-                    <%#= link_to "Detalhes", area_path(area) %>
-                  <!-- </li> -->
-                </ul>
+          <% @user.areas.each do |area| %>
+            <div class="card-areas">
+              <img src="assets/<%=area.basin.name%>.jpg">
+              <div class="card-areas-infos">
+                <div class="positionrelativediv">
+                  <p class="alignright">Bacia: <%= area.basin.name %></p>
+                  <h2><%= area.description %></h2>
+                  <p class="mb-1">Área de: <%= area.user.name %></p>
+                  <p><i class="fas fa-globe-americas"></i> Coordenadas:</p>
+                  <ul>
+                    <li>
+                      Latitude: <%= area.latitude.round(6) %>
+                    </li>
+                    <li>
+                      Longitude: <%= area.longitude.round(6) %>
+                    </li>
+                  </ul>
+                  <br>
+                  <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
+                </div>
               </div>
             </div>
-          </div>
           <% end %>
         </div>
       </div>

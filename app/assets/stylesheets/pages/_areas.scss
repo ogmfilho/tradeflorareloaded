@@ -1,16 +1,8 @@
-// body {
-//   min-height: 90vh;
-//   margin-top: 10vh;
-//   display:flex;
-//   flex-direction:column;
-//   justify-content: space-between;
-// }
-
-.contentareas {
+.content-areas {
   display: flex;
 }
 
-.cards {
+.cards-areas {
   flex-grow: 1;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -18,41 +10,56 @@
   padding: 16px;
 }
 
-.card-trip {
+.card-areas {
   overflow: hidden;
   background: white;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  border-radius: 7px;
+  border-radius: 4px;
 }
 
-.card-trip > img {
+.card-areas > img {
   height: 200px;
   width: 100%;
   object-fit: cover;
 }
 
-.card-trip h2 {
+#h2-areas {
+  margin: 10px 0px 0px 15px;
+  padding: 0px 0px 0px 0px;
+}
+
+.card-areas h2 {
   font-size: 16px;
   font-weight: bold;
   margin: 0;
+  // position: relative;
 }
 
-.card-trip p {
+.card-areas p {
   font-size: 12px;
   opacity: .7;
   margin: 0;
 }
 
-.card-trip a {
-  position: absolute;
-  bottom: 10px;
+.card-areas ul {
+  margin: 5px;
+  padding: 0 2rem;
 }
-.card-trip .card-trip-infos {
+
+.card-areas-infos {
   padding: 16px;
   // display: flex;
   // justify-content: space-between;
   align-items: flex-start;
   // position: relative;
+}
+
+.search-box {
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  margin: 0px 5px 0px 0px;
+  width: 60%;
 }
 
 .alignright {
@@ -63,35 +70,34 @@
   padding-left: 16px
 }
 
-#searchbox {
-  grid-gap: 16px;
-  padding: 16px;
-  width: 40vw;
-  height: 100vh;
-  position: sticky;
-  top: 45px;
-  background-color: $light-gray;
-}
-
 /*Media Queries*/
 
-/*Smallest device*/ //749
-@media (min-width: 100px) and (max-width: 749px) {
-  .cards {
+/*Smallest device*/
+@media (min-width: 100px) and (max-width: 575px) {
+  .cards-areas {
     grid-template-columns: 1fr;
   }
+  // .search-box {
+  //   width: 265px;
+  // }
 }
 
-/*Small devices (landscape phones, 576//750px and up)*/
-@media (min-width: 750px) {
-  .cards {
+/*Small devices ()*/
+@media (min-width: 576px) {
+  .cards-areas {
     grid-template-columns: 1fr 1fr;
   }
+  // .search-box {
+  //   width: 300px;
+  // }
 }
 
-/*Medium devices (tablets, 768px and up)*/
+/*Medium devices ()*/
 @media (min-width: 1200px) {
-  .cards {
+  .cards-areas {
     grid-template-columns: 1fr 1fr 1fr;
   }
+  // .search-box {
+  //   width: 450px;
+  // }
 }
