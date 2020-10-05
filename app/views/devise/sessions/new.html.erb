@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
   <div class="br-card col-sm-6 col-md-4 col-lg-4 my-1 pb-2 rounded">
-    <h2 class= "text-center">Log in</h2>
+    <h2 class= "text-center"> Entrar </h2>
 
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="form-inputs">
@@ -9,9 +9,10 @@
                     autofocus: true,
                     input_html: { autocomplete: "email" } %>
         <%= f.input :password,
+                    label: "Senha",
                     required: false,
                     input_html: { autocomplete: "current-password" } %>
-        <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+        <%= f.input :remember_me, label: "Lembrar do meus dados", as: :boolean if devise_mapping.rememberable? %>
       </div>
 
       <div class="form-actions">

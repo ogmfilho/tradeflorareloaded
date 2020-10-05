@@ -13,7 +13,10 @@
       <table class="table table-bordered">
         <tbody>
           <thead>
-            <th>Descrição (m²)</th>
+            <th>Descrição</th>
+            <th>Estado</th>
+            <th>município</th>
+            <th>hectares</th>
             <th>Bacia</th>
 
             <% if user_signed_in? %>
@@ -26,6 +29,9 @@
 
             <tr>
               <td><%= @area.description %></td>
+              <td><%= @area.city.state.name %></td>
+              <td><%= @area.city.name %></td>
+              <td><%= @area.extension %></td>
               <td><%= @area.basin.name %></td>
 
             <% if user_signed_in? %>
@@ -51,7 +57,7 @@
 
   <% if user_signed_in? %>
     <% if current_user.id != @area.user.id %>
-      <%= link_to "Estou interessado", new_area_trade_path(@area), class: "br-button primary" %>
+      <%= link_to "Estou interessado", new_area_trade_path(@area), class: "br-button primary mb-3" %>
     <%end%>
   <%end%>
   <br>
