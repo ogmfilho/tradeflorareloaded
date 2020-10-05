@@ -17,16 +17,15 @@ class AreasController < ApplicationController
         lat: @area.latitude,
         lng: @area.longitude
       }]
+    coordinates = @area.coordinates.split(",").in_groups_of(2)
+    @polygon = coordinates.map{ |pair| pair.map{ |coord| coord.to_f } }
   end
 
   def new
     @area = Area.new
     @basins = Basin.all
     @cities = City.all
-    @markers = [{
-        lat: @area.latitude,
-        lng: @area.longitude
-      }]
+    
   end
 
   def edit

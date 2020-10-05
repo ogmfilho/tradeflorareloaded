@@ -15,6 +15,6 @@ Rails.application.routes.draw do
 
   get "/meu_perfil", to: "pages#meu_perfil", as: :meu_perfil
 
-  # get "maps", to:"pages#maps"
+  get "maps", to:"pages#maps"
 
 end
