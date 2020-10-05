@@ -7,6 +7,14 @@
     data-boundpoly="<%= [@polygon.first, @polygon[(@polygon.count/2).to_i]] %>"
     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
   </div>
+  <div style="width: 100%; margin: 2px 0px 0px 0px;"><i class="far fa-question-circle fa-2x"></i>
+     <div class="br-tooltip" id="tt10" info popover timer="8000" place="right">
+      <div class="popover-image"><img src="../assets/z-map-helper-squared-100.gif" alt="Avatar">
+      </div>
+      <div><p class="text" style="color: white; font-size: 20px;">Gire ou Incline o Mapa com Ctrl (ou Cmd) + Mouse!</p>
+      </div>
+    </div>
+  </div>
 
   <div class="row">
     <div class="col-10">
