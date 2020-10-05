@@ -44,10 +44,9 @@
                   <% end %>
                   <%= link_to edit_area_path(@area), data: { confirm: "Editar essa área?" } do %>
                     <i class="fa fa-edit edit_area"></i>
-
                   <% end %>
+                <%end%>
               <%end%>
-            <%end%>
               </td>
             </tr>
         </tbody>
@@ -55,10 +54,10 @@
     </div>
 
     <br>
-    <h3>Fotos disponibilizadas por <%= @area.user.name %>:</h3>
-      <div class="col-10">
+    <div class="col-10">
+      <h3>Fotos disponibilizadas por <%= @area.user.name %>:</h3>
         <% if !@area.photos.attached? %>
-            <h3> Nenhuma foto da área foi carregada </h3>
+            <p> Nenhuma foto da área foi carregada </p>
         <% else %>
           <div class="cards-areas">
             <% @area.photos.each do |photo| %>
@@ -68,18 +67,18 @@
             <% end %>
           </div>
         <% end %>
-      </div>
+    </div>
 
     <br>
-
-    <% if user_signed_in? %>
-      <% if current_user.id != @area.user.id %>
-        <%= link_to "Estou interessado", new_area_trade_path(@area), class: "br-button primary mt-5" %>
+    <div>
+      <% if user_signed_in? %>
+        <% if current_user.id != @area.user.id %>
+          <%= link_to "Estou interessado", new_area_trade_path(@area), class: "br-button primary mt-5" %>
+        <%end%>
       <%end%>
-    <%end%>
 
-   <p> <%= link_to 'Voltar para áreas disponíveis', areas_path, class: "br-button primary mt-5" %> </p>
-
+      <p> <%= link_to 'Voltar para áreas disponíveis', areas_path, class: "br-button primary mt-5" %> </p>
     </div>
   </div>
 </div>
+
