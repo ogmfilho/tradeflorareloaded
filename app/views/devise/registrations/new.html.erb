@@ -33,7 +33,7 @@
         
         <%= f.input :city_id, prompt: 'Selecione o seu município', 
                     label: 'Município', 
-                    collection: City.all.sort_by { |city| city[:name]}, 
+                    collection: State.all.sort_by {|state| state[:name]}, as: :grouped_select, group_method: :cities,
                     input_html:  { class: "select2" }%>
         <%= f.input :password,
                     label: "Senha",
