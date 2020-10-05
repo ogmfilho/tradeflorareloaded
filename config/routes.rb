@@ -3,8 +3,11 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :areas do
-    patch "aprove", to: "areas#aprove"
-    resources :trades, only: [ :new, :create, :destroy ]
+    # patch "aprove", to: "areas#aprove"
+    resources :trades, only: [ :new, :create, :destroy ] do
+      patch "aprove", to: "trades#aprove"
+      patch "refuse", to: "trades#refuse"
+    end
   end
 
   get "my_trades", to: "pages#trades"

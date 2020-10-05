@@ -65,12 +65,16 @@ class AreasController < ApplicationController
     redirect_to @area, notice: 'Área removida.'
   end
 
-  def aprove
-    @area = Area.find(params[:area_id])
-    @area.update(available?: false)
+# Esse método servia para a versão beta. Deixei somente para eventual consulta.
+# Mais a frente, se ficar de boa, a gente limpa.
+  # def aprove
+  #   # @proposal = current_user.proposals.find
+  #   @area = Area.find(params[:area_id])
+  #   raise
+  #   @area.update(available?: false)
 
-    redirect_to @area
-  end
+  #   redirect_to @area
+  # end
 
   private
 

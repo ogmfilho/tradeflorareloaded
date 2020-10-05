@@ -71,6 +71,7 @@
                 <div class="positionrelativediv">
                   <p class="alignright">Bacia: <%= area.basin.name %></p>
                   <h2><%= area.description %></h2>
+                  <p>Cod. da Área: <%= area.id %></p>
                   <p class="mb-1">Área de: <%= area.user.name %></p>
                   <p><i class="fas fa-globe-americas"></i> Coordenadas:</p>
                   <ul>
@@ -102,34 +103,41 @@
           <h3>Propostas Recebidas</h3>
           <table class="table">
             <thead>
+              <th>No. da Área</th>
               <th>Descrição da Área</th>
               <th>Bacia Hidrográfica</th>
               <th>Interessado</th>
               <th>Email</th>
               <th>Telefone</th>
               <th>Detalhes da Proposta</th>
+              <th>Situação da Proposta</th>
             </thead>
             <tbody>
               <% @user.proposals.each do |proposal| %>
                 <% user = proposal.user %>
                 <% area = proposal.area %>
                 <tr>
+                <td><%= area.id %></td>
                 <td><%= area.description %></td>
                 <td><%= area.basin.name %></td>
                 <td><%= user.name %></td>
                 <td><%= user.email %></td>
                 <td><%= user.phone_number %></td>
                 <td><%= proposal.details %></td>
+                <td><%= proposal.status %></td>
 
-                <td style="border-top: none"><%= link_to area_trades_path(area.id, area.trades.ids), method: :delete, data: { confirm: "Recusar proposta?" } do %>
-                    <i class="fa fa-times-circle destroy_trade"></i>
+                <td style="border-top: none">
+                  <% unless proposal.status == "Concluída" %>
 
-                    <%= link_to area_aprove_path(area), method: :patch, data: { confirm: "Aceitar proposta?" } do %>
-                    <i class="fa fa-check-circle update_area"></i>
+
+                    <%= link_to area_trade_refuse_path(area, proposal), method: :patch, data: { confirm: "Recusar proposta?" } do %>
+                      <i class="fa fa-times-circle destroy_trade"></i>
+                      <%= link_to area_trade_aprove_path(area, proposal), method: :patch, data: { confirm: "Aceitar proposta? Atenção: outras popostas para esta área serão automaticamente recusadas." } do %>
+                          <i class="fa fa-check-circle update_area"></i>
+                      <% end %>
+                    <% end %>
                   <% end %>
 
-
-                  <% end %>
                 </tr>
               <% end %>
             </tbody>
