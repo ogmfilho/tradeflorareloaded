@@ -6,17 +6,25 @@
     data-boundpoly="<%= [@polygon.first, @polygon[(@polygon.count/2).to_i]] %>"
     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
   </div>
+  <div style="width: 100%; margin: 2px 0px 0px 0px;"><i class="far fa-question-circle fa-2x"></i>
+     <div class="br-tooltip" id="tt10" info popover timer="8000" place="right">
+      <div class="popover-image"><img src="../assets/z-map-helper-squared-100.gif" alt="Avatar">
+      </div>
+      <div><p class="text" style="color: white; font-size: 20px;">Gire ou Incline o Mapa com Ctrl (ou Cmd) + Mouse!</p>
+      </div>
+    </div>
+  </div>
 
   <div class="row">
-    <div class="col-sm-12 col-md-6">
-      <h3>Área Disponibilizada por <%= @area.user.name %></h3>
+    <div class="col-10">
+      <h3>Área Disponibilizada por <%= @area.user.name %>:</h3>
       <table class="table table-bordered">
         <tbody>
           <thead>
             <th>Descrição</th>
             <th>Estado</th>
-            <th>município</th>
-            <th>hectares</th>
+            <th>Município</th>
+            <th>Hectares</th>
             <th>Bacia</th>
 
             <% if user_signed_in? %>
@@ -43,27 +51,41 @@
                   <% end %>
                   <%= link_to edit_area_path(@area), data: { confirm: "Editar essa área?" } do %>
                     <i class="fa fa-edit edit_area"></i>
-
                   <% end %>
+                <%end%>
               <%end%>
-            <%end%>
               </td>
             </tr>
         </tbody>
       </table>
     </div>
+
+    <br>
+    <div class="col-10">
+      <h3>Fotos disponibilizadas por <%= @area.user.name %>:</h3>
+        <% if !@area.photos.attached? %>
+            <p> Nenhuma foto da área foi carregada </p>
+        <% else %>
+          <div class="cards-areas">
+            <% @area.photos.each do |photo| %>
+              <div class="card-areas">
+                <%= cl_image_tag photo.key, crop: :fill %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+    </div>
+
+    <br>
+    <div>
+      <% if user_signed_in? %>
+        <% if current_user.id != @area.user.id %>
+          <%= link_to "Estou interessado", new_area_trade_path(@area), class: "br-button primary mt-5" %>
+        <%end%>
+      <%end%>
+
+      <p> <%= link_to 'Voltar para áreas disponíveis', areas_path, class: "br-button primary mt-5" %> </p>
+    </div>
   </div>
-  <br>
-
-  <% if user_signed_in? %>
-    <% if current_user.id != @area.user.id %>
-      <%= link_to "Estou interessado", new_area_trade_path(@area), class: "br-button primary mb-3" %>
-    <%end%>
-  <%end%>
-  <br>
-
-    <p> <%= link_to 'Voltar para áreas disponíveis', areas_path, class: "br-button primary" %> </p>
-
-  <br>
-
 </div>
+

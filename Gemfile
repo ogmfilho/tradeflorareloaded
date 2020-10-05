@@ -45,7 +45,8 @@ gem 'rails-i18n'
 # PosgreSQL search engine - to search areas
 gem 'pg_search', '~> 2.3.0'
 
-
+# Cloudnary
+gem 'cloudinary', '~> 1.16.0'
 
 # Le wagon setup - frontend
 gem 'autoprefixer-rails'

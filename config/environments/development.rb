@@ -30,7 +30,9 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  # Para usar o Cloudinary foi comentada a linha abaixo e incluída a linha logo em seguida - o padrão do active.storage.service era local e mudou para o Cloudinary:
+  # config.active_storage.service = :local
+  config.active_storage.service = :cloudinary
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false

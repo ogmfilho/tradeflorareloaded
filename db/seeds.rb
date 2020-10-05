@@ -261,6 +261,7 @@ require 'brazilian_documents'
 
       attributes = {
          description: area_description_faker.sample,
+
          coordinates:"-64.70566885294816,-3.3618824427553733,-64.70618860263961,-3.360740960572315,-64.7054817430591,-3.3605749266881304,-64.70494120338006,-3.3616956548529515,-64.70566885294816,-3.3618824427553733",
          extension: 2,
          status: true,
@@ -645,6 +646,7 @@ require 'brazilian_documents'
 
       attributes = {
          description: area_description_faker.sample,
+
          coordinates: "-45.51466029173346,-8.436688136856873,-45.51281373497483,-8.401981666206567,-45.43119592624299,-8.40709649938806,-45.43156523759521,-8.442898439914103,-45.51466029173346,-8.436688136856873",
          extension: 3641,
          status: true,

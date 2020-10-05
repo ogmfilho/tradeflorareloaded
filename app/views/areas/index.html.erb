@@ -2,6 +2,7 @@
 <div>
   <h2 id="h2-areas">Áreas cadastradas</h2>
 </div>
+
   <div class="content-areas">
     <% if @areas.empty? %>
       <div id="paddingleft16">
@@ -12,24 +13,29 @@
       <div class="cards-areas">
         <% @areas.each do |area| %>
           <div class="card-areas">
-            <img src="assets/<%=area.basin.name%>.jpg">
-            <div class="card-areas-infos">
-              <p class="alignright">Bacia: <%= area.basin.name %></p>
-              <h2><%= area.description %></h2>
-              <p class="mb-1">Área de: <%= area.user.name %></p>
-              <p><i class="fas fa-globe-americas"></i> Coordenadas:</p>
-              <ul>
-                <li>
-                  Latitude: <%= area.latitude.round(6) %>
-                </li>
-                <li>
-                  Longitude: <%= area.longitude.round(6) %>
-                </li>
-              </ul>
-              <br>
-              <br>
-              <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
-            </div>
+            <% if !area.photos.attached? %>
+              <img src="assets/<%=area.basin.name%>.jpg">
+            <% else %>
+              <%= cl_image_tag area.photos[0].key, crop: :fill %>
+            <% end %>
+              <div class="card-areas-infos">
+                <p class="alignright">Bacia: <%= area.basin.name %></p>
+                <h2><%= area.description %></h2>
+                <p class="mb-1">Área de: <%= area.user.name %></p>
+                <p><i class="fas fa-globe-americas"></i> Coordenadas:</p>
+                <ul>
+                  <li>
+                    Latitude: <%= area.latitude.round(6) %>
+                  </li>
+                  <li>
+                    Longitude: <%= area.longitude.round(6) %>
+                  </li>
+                </ul>
+                <br>
+                <br>
+                <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
+              </div>
+
           </div>
         <% end %>
         </div>
