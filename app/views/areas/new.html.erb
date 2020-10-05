@@ -1,5 +1,14 @@
 <% provide(:title, 'Nova Área') %>
 <div class="container">
+  <div class="map-helper-container">
+    <p class="above-map-helper">Desenhe o polígono no mapa com <img src="../assets/z-icon-transparent-black.png" class="smallicon" alt="Map Tip">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    <p class="above-map-helper">Gire ou incline o mapa com Ctrl (ou Cmd) + mouse</p>
+    <i class="far fa-question-circle"></i>
+     <div class="br-tooltip" id="tt10" info popover timer="6700" place="bottom">
+      <div class="popover-image"><img src="../assets/z-map-helper-squared-100.gif" alt="Avatar">
+      </div>
+      </div>
+  </div>
   <div id="map"
        style="width: 100%; height: 300px;"
        data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
@@ -7,8 +16,6 @@
   <div class="calculation-box">
     <p id="calculated-area">Desenhe o polígono da área no mapa.</p>
   </div>
-       
-<script src="https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js"></script>
 </div>
 
 <div class="row justify-content-center">
@@ -23,3 +30,4 @@
   </div>
 </div>
 
+<script src="https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js"></script>
