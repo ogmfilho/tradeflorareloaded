@@ -32,6 +32,8 @@ class AreasController < ApplicationController
     @area = Area.find(params[:id])
     @basins = Basin.all
     @cities = City.all
+    coordinates = @area.coordinates.split(",").in_groups_of(2)
+    @polygon = coordinates.map{ |pair| pair.map{ |coord| coord.to_f } }
   end
 
   def create

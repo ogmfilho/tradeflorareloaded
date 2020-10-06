@@ -17,6 +17,6 @@
   <%= f.input :photos, as: :file, input_html: { multiple: true }, label: 'Carregue as fotos da área:' %>
   <br>
   <div class="text-center">
-  <%= f.button :submit, "Disponibilizar", class: "br-button primary" %>
+  <%= f.button :submit, "Disponibilizar", class: "br-button primary", data: { confirm: "Deseja cadastrar estas informações de área?" } %>
   </div>
 <% end %>

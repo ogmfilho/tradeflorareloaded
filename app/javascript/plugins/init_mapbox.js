@@ -18,36 +18,64 @@ const fitMapToMarkers = (map, markers) => {
   map.fitBounds(bounds, { padding: 70, maxZoom: 10, duration: 1 });
 };
 
+const fitMapToPolygon = (map, boundpoly) => {
+  map.fitBounds(boundpoly, {padding: {top: 50, bottom:50, left: 50, right: 50}});
+};
 
-const initMapbox = () => {
-  const mapElement = document.getElementById('map');
-  if (mapElement) { // only build a map if there's a div#map to inject into
-    mapboxgl.accessToken = mapElement.dataset.mapboxApiKey;
-    const attributes = {
-      container: 'map',
-      style: 'mapbox://styles/mapbox/satellite-streets-v11',
-      center: [-47, -15],
-      zoom: 4
-    }
-
-    const map = new mapboxgl.Map(attributes);
-
-
-    map.addControl(new MapboxGeocoder({ accessToken: mapboxgl.accessToken,
-    mapboxgl: mapboxgl }));
-
-    let title = document.querySelector('title');
-
-      if (title.innerText.toLowerCase() === 'Nova Área | TradeFlora'.toLowerCase()){
-          const draw = new MapboxDraw({
-            displayControlsDefault: false,
-            controls: {
-              polygon: true,
-              trash: true
+const loadPolygon = (map, polygon) => {
+  map.on('load', function () {
+          map.addSource('maine', {
+            'type': 'geojson',
+            'data': {
+              'type': 'Feature',
+              'geometry': {
+                'type': 'Polygon',
+                'coordinates': [polygon]
+              }
+            }
+           });
+          map.addLayer({
+            'id': 'maine',
+            'type': 'fill',
+            'source': 'maine',
+            'layout': {},
+            'paint': {
+              'fill-color': '#088',
+              'fill-opacity': 0.8,
+              'fill-outline-color': '#088'
             }
           });
+        });
+}
 
-          map.addControl(draw, 'top-left');
+const loadPolygonEdit = (map, polygon) => {
+  map.on('load', function () {
+          map.addSource('maine', {
+            'type': 'geojson',
+            'data': {
+              'type': 'Feature',
+              'geometry': {
+                'type': 'Polygon',
+                'coordinates': [polygon]
+              }
+            }
+           });
+          map.addLayer({
+            'id': 'maine',
+            'type': 'fill',
+            'source': 'maine',
+            'layout': {},
+            'paint': {
+              'fill-color': 'red',
+              'fill-opacity': 0.8,
+              'fill-outline-color': 'red'
+            }
+          });
+        });
+}
+
+const drawPolygon = (map, draw) => {
+  map.addControl(draw, 'top-left');
          
           map.on('draw.create', updateArea);
           map.on('draw.delete', updateArea);
@@ -91,6 +119,55 @@ const initMapbox = () => {
             const centroidlong = document.getElementById('area_longitude');
             centroidlong.value = usercentroid[0].toFixed(2);
           }
+}
+
+const initMapbox = () => {
+  const mapElement = document.getElementById('map');
+  if (mapElement) { // only build a map if there's a div#map to inject into
+    mapboxgl.accessToken = mapElement.dataset.mapboxApiKey;
+    const attributes = {
+      container: 'map',
+      style: 'mapbox://styles/mapbox/satellite-streets-v11',
+      center: [-47, -15],
+      zoom: 4
+    }
+
+    const map = new mapboxgl.Map(attributes);
+
+
+    map.addControl(new MapboxGeocoder({ accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl }));
+
+
+    const title = document.querySelector('title');
+    
+   
+
+
+      if (title.innerText.toLowerCase() === 'Nova Área | TradeFlora'.toLowerCase()){
+         const draw = new MapboxDraw({
+          displayControlsDefault: false,
+          controls: {
+          polygon: true,
+          trash: true
+          }
+        });
+        drawPolygon(map, draw);
+      }
+
+      if (title.innerText.toLowerCase() === 'Editar Área | TradeFlora'.toLowerCase()){
+        const polygon = JSON.parse(mapElement.dataset.polygon);
+        const boundpoly = JSON.parse(mapElement.dataset.boundpoly);
+        const draw = new MapboxDraw({
+          displayControlsDefault: false,
+          controls: {
+          polygon: true,
+          trash: true
+          }
+        });
+        fitMapToPolygon(map, boundpoly);
+        loadPolygonEdit(map, polygon);
+        drawPolygon(map, draw);
       }
 
       if (title.innerText.toLowerCase() === 'Todas as áreas | TradeFlora'.toLowerCase()){
@@ -99,36 +176,13 @@ const initMapbox = () => {
         fitMapToMarkers(map, markers);
       }
 
-
-
       if (title.innerText.toLowerCase() === 'Ver Área | TradeFlora'.toLowerCase()){
         const polygon = JSON.parse(mapElement.dataset.polygon);
         const boundpoly = JSON.parse(mapElement.dataset.boundpoly);
-        map.fitBounds(boundpoly, {padding: {top: 50, bottom:50, left: 50, right: 50}});
-        map.on('load', function () {
-          map.addSource('maine', {
-            'type': 'geojson',
-            'data': {
-              'type': 'Feature',
-              'geometry': {
-                'type': 'Polygon',
-                'coordinates': [polygon]
-              }
-            }
-           });
-        map.addLayer({
-          'id': 'maine',
-          'type': 'fill',
-          'source': 'maine',
-          'layout': {},
-          'paint': {
-            'fill-color': '#088',
-            'fill-opacity': 0.8,
-            'fill-outline-color': '#088'
-          }
-        });
-      });
-    }
+        fitMapToPolygon(map, boundpoly);
+        loadPolygon(map, polygon);
+        
+      }
   }
 };
 
