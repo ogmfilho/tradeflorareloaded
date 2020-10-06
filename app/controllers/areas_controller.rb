@@ -3,7 +3,9 @@ class AreasController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
-    @areas = Area.all.where(available?: true)
+    # @pagy abaixo é uma gem para a paginação do index de areas
+    # para mais informações, ver o gemfile
+    @pagy, @areas = pagy(Area.all.where(available?: true), items: 9)
     @search = AreaSearch.new
     @states = State.all
     @cities = City.all
