@@ -79,7 +79,9 @@
     <br>
     <div>
       <% if user_signed_in? %>
-        <% if current_user.id != @area.user.id %>
+        <% if current_user.id != @area.user.id && %>
+        <%   (@area.trades.find_by(user_id: current_user).nil? || %>
+        <%    @area.trades.find_by(user_id: current_user).status == "Recusada") %>
           <%= link_to "Estou interessado", new_area_trade_path(@area), class: "br-button primary mt-5" %>
         <%end%>
       <%end%>
