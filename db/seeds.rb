@@ -97,7 +97,7 @@ require 'brazilian_documents'
   # Usuário Wátila Machado
     1.times do
       attributes = {name: "Wátila Machado",
-                   password: "123456",
+                   password: "ibama456",
                    document_number: BRDocuments::CPF.generate,
                    phone_number:Faker::PhoneNumber.cell_phone,
                    address: Faker::Address.street_address,
