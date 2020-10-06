@@ -5,6 +5,8 @@ class Area < ApplicationRecord
 
   has_many :trades, dependent: :destroy
 
+  has_many_attached :photos
+
   include PgSearch::Model
   pg_search_scope :search_by_area_user_or_basin,
                   against: [:description],
@@ -26,6 +28,6 @@ class Area < ApplicationRecord
                   associated_against: {
                   city: [:state_id]
                   }
-                
-                  
+
+
 end

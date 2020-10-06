@@ -3,7 +3,7 @@ class AreasController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
-    @areas = Area.all
+    @areas = Area.all.where(available?: true)
     @search = AreaSearch.new
     @states = State.all
     @cities = City.all
@@ -25,7 +25,7 @@ class AreasController < ApplicationController
     @area = Area.new
     @basins = Basin.all
     @cities = City.all
-    
+
   end
 
   def edit
@@ -63,16 +63,20 @@ class AreasController < ApplicationController
     redirect_to @area, notice: 'Área removida.'
   end
 
-  def aprove
-    @area = Area.find(params[:area_id])
-    @area.update(status: false)
+# Esse método servia para a versão beta. Deixei somente para eventual consulta.
+# Mais a frente, se ficar de boa, a gente limpa.
+  # def aprove
+  #   # @proposal = current_user.proposals.find
+  #   @area = Area.find(params[:area_id])
+  #   raise
+  #   @area.update(available?: false)
 
-    redirect_to @area
-  end
+  #   redirect_to @area
+  # end
 
   private
 
   def area_params
-    params.require(:area).permit(:latitude, :longitude, :description, :address, :extension, :coordinates, :basin_id, :city_id)
+    params.require(:area).permit(:latitude, :longitude, :description, :address, :extension, :coordinates, :basin_id, :city_id, photos: [])
   end
 end
