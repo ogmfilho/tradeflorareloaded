@@ -38,38 +38,37 @@ class TradesController < ApplicationController
     end
   end
   
-  def deal
-    @trade = Trade.find(params[:trade_id])
-    @area = Area.find(params[:area_id])
-    
-  end
-
+  
   def aprove
     @trade = Trade.find(params[:trade_id])
     @area = Area.find(params[:area_id])
-
+    
     @area.update(available?: false)
-
+    
     @area.trades.each do |trade|
       trade.update(status: "Recusada") unless trade.status == "Concluída" || trade.status == "Recusada"
     end
-
+    
     @trade.update(status: 'Aceita') unless @trade.status == "Concluída"
-
-    redirect_to area_trade_my_deal_path #criar página para proposta aceita
+    
+    redirect_to area_trade_my_deal_path 
   end
-
+  
   def refuse
     @trade = Trade.find(params[:trade_id])
     @area = Area.find(params[:area_id])
     @area.update(available?: true) unless @area.available? == true
-
+    
     @trade.update(status: "Recusada") unless @trade.status == "Concluída" || @trade.status == "Recusada"
-
+    
     redirect_to meu_perfil_path
   end
-
-
+  
+  def deal
+    @trade = Trade.find(params[:trade_id])
+    @area = Area.find(params[:area_id])
+  end
+  
   private
 
   def trade_params
