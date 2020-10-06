@@ -14,14 +14,8 @@ class TradesController < ApplicationController
     @trade = Trade.new(trade_params)
     @area = Area.find(params[:area_id])
     if @trade.save
-    # raise
       area = Area.find(@trade.area_id)
-      # area.status = true      mudar o nome de status
-      # if area.save
-      #  redirect_to user_path(area.user_id), notice: 'Nova trade criada.'
-        # end
-      redirect_to my_trades_path, notice: 'Nova trade criada.'
-      # redirect_to root_path, notice: 'Nova trade criada.'
+      redirect_to meu_perfil_path, notice: 'Nova trade criada.'
     else
       render :new
     end
@@ -30,45 +24,48 @@ class TradesController < ApplicationController
   def destroy
     @trade = Trade.find(params[:id])
 
-    unless @trade[:status] == "Aceita" || @trade[:status] == "Concluída"
-      @trade.destroy
-      redirect_to meu_perfil_path, notice: 'Proposta retirada'
-    else
+    if @trade.user_id != current_user.id
+      # raise
+      redirect_to meu_perfil_path, notice: "Proposta só pode ser retirada pelo usuário que a criou."
+    elsif @trade[:status] == "Aceita"
       redirect_to meu_perfil_path, notice: "Proposta não pôde ser retirada, pois já estava #{@trade[:status].downcase}."
+    else
+      @trade.destroy
+      redirect_to meu_perfil_path, notice: 'Proposta retirada.'
     end
   end
-  
-  
+
   def aprove
     @trade = Trade.find(params[:trade_id])
     @area = Area.find(params[:area_id])
-    
-    @area.update(available?: false)
-    
-    @area.trades.each do |trade|
-      trade.update(status: "Recusada") unless trade.status == "Concluída" || trade.status == "Recusada"
+
+    if @area.available?
+      @area.trades.each do |trade|
+        trade.update(status: "Recusada") unless trade.status == "Recusada"
+      end
+      @trade.update(status: 'Aceita')
+      @area.update(available?: false)
+      redirect_to area_trade_my_deal_path
+    else
+      redirect_to meu_perfil_path, notice: 'Já há uma proposta aceita para esta área.'
     end
-    
-    @trade.update(status: 'Aceita') unless @trade.status == "Concluída"
-    
-    redirect_to area_trade_my_deal_path 
   end
-  
+
   def refuse
     @trade = Trade.find(params[:trade_id])
     @area = Area.find(params[:area_id])
     @area.update(available?: true) unless @area.available? == true
-    
-    @trade.update(status: "Recusada") unless @trade.status == "Concluída" || @trade.status == "Recusada"
-    
-    redirect_to meu_perfil_path
+
+    @trade.update(status: "Recusada") unless @trade.status == "Recusada"
+
+    redirect_to meu_perfil_path, notice: "Proposta recusada."
   end
-  
+
   def deal
     @trade = Trade.find(params[:trade_id])
     @area = Area.find(params[:area_id])
   end
-  
+
   private
 
   def trade_params

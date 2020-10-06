@@ -13,7 +13,7 @@
       <a class="nav-link" data-toggle="tab" href="#areas-de-interesse">Áreas de interesse</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#minhas-propostas">Propostas recebidas</a>
+      <a class="nav-link" data-toggle="tab" href="#propostas-recebidas">Propostas recebidas</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" data-toggle="tab" href="#dados-cadastrais">Dados cadastrais</a>
@@ -32,35 +32,36 @@
                   <th>No. da Área</th>
                   <th>Descrição da Área</th>
                   <th>Bacia Hidrográfica</th>
+                  <th>Detalhes da Proposta</th>
+                  <th>Situação da Proposta</th>
                   <th>Proprietário</th>
                   <th>Email</th>
                   <th>Telefone</th>
-                  <th>Detalhes da Proposta</th>
-                  <th>Situação da Proposta</th>
-                  </thead>
-                   <tbody>
-                  <% @user.trades.each do |trade| %>
+                  <th>Ações</th>
+                </thead>
+                <tbody>
+                  <% @user.trades.sort_by {|trade| trade.area_id}.each do |trade| %>
                     <% area = trade.area %>
                     <tr>
-                    <td><%= area.id %></td>
-                    <td><%= area.description %></td>
-                    <td><%= area.basin.name %></td>
-                    <td><%= area.user.name %></td>
-                    <td><%= area.user.email %></td>
-                    <td><%= area.user.phone_number %></td>
-                    <td><%= trade.details %></td>
-                    <td><%= trade.status %></td>
-                    <!-- <td style="border-top: none"><%#= link_to "Detalhes", area_path(area), class: "br-button primary" %></td> -->
-                    <td style="border-top: none">
-                    <%= link_to area_path(area) do %>
-                      <i class="fa fa-info-circle destroy_trade"></i>
-                      <% unless trade.status == "Aceita" || trade.status == "Concluída" %>
-                        <%= link_to area_trade_path(area, trade), method: :delete, data: { confirm: "Deseja retirar a sua proposta?" } do %>
-                            <i class="fa fa-times-circle update_area"></i>
+                      <td><%= area.id %></td>
+                      <td><%= area.description %></td>
+                      <td><%= area.basin.name %></td>
+                      <td><%= trade.details %></td>
+                      <td><%= trade.status %></td>
+                      <td><%= area.user.name %></td>
+                      <td><%= trade.status == "Aceita"? area.user.email : "" %></td>
+                      <td><%= trade.status == "Aceita"? area.user.phone_number : "" %></td>
+                      <!-- <td style="border-top: none"><%#= link_to "Detalhes", area_path(area), class: "br-button primary" %></td> -->
+                      <td style="border-top: none">
+                        <%= link_to area_path(area) do %>
+                          <i class="fa fa-info-circle destroy_trade"></i><span>Detalhes</span>
                         <% end %>
-                      <% end %>
-                    <% end %>
-
+                        <% unless trade.status == "Aceita" %>
+                          <%= link_to area_trade_path(area, trade), method: :delete, data: { confirm: "Deseja retirar a sua proposta?" } do %>
+                              <i class="fa fa-times-circle update_area"></i><span>Retirar proposta</span>
+                          <% end %>
+                        <% end %>
+                      </td>
                     </tr>
                   <% end %>
                 </tbody>
@@ -79,104 +80,105 @@
       <div class="content-areas">
         <div class="cards-areas">
           <%if @user.areas.count > 0%> <!--se tiver areas cadastradas, -->
-          <% @user.areas.each do |area| %>
-            <div class="card-areas">
-              <img src="assets/<%=area.basin.name%>.jpg">
-              <div class="card-areas-infos">
-                <div class="positionrelativediv">
-                  <p class="alignright">Bacia: <%= area.basin.name %></p>
-                  <h2><%= area.description %></h2>
-                  <p>Cod. da Área: <%= area.id %></p>
-                  <p class="mb-1">Área de: <%= area.user.name %></p>
-                  <p><i class="fas fa-globe-americas"></i> Coordenadas:</p>
-                  <ul class="mb-5">
-                    <li>
-                      Latitude: <%= area.latitude.round(6) %>
-                    </li>
-                    <li>
-                      Longitude: <%= area.longitude.round(6) %>
-                    </li>
-                  </ul>
-                  <br>
-                  <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
+            <% @user.areas.each do |area| %>
+              <div class="card-areas">
+                <img src="assets/<%=area.basin.name%>.jpg">
+                <div class="card-areas-infos">
+                  <div class="positionrelativediv">
+                    <p class="alignright">Bacia: <%= area.basin.name %></p>
+                    <h2><%= area.description %></h2>
+                    <p>Cod. da Área: <%= area.id %></p>
+                    <p class="mb-1">Área de: <%= area.user.name %></p>
+                    <p><i class="fas fa-globe-americas"></i> Coordenadas:</p>
+                    <ul class="mb-5">
+                      <li>
+                        Latitude: <%= area.latitude.round(6) %>
+                      </li>
+                      <li>
+                        Longitude: <%= area.longitude.round(6) %>
+                      </li>
+                    </ul>
+                    <br>
+                    <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
+                  </div>
                 </div>
               </div>
-            </div>
+          <% end %>
+          <% else %>
+            <h5> Você ainda não disponibilizou nenhuma área </h5>
+            <p><%= link_to "Crie uma área", new_area_path(@area), class: "br-button primary" %></p>
           <% end %>
         </div>
       </div>
-    <% else %>
-      <h5> Você ainda não disponibilizou nenhuma área </h5>
-      <p><%= link_to "Crie uma área", new_area_path(@area), class: "br-button primary" %></p>
-    <% end %>
     </div>
 
-     <div id="minhas-propostas" class="container tab-pane fade"><br>
-    <%if @user.proposals.count > 0 %>
-      <div class="row">
-        <div class="col-sm-12 col-md-6">
-          <h3>Propostas Recebidas</h3>
-          <table class="table">
-            <thead>
-              <th>No. da Área</th>
-              <th>Descrição da Área</th>
-              <th>Bacia Hidrográfica</th>
-              <th>Interessado</th>
-              <th>Email</th>
-              <th>Telefone</th>
-              <th>Detalhes da Proposta</th>
-              <th>Situação da Proposta</th>
-            </thead>
-            <tbody>
-              <% @user.proposals.each do |proposal| %>
-                <% user = proposal.user %>
-                <% area = proposal.area %>
-                <tr>
-                <td><%= area.id %></td>
-                <td><%= area.description %></td>
-                <td><%= area.basin.name %></td>
-                <td><%= user.name %></td>
-                <td><%= user.email %></td>
-                <td><%= user.phone_number %></td>
-                <td><%= proposal.details %></td>
-                <td><%= proposal.status %></td>
-
-                <td style="border-top: none">
-                  <% unless proposal.status == "Concluída" %>
-
-
-                    <%= link_to area_trade_refuse_path(area, proposal), method: :patch, data: { confirm: "Recusar proposta?" } do %>
-                      <i class="fa fa-times-circle destroy_trade"></i>
-                      <%= link_to area_trade_aprove_path(area, proposal), method: :patch, data: { confirm: "Aceitar proposta? Atenção: outras popostas para esta área serão automaticamente recusadas." } do %>
-                          <i class="fa fa-check-circle update_area"></i>
+    <div id="propostas-recebidas" class="container tab-pane fade"><br>
+      <%if @user.proposals.count > 0 %>
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <h3>Propostas Recebidas</h3>
+            <table class="table">
+              <thead>
+                <th>No. da Área</th>
+                <th>Descrição da Área</th>
+                <th>Bacia Hidrográfica</th>
+                <th>Interessado</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Detalhes da Proposta</th>
+                <th>Situação da Proposta</th>
+                <th>Ações</th>
+              </thead>
+              <tbody>
+                <% @user.proposals.sort_by {|proposal| proposal.area_id}.each do |proposal| %>
+                  <% user = proposal.user %>
+                  <% area = proposal.area %>
+                  <tr>
+                    <td><%= area.id %></td>
+                    <td><%= area.description %></td>
+                    <td><%= area.basin.name %></td>
+                    <td><%= user.name %></td>
+                    <td><%= user.email %></td>
+                    <td><%= user.phone_number %></td>
+                    <td><%= proposal.details %></td>
+                    <td><%= proposal.status %></td>
+                    <td style="border-top: none">
+                      <% unless proposal.status == "Recusada" %>
+                        <%= link_to area_trade_refuse_path(area, proposal), method: :patch, data: { confirm: "Recusar proposta?" } do %>
+                          <i class="fa fa-times-circle destroy_trade"></i><span> Recusar </span>
+                        <% end %>
                       <% end %>
-                    <% end %>
-                  <% end %>
-
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
+                      <% if proposal.status != "Aceita" && area.trades.find_by(status: "Aceita") == nil %>
+                        <%= link_to area_trade_aprove_path(area, proposal), method: :patch, data: { confirm: "Aceitar proposta? Atenção: outras popostas para esta área serão automaticamente recusadas." } do %>
+                          <i class="fa fa-check-circle update_area"></i><span> Aceitar </span>
+                        <% end %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-    <% else %>
-      <h5> Você ainda não recebeu nenhuma proposta </h5>
-    <%end%>
+      <% else %>
+        <h5> Você ainda não recebeu nenhuma proposta </h5>
+      <%end%>
     </div>
 
-      <div id="dados-cadastrais" class="container tab-pane fade"><br>
-        <h1><%=@user.name%></h1>
-        <hr>
-        <ul>
-          <li>E-mail: <%=@user.email %> </li>
-          <li>Telefone: <%= @user.phone_number %></li>
-          <li>Endereço: <%= @user.address %></li>
-          <li>Documento: <%= @user.document_number %></li>
-        </ul>
-        <hr>
-        <%= link_to edit_user_registration_path do %>
-        <button class="br-button mb-3" type="button" primary>Editar Dados</button>
-        <% end %>
-      </div>
+    <div id="dados-cadastrais" class="container tab-pane fade"><br>
+      <h1><%=@user.name%></h1>
+      <hr>
+      <ul>
+        <li>E-mail: <%=@user.email %> </li>
+        <li>Telefone: <%= @user.phone_number %></li>
+        <li>Endereço: <%= @user.address %></li>
+        <li>Documento: <%= @user.document_number %></li>
+      </ul>
+      <hr>
+      <%= link_to edit_user_registration_path do %>
+      <button class="br-button mb-3" type="button" primary>Editar Dados</button>
+      <% end %>
+    </div>
   </div>
+
 </div>

@@ -14,7 +14,7 @@ class ReportsController < ApplicationController
     @report.user = current_user
     @report.trade = @trade
     if @report.save
-      redirect_to meu_perfil_path, notice: 'Relato enviado'
+      redirect_to area_trade_reports_path, notice: 'Relato enviado'
     else
       flash.now[:alert] = 'Relato não pode ficar vazio'
       render :new
