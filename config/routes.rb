@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       get "my_deal", to: "trades#deal", as: :my_deal 
       patch "aprove", to: "trades#aprove"
       patch "refuse", to: "trades#refuse"
+      resources :reports, only: [ :new, :create,:show, :destroy ]
     end
   end
   resources :area_searches, only: [ :create, :show ]
