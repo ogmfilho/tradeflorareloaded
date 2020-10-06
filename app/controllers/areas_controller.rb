@@ -40,9 +40,10 @@ class AreasController < ApplicationController
     @area = Area.new(area_params)
     @area.user = current_user
 
-    if @area.save!
+    if @area.save
       redirect_to area_path(@area), notice: 'Nova área criada.'
     else
+      flash.now[:alert] = 'Dados inválidos'
       @basins = Basin.all
       render :new
     end
@@ -50,9 +51,10 @@ class AreasController < ApplicationController
 
   def update
       @area = Area.find(params[:id])
-      if @area.update!(area_params)
+      if @area.update(area_params)
         redirect_to area_path(@area), notice: 'Área modificada.'
       else
+        flash.now[:alert] = 'Dados inválidos'
         @basins = Basin.all
         render :edit
     end
