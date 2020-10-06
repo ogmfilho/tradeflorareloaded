@@ -3,8 +3,10 @@ class AreaSearchesController < ApplicationController
 
 
   def create
+    
     @search = AreaSearch.new(search_params) 
     @search.save
+
     redirect_to area_search_path(@search)
   end
 
@@ -14,6 +16,6 @@ class AreaSearchesController < ApplicationController
 
   private
   def search_params
-    params.require(:area_search).permit(:keywords, :state_id, :city_id, :basin_id, :min_extension, :max_extension)
+    params.require(:area_search).permit(:keywords, :min_extension, :max_extension, states_id: [], cities_id: [], basins_id: [])
   end
 end

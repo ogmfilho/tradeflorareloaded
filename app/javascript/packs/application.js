@@ -27,6 +27,7 @@ require("../../../vendor/assets/dist/js/dsgov")
 // External imports
 import "bootstrap";
 import { initSelect2 } from '../plugins/init_select2';
+import { initSelectmult } from '../plugins/init_selectmult';
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
 
@@ -35,4 +36,5 @@ import { initMapbox } from '../plugins/init_mapbox';
 document.addEventListener('turbolinks:load', () => {
   initMapbox();
   initSelect2();
+  initSelectmult();
 })
