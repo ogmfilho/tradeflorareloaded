@@ -6,13 +6,13 @@ Rails.application.routes.draw do
   resources :areas do
     # patch "aprove", to: "areas#aprove"
     resources :trades, only: [ :new, :create, :destroy ] do
+      get "my_deal", to: "trades#deal", as: :my_deal 
       patch "aprove", to: "trades#aprove"
       patch "refuse", to: "trades#refuse"
     end
   end
   resources :area_searches, only: [ :create, :show ]
  
-  
   get "my_trades", to: "pages#trades"
 
   get "my_proposals", to:"pages#proposals"
