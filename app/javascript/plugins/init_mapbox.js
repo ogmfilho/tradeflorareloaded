@@ -115,9 +115,9 @@ const drawPolygon = (map, draw) => {
             const centroid = turf.centroid(data);
             const usercentroid = centroid.geometry.coordinates;
             const centroidlat = document.getElementById('area_latitude');
-            centroidlat.value = usercentroid[1].toFixed(2);
+            centroidlat.value = usercentroid[1];
             const centroidlong = document.getElementById('area_longitude');
-            centroidlong.value = usercentroid[0].toFixed(2);
+            centroidlong.value = usercentroid[0];
           }
 }
 
