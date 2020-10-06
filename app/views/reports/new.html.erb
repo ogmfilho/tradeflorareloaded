@@ -1,0 +1,8 @@
+<div class="row justify-content-md-center mt-2">
+  <div class="br-card col-lg-4 align-center">
+    <%= simple_form_for([@area, @trade, @report ]) do |f| %>
+      <%= f.input :content, as: :text %>
+      <%= f.button :submit, label: "Deixar relato" %>
+    <% end %>
+  </div>
+</div>

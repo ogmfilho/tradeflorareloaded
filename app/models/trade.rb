@@ -2,10 +2,10 @@ class Trade < ApplicationRecord
   belongs_to :user
   belongs_to :area
 
-  has_many :reviews, dependent: :destroy
+  has_many :reports, dependent: :destroy
 
   validates :status, inclusion: {
-    in: ['Proposta', 'Visualizada', 'Aceita', 'Recusada', 'Concluída'],
+    in: ['Proposta', 'Aceita', 'Recusada'],
     message: "%{value} não é um status válido."
   }
   validates :details, presence: true

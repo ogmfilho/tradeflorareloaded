@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_06_142218) do
+ActiveRecord::Schema.define(version: 2020_10_06_175016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,16 @@ ActiveRecord::Schema.define(version: 2020_10_06_142218) do
     t.index ["state_id"], name: "index_cities_on_state_id"
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.text "content"
+    t.bigint "trade_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["trade_id"], name: "index_reports_on_trade_id"
+    t.index ["user_id"], name: "index_reports_on_user_id"
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.bigint "trade_id", null: false
     t.bigint "user_id", null: false
@@ -136,6 +146,8 @@ ActiveRecord::Schema.define(version: 2020_10_06_142218) do
   add_foreign_key "areas", "cities"
   add_foreign_key "areas", "users"
   add_foreign_key "cities", "states"
+  add_foreign_key "reports", "trades"
+  add_foreign_key "reports", "users"
   add_foreign_key "reviews", "trades"
   add_foreign_key "reviews", "users"
   add_foreign_key "trades", "areas"
