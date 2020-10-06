@@ -5,8 +5,8 @@
 <div class="content-areas">
   <div id="paddingleft16">
     <p> O resultado precisava incluir obrigatoriamente:
-    <br>  
-    <% if @search.keywords.present? %> 
+    <br>
+    <% if @search.keywords.present? %>
       <%=@search.keywords%>
       <br>
     <%end%>
@@ -18,12 +18,12 @@
       Área com no máximo de <%=@search.max_extension%> hectares
       <br>
     <%end%>
-      
+
     <%@search.states_id.reject!(&:empty?) %>
     <%if @search.states_id.present? %>
       <%= @search.plural(@search.states_id.count, "estado") %>
       <br>
-      <% @search.states_id.each_with_index do |state_id, index| %> 
+      <% @search.states_id.each_with_index do |state_id, index| %>
         <%="#{index+1} - #{State.find(state_id).name}"%>
         <br>
       <%end%>
@@ -33,23 +33,23 @@
     <% if @search.cities_id.present? %>
       <%=@search.plural(@search.cities_id.count, "município") %>
       <br>
-      <% @search.cities_id.each_with_index do |city_id, index| %> 
+      <% @search.cities_id.each_with_index do |city_id, index| %>
         <%= "#{index+1} - #{City.find(city_id).name}"%>
         <br>
       <%end%>
     <%end%>
-      
+
     <% @search.basins_id.reject!(&:empty?) %>
     <% if @search.basins_id.present? %>
       <%=@search.plural(@search.basins_id.count, "Bacia Hidrográfica") %>
       <br>
-      <% @search.basins_id.each_with_index do |basin_id, index| %> 
+      <% @search.basins_id.each_with_index do |basin_id, index| %>
         <%= "#{index+1} - #{Basin.find(basin_id).name}"%>
         <br>
       <%end%>
     <%end%>
   </div>
-  
+
   <% else %>
     <div class="cards-areas">
     <h2>
@@ -60,7 +60,7 @@
       <% end %>
       <br>
       <p>
-      <% if @search.keywords.present? %> 
+      <% if @search.keywords.present? %>
         <%=@search.keywords%>
       <%end%>
       <% if @search.min_extension.present? %>
@@ -71,12 +71,12 @@
       Área com no máximo de <%=@search.max_extension%> hectares
       <br>
     <%end%>
-      
+
     <%@search.states_id.reject!(&:empty?) %>
     <%if @search.states_id.present? %>
       <%= @search.plural(@search.states_id.count, "estado") %>
       <br>
-      <% @search.states_id.each_with_index do |state_id, index| %> 
+      <% @search.states_id.each_with_index do |state_id, index| %>
         <%="#{index+1} - #{State.find(state_id).name}"%>
         <br>
       <%end%>
@@ -86,17 +86,17 @@
     <% if @search.cities_id.present? %>
       <%=@search.plural(@search.cities_id.count, "município") %>
       <br>
-      <% @search.cities_id.each_with_index do |city_id, index| %> 
+      <% @search.cities_id.each_with_index do |city_id, index| %>
         <%= "#{index+1} - #{City.find(city_id).name}"%>
         <br>
       <%end%>
     <%end%>
-      
+
     <% @search.basins_id.reject!(&:empty?) %>
     <% if @search.basins_id.present? %>
       <%=@search.plural(@search.basins_id.count, "Bacia Hidrográfica") %>
       <br>
-      <% @search.basins_id.each_with_index do |basin_id, index| %> 
+      <% @search.basins_id.each_with_index do |basin_id, index| %>
         <%= "#{index+1} - #{Basin.find(basin_id).name}"%>
         <br>
       <%end%>
@@ -106,7 +106,7 @@
       </h2>
       <%@search.pesquisa.each do |area|%>
           <div class="card-areas">
-            <img src="assets/<%=area.basin.name%>.jpg">
+            <%= image_tag area.basin.name %>
             <div class="card-areas-infos">
               <p class="alignright">Bacia: <%= area.basin.name %></p>
               <h2><%= area.description %></h2>
