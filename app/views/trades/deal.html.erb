@@ -1,0 +1,13 @@
+<div class="row justify-content-md-center mt-2">
+  <div class="br-card col-lg-4 align-center">
+    <h3>A proposta foi aceita com sucesso!</h3>
+      <h5> Informações da proposta</h5>
+        <p> Proponente - <%=@trade.user.name%></p>
+        <p> Detalhes - <%=@trade.details%> em área localizada em  <%=@area.city.name%> - <%=@area.city.state.name%>
+        com <%=@area.extension.to_i%> hectares.  </p>
+        <br>
+        <%= link_to meu_perfil_path do %>
+          <button class="br-button mb-3" type="button" primary>voltar para meu perfil</button>
+        <% end %>
+  </div>  
+</div>

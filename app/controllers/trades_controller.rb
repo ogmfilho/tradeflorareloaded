@@ -37,6 +37,12 @@ class TradesController < ApplicationController
       redirect_to meu_perfil_path, notice: "Proposta não pôde ser retirada, pois já estava #{@trade[:status].downcase}."
     end
   end
+  
+  def deal
+    @trade = Trade.find(params[:trade_id])
+    @area = Area.find(params[:area_id])
+    
+  end
 
   def aprove
     @trade = Trade.find(params[:trade_id])
@@ -50,7 +56,7 @@ class TradesController < ApplicationController
 
     @trade.update(status: 'Aceita') unless @trade.status == "Concluída"
 
-    redirect_to meu_perfil_path
+    redirect_to area_trade_my_deal_path #criar página para proposta aceita
   end
 
   def refuse
@@ -62,7 +68,6 @@ class TradesController < ApplicationController
 
     redirect_to meu_perfil_path
   end
-
 
 
   private
