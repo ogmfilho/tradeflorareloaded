@@ -100,7 +100,8 @@ require 'brazilian_documents'
                    password: "123456",
                    document_number: BRDocuments::CPF.generate,
                    phone_number:Faker::PhoneNumber.cell_phone,
-                   address: Faker::Address.street_address
+                   address: Faker::Address.street_address,
+                   admin: true
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
      attributes[:email]="watila@mail.com"
@@ -640,7 +641,7 @@ require 'brazilian_documents'
       puts "Area created for user #{new_area[:user_id]}"
 
   # Area seeds for test user Wátila Machado
-  
+
       basin_seed = Basin.find_by(name: "São Francisco")
       city_seed = City.find_by(name: "Unaí")
 
@@ -679,7 +680,7 @@ require 'brazilian_documents'
       puts "Area created for user #{new_area[:user_id]}"
 
 
-   
+
 
 
 
