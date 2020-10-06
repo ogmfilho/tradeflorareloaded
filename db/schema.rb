@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_05_213430) do
+ActiveRecord::Schema.define(version: 2020_10_06_133107) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 2020_10_05_213430) do
     t.string "description"
     t.string "coordinates"
     t.float "extension"
-    t.boolean "available?"
+    t.boolean "available?", default: true
     t.float "latitude"
     t.float "longitude"
     t.string "address"
@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(version: 2020_10_05_213430) do
   end
 
   create_table "trades", force: :cascade do |t|
-    t.string "status"
+    t.string "status", default: "Proposta"
     t.bigint "user_id", null: false
     t.bigint "area_id", null: false
     t.datetime "created_at", precision: 6, null: false
