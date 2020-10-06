@@ -51,6 +51,9 @@ gem 'cloudinary', '~> 1.16.0'
 # Rails Admin
 gem 'rails_admin', '~> 2.0'
 
+# Rails Admin - traducao dos campos para pt-BR
+gem 'rails_admin-i18n'
+
 # Le wagon setup - frontend
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
