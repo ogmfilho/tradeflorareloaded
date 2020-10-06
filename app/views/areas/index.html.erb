@@ -42,13 +42,13 @@
         <%= s.text_field :keywords %>
        </div>
        <div class="field">
-        <%= s.input :state_id,  prompt: 'Selecione o Estado', label: "Estado", collection: @states.sort_by { |state| state[:name]}, input_html:  { class: "select2" }, include_blank: true %>
+        <%= s.input :states_id, label: "Estado", collection: @states.sort_by { |state| state[:name]}, input_html:  { class: "selectmult", multiple: true } %>
        </div>
        <div class="field">
-        <%= s.input :city_id, prompt: 'Selecione os municípios', label: 'Município', collection: State.all.sort_by {|state| state[:name]}, as: :grouped_select, group_method: :cities, input_html:  { class: "select2" }, include_blank: true %>
+        <%= s.input :cities_id, label: 'Município', collection: State.all.sort_by {|state| state[:name]}, as: :grouped_select, group_method: :cities, input_html:  { class: "selectmult", multiple: true } %>
        </div>
        <div class="field">
-        <%= s.input :basin_id, label: "Bacia hidrográfica", prompt: 'Selecione as bacias hidrográficas', collection: @basins, input_html:  { class: "select2" }, include_blank: true %>
+        <%= s.input :basins_id, label: "Bacia hidrográfica", collection: @basins, input_html:  { class: "selectmult", multiple: true } %>
        </div>
        <div class="field">
          <p><%= s.label "Extensão mínima (hectares)"%> - <%= s.text_field :min_extension, size: 10 %></p>
