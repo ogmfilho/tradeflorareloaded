@@ -77,6 +77,6 @@
 </div>
 
 <!-- Abaixo o link para a paginação, da gem Pagy - para mais informações, ver o gemfile -->
-<div class="centered-pagination">
-  <%== pagy_nav(@pagy) %>
+<div class="d-flex justify-content-center">
+  <%= pagy_bootstrap_nav(@pagy).html_safe %>
 </div>

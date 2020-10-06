@@ -5,7 +5,7 @@ class AreasController < ApplicationController
   def index
     # @pagy abaixo é uma gem para a paginação do index de areas
     # para mais informações, ver o gemfile
-    @pagy, @areas = pagy(Area.all.where(available?: true))
+    @pagy, @areas = pagy(Area.all.where(available?: true), items: 9)
     @search = AreaSearch.new
     @states = State.all
     @cities = City.all
