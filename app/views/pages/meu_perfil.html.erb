@@ -29,22 +29,37 @@
             <div class="col-sm-12 col-md-6">
              <table class="table">
                 <thead>
-                  <th>Tamanho (m²)</th>
-                  <th>Bacia</th>
+                  <th>No. da Área</th>
+                  <th>Descrição da Área</th>
+                  <th>Bacia Hidrográfica</th>
                   <th>Proprietário</th>
                   <th>Email</th>
                   <th>Telefone</th>
+                  <th>Detalhes da Proposta</th>
+                  <th>Situação da Proposta</th>
                   </thead>
                    <tbody>
                   <% @user.trades.each do |trade| %>
                     <% area = trade.area %>
                     <tr>
+                    <td><%= area.id %></td>
                     <td><%= area.description %></td>
                     <td><%= area.basin.name %></td>
                     <td><%= area.user.name %></td>
                     <td><%= area.user.email %></td>
                     <td><%= area.user.phone_number %></td>
-                    <td style="border-top: none"><%= link_to "Detalhes", area_path(area), class: "br-button primary" %></td>
+                    <td><%= trade.details %></td>
+                    <td><%= trade.status %></td>
+                    <!-- <td style="border-top: none"><%#= link_to "Detalhes", area_path(area), class: "br-button primary" %></td> -->
+                    <td style="border-top: none">
+                    <%= link_to area_path(area) do %>
+                      <i class="fa fa-info-circle destroy_trade"></i>
+                      <% unless trade.status == "Aceita" || trade.status == "Concluída" %>
+                        <%= link_to area_trade_path(area, trade), method: :delete, data: { confirm: "Deseja retirar a sua proposta?" } do %>
+                            <i class="fa fa-times-circle update_area"></i>
+                        <% end %>
+                      <% end %>
+                    <% end %>
 
                     </tr>
                   <% end %>
