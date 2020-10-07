@@ -5,60 +5,166 @@
   <h2>Meu perfil</h2>
   <br>
   <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active" data-toggle="tab" href="#areas-disponibilizadas">Áreas disponibilizadas</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#areas-de-interesse">Áreas de interesse</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#propostas-recebidas">Propostas recebidas</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#dados-cadastrais">Dados cadastrais</a>
-    </li>
-  </ul>
+  <div class="br-tabs">
+    <nav class="tab-nav" role="tablist">
+      <ul>
+        <li class="tab-item">
+          <button type="button" data-panel="areas-disponibilizadas"><span class="name">Áreas disponibilizadas</span></button>
+          <!--<a class="nav-link active" data-toggle="tab" href="#areas-disponibilizadas">Áreas disponibilizadas</a>-->
+        </li>
+        <li class="tab-item">
+          <button type="button" data-panel="areas-de-interesse"><span class="name">Áreas de interesse</span></button>
+          <!--<a class="nav-link" data-toggle="tab" href="#areas-de-interesse">Áreas de interesse</a>-->
+        </li>
+        <li class="tab-item">
+          <button type="button" data-panel="propostas-recebidas"><span class="name">Propostas recebidas</span></button>
 
+          <!--<a class="nav-link" data-toggle="tab" href="#propostas-recebidas">Propostas recebidas</a>-->
+        </li>
+        <li class="tab-item">
+          <button type="button" data-panel="dados-cadastrais"><span class="name">Dados cadastrais</span></button>
+
+          <!--<a class="nav-link" data-toggle="tab" href="#dados-cadastrais">Dados cadastrais</a>-->
+        </li>
+      </ul>
+    </nav>
   <!-- Tab panes -->
-  <div class="tab-content">
-    <div id="areas-de-interesse" class="container tab-pane fade"><br>
-      <%if @user.trades.count > 0%>
-        <div class="card-body">
+    <div class="tab-content">
+      <div id="areas-disponibilizadas" class="tab-panel is-active">
+      <br>
+        <div class="content-areas">
+          <div class="cards-areas">
+            <%if @user.areas.count > 0%> <!--se tiver areas cadastradas, -->
+              <% @user.areas.each do |area| %>
+                <div class="card-areas">
+                  <img src="assets/<%=area.basin.name%>.jpg">
+                  <div class="card-areas-infos">
+                    <div class="positionrelativediv">
+                      <p class="alignright">Bacia: <%= area.basin.name %></p>
+                      <h2><%= area.description %></h2>
+                      <p>Cod. da Área: <%= area.id %></p>
+                      <p class="mb-1">Área de: <%= area.user.name %></p>
+                      <p><i class="fas fa-globe-americas"></i> Coordenadas:</p>
+                      <ul class="mb-5">
+                        <li>
+                          Latitude: <%= area.latitude.round(6) %>
+                        </li>
+                        <li>
+                          Longitude: <%= area.longitude.round(6) %>
+                        </li>
+                      </ul>
+                      <br>
+                      <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
+                    </div>
+                  </div>
+                </div>
+            <% end %>
+            <% else %>
+              <h5> Você ainda não disponibilizou nenhuma área </h5>
+              <p><%= link_to "Crie uma área", new_area_path(@area), class: "br-button primary" %></p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div id="areas-de-interesse" class="tab-panel"><br>
+        <%if @user.trades.count > 0%>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-12 col-md-6">
+              <table class="table">
+                  <thead>
+                    <th>No. da Área</th>
+                    <th>Descrição da Área</th>
+                    <th>Bacia Hidrográfica</th>
+                    <th>Detalhes da Proposta</th>
+                    <th>Situação da Proposta</th>
+                    <th>Proprietário</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>Ações</th>
+                  </thead>
+                  <tbody>
+                    <% @user.trades.sort_by {|trade| trade.area_id}.each do |trade| %>
+                      <% area = trade.area %>
+                      <tr>
+                        <td><%= area.id %></td>
+                        <td><%= area.description %></td>
+                        <td><%= area.basin.name %></td>
+                        <td><%= trade.details %></td>
+                        <td><%= trade.status %></td>
+                        <td><%= area.user.name %></td>
+                        <td><%= trade.status == "Aceita"? area.user.email : "" %></td>
+                        <td><%= trade.status == "Aceita"? area.user.phone_number : "" %></td>
+                        <!-- <td style="border-top: none"><%#= link_to "Detalhes", area_path(area), class: "br-button primary" %></td> -->
+                        <td style="border-top: none">
+                          <%= link_to area_path(area) do %>
+                            <i class="fa fa-info-circle destroy_trade"></i><span>Detalhes</span>
+                          <% end %>
+                          <% unless trade.status == "Aceita" %>
+                            <%= link_to area_trade_path(area, trade), method: :delete, data: { confirm: "Deseja retirar a sua proposta?" } do %>
+                                <i class="fa fa-times-circle update_area"></i><span>Retirar proposta</span>
+                            <% end %>
+                          <% end %>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <%else%>
+          <h5> Você ainda não declarou interesse por nenhuma área </h5>
+          <%= link_to areas_path do %>
+          <button class="br-button mb-3" type="button" primary>Ver Áreas Disponíveis</button>
+          <% end %>
+        <%end%>
+      </div>
+
+
+
+      <div id="propostas-recebidas" class="tab-panel"><br>
+        <%if @user.proposals.count > 0 %>
           <div class="row">
             <div class="col-sm-12 col-md-6">
-             <table class="table">
+              <h3>Propostas Recebidas</h3>
+              <table class="table">
                 <thead>
                   <th>No. da Área</th>
                   <th>Descrição da Área</th>
                   <th>Bacia Hidrográfica</th>
-                  <th>Detalhes da Proposta</th>
-                  <th>Situação da Proposta</th>
-                  <th>Proprietário</th>
+                  <th>Interessado</th>
                   <th>Email</th>
                   <th>Telefone</th>
+                  <th>Detalhes da Proposta</th>
+                  <th>Situação da Proposta</th>
                   <th>Ações</th>
                 </thead>
                 <tbody>
-                  <% @user.trades.sort_by {|trade| trade.area_id}.each do |trade| %>
-                    <% area = trade.area %>
+                  <% @user.proposals.sort_by {|proposal| proposal.area_id}.each do |proposal| %>
+                    <% user = proposal.user %>
+                    <% area = proposal.area %>
                     <tr>
                       <td><%= area.id %></td>
                       <td><%= area.description %></td>
                       <td><%= area.basin.name %></td>
-                      <td><%= trade.details %></td>
-                      <td><%= trade.status %></td>
-                      <td><%= area.user.name %></td>
-                      <td><%= trade.status == "Aceita"? area.user.email : "" %></td>
-                      <td><%= trade.status == "Aceita"? area.user.phone_number : "" %></td>
-                      <!-- <td style="border-top: none"><%#= link_to "Detalhes", area_path(area), class: "br-button primary" %></td> -->
+                      <td><%= user.name %></td>
+                      <td><%= user.email %></td>
+                      <td><%= user.phone_number %></td>
+                      <td><%= proposal.details %></td>
+                      <td><%= proposal.status %></td>
                       <td style="border-top: none">
-                        <%= link_to area_path(area) do %>
-                          <i class="fa fa-info-circle destroy_trade"></i><span>Detalhes</span>
+                        <% unless proposal.status == "Recusada" %>
+                          <%= link_to area_trade_refuse_path(area, proposal), method: :patch, data: { confirm: "Recusar proposta?" } do %>
+                            <i class="fa fa-times-circle destroy_trade"></i><span> Recusar </span>
+                          <% end %>
                         <% end %>
-                        <% unless trade.status == "Aceita" %>
-                          <%= link_to area_trade_path(area, trade), method: :delete, data: { confirm: "Deseja retirar a sua proposta?" } do %>
-                              <i class="fa fa-times-circle update_area"></i><span>Retirar proposta</span>
+                        <% if proposal.status != "Aceita" && area.trades.find_by(status: "Aceita") == nil %>
+                          <%= link_to area_trade_aprove_path(area, proposal), method: :patch, data: { confirm: "Aceitar proposta? Atenção: outras popostas para esta área serão automaticamente recusadas." } do %>
+                            <i class="fa fa-check-circle update_area"></i><span> Aceitar </span>
                           <% end %>
                         <% end %>
                       </td>
@@ -68,117 +174,32 @@
               </table>
             </div>
           </div>
-        </div>
-        <%else%>
-        <h5> Você ainda não declarou interesse por nenhuma área </h5>
-        <%= link_to areas_path do %>
-        <button class="br-button mb-3" type="button" primary>Ver Áreas Disponíveis</button>
-        <% end %>
-      <%end%>
-    </div>
-    <div id="areas-disponibilizadas" class="container tab-pane active"><br>
-      <div class="content-areas">
-        <div class="cards-areas">
-          <%if @user.areas.count > 0%> <!--se tiver areas cadastradas, -->
-            <% @user.areas.each do |area| %>
-              <div class="card-areas">
-                <img src="assets/<%=area.basin.name%>.jpg">
-                <div class="card-areas-infos">
-                  <div class="positionrelativediv">
-                    <p class="alignright">Bacia: <%= area.basin.name %></p>
-                    <h2><%= area.description %></h2>
-                    <p>Cod. da Área: <%= area.id %></p>
-                    <p class="mb-1">Área de: <%= area.user.name %></p>
-                    <p><i class="fas fa-globe-americas"></i> Coordenadas:</p>
-                    <ul class="mb-5">
-                      <li>
-                        Latitude: <%= area.latitude.round(6) %>
-                      </li>
-                      <li>
-                        Longitude: <%= area.longitude.round(6) %>
-                      </li>
-                    </ul>
-                    <br>
-                    <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
-                  </div>
-                </div>
-              </div>
-          <% end %>
-          <% else %>
-            <h5> Você ainda não disponibilizou nenhuma área </h5>
-            <p><%= link_to "Crie uma área", new_area_path(@area), class: "br-button primary" %></p>
-          <% end %>
-        </div>
+        <% else %>
+          <h5> Você ainda não recebeu nenhuma proposta </h5>
+        <%end%>
       </div>
-    </div>
 
-    <div id="propostas-recebidas" class="container tab-pane fade"><br>
-      <%if @user.proposals.count > 0 %>
-        <div class="row">
-          <div class="col-sm-12 col-md-6">
-            <h3>Propostas Recebidas</h3>
-            <table class="table">
-              <thead>
-                <th>No. da Área</th>
-                <th>Descrição da Área</th>
-                <th>Bacia Hidrográfica</th>
-                <th>Interessado</th>
-                <th>Email</th>
-                <th>Telefone</th>
-                <th>Detalhes da Proposta</th>
-                <th>Situação da Proposta</th>
-                <th>Ações</th>
-              </thead>
-              <tbody>
-                <% @user.proposals.sort_by {|proposal| proposal.area_id}.each do |proposal| %>
-                  <% user = proposal.user %>
-                  <% area = proposal.area %>
-                  <tr>
-                    <td><%= area.id %></td>
-                    <td><%= area.description %></td>
-                    <td><%= area.basin.name %></td>
-                    <td><%= user.name %></td>
-                    <td><%= user.email %></td>
-                    <td><%= user.phone_number %></td>
-                    <td><%= proposal.details %></td>
-                    <td><%= proposal.status %></td>
-                    <td style="border-top: none">
-                      <% unless proposal.status == "Recusada" %>
-                        <%= link_to area_trade_refuse_path(area, proposal), method: :patch, data: { confirm: "Recusar proposta?" } do %>
-                          <i class="fa fa-times-circle destroy_trade"></i><span> Recusar </span>
-                        <% end %>
-                      <% end %>
-                      <% if proposal.status != "Aceita" && area.trades.find_by(status: "Aceita") == nil %>
-                        <%= link_to area_trade_aprove_path(area, proposal), method: :patch, data: { confirm: "Aceitar proposta? Atenção: outras popostas para esta área serão automaticamente recusadas." } do %>
-                          <i class="fa fa-check-circle update_area"></i><span> Aceitar </span>
-                        <% end %>
-                      <% end %>
-                    </td>
-                  </tr>
+        <div id="dados-cadastrais" class="tab-panel"><br>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-12 col-md-6">
+
+                <h3><%=@user.name%></h3>
+                <hr>
+                <ul>
+                  <li>E-mail: <%=@user.email %> </li>
+                  <li>Telefone: <%= @user.phone_number %></li>
+                  <li>Endereço: <%= @user.address %></li>
+                  <li>Documento: <%= @user.document_number %></li>
+                </ul>
+                <hr>
+                <%= link_to edit_user_registration_path do %>
+                <button class="br-button mb-3" type="button" primary>Editar Dados</button>
                 <% end %>
-              </tbody>
-            </table>
+              </div>
+            </div>
           </div>
         </div>
-      <% else %>
-        <h5> Você ainda não recebeu nenhuma proposta </h5>
-      <%end%>
-    </div>
-
-    <div id="dados-cadastrais" class="container tab-pane fade"><br>
-      <h1><%=@user.name%></h1>
-      <hr>
-      <ul>
-        <li>E-mail: <%=@user.email %> </li>
-        <li>Telefone: <%= @user.phone_number %></li>
-        <li>Endereço: <%= @user.address %></li>
-        <li>Documento: <%= @user.document_number %></li>
-      </ul>
-      <hr>
-      <%= link_to edit_user_registration_path do %>
-      <button class="br-button mb-3" type="button" primary>Editar Dados</button>
-      <% end %>
     </div>
   </div>
-
 </div>
