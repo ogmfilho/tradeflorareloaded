@@ -37,25 +37,29 @@
             <%if @user.areas.count > 0%> <!--se tiver areas cadastradas, -->
               <% @user.areas.each do |area| %>
                 <div class="card-areas">
-                  <img src="assets/<%=area.basin.name%>.jpg">
+                  <% if !area.photos.attached? %>
+                    <img src="assets/<%=area.basin.name%>.jpg">
+                  <% else %>
+                    <%= cl_image_tag area.photos[0].key, crop: :fill %>
+                  <% end %>
                   <div class="card-areas-infos">
-                    <div class="positionrelativediv">
-                      <p class="alignright">Bacia: <%= area.basin.name %></p>
-                      <h2><%= area.description %></h2>
-                      <p>Cod. da Área: <%= area.id %></p>
-                      <p class="mb-1">Área de: <%= area.user.name %></p>
-                      <p><i class="fas fa-globe-americas"></i> Coordenadas:</p>
-                      <ul class="mb-5">
-                        <li>
-                          Latitude: <%= area.latitude.round(6) %>
-                        </li>
-                        <li>
-                          Longitude: <%= area.longitude.round(6) %>
-                        </li>
-                      </ul>
-                      <br>
-                      <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
+                    <p class="alignright"><%= image_tag "areas/brazil-icon.png", alt: "Mapa do Brasil", width: 25 %> <%= area.city.name %>, <%=area.city.state.name %>
+                    </p>
+                    <% if area.description.size > 140 %>
+                      <h2 style="margin-top: 5px;"><%= area.description[0..140] %>...</h2>
+                    <% else %>
+                      <h2 style="margin-top: 5px;"><%= area.description %></h2>
+                    <% end %>
+                    <hr>
+                    <div class="code-owner">
+                      <p style="margin-bottom: 3px;">Cod. da Área: <%= area.id %> </p>
+                      <p>Área de: <%= area.user.name %></p>
                     </div>
+                    <p style="margin: 4px 0px 4px 0px;"><i class="fas fa-water"></i>Bacia: <%= area.basin.name %></p>
+                    <p><%= image_tag "areas/dimension-icon-sm.png", alt: "Ícone - Tamanho", width: 19 %> Extensão: <%= area.extension %> hectares</p>
+                    <br>
+                    <br>
+                    <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
                   </div>
                 </div>
             <% end %>
@@ -66,8 +70,6 @@
           </div>
         </div>
       </div>
-
-
 
       <div id="areas-de-interesse" class="tab-panel"><br>
         <%if @user.trades.count > 0%>
