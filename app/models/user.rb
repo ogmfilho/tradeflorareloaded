@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
   belongs_to :city
 
-  has_many :reviews
+  has_many :reports, dependent: :destroy
   has_many :trades, dependent: :destroy
   has_many :areas, dependent: :destroy
   has_many :proposals, through: :areas, source: :trades, dependent: :destroy

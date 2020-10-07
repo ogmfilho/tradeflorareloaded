@@ -709,7 +709,10 @@ require 'brazilian_documents'
 
 puts "Seeding Trades table"
 
-  trade_status_options = ['Proposta', 'Visualizada', 'Aceita', 'Recusada', 'Concluída']
+  # As opções abaixo são da versão onde havia mais opções para status.
+  # No seed para usuários aleatórios, era chamado um sample dessa variável
+  # trade_status_options = ['Proposta', 'Visualizada', 'Aceita', 'Recusada', 'Concluída']
+
   trade_details_faker = [
     "Tenho interesse na área. Poderia me contatar?",
     "Por favor, entre em contato.",
@@ -736,7 +739,7 @@ puts "Seeding Trades table"
     30.times do
       attributes = {
         details: trade_details_faker.sample,
-        status:  trade_status_options.sample,
+        status:  "Proposta",
         user_id: users_ids.sample,
         area_id: areas_ids.sample
       }

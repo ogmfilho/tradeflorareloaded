@@ -54,6 +54,10 @@ gem 'rails_admin', '~> 2.0'
 # Rails Admin - traducao dos campos para pt-BR
 gem 'rails_admin-i18n'
 
+# Pagy - para paginação automática do index de Areas
+# mais informações em https://ddnexus.github.io/pagy/how-to
+gem 'pagy', '~> 3.8.3'
+
 # Le wagon setup - frontend
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'

@@ -14,8 +14,8 @@ class TradesController < ApplicationController
     @trade = Trade.new(trade_params)
     @area = Area.find(params[:area_id])
     if @trade.save
-    # raise
       area = Area.find(@trade.area_id)
+<<<<<<< HEAD
       # area.status = true      mudar o nome de status
       # if area.save
       #  redirect_to user_path(area.user_id), notice: 'Nova trade criada.'
@@ -24,6 +24,9 @@ class TradesController < ApplicationController
       maiprop = TradeMailer.with(user: current_user, area: @area).newtrade
       redirect_to my_trades_path, notice: 'Nova trade criada.'
       # redirect_to root_path, notice: 'Nova trade criada.'
+=======
+      redirect_to meu_perfil_path, notice: 'Nova trade criada.'
+>>>>>>> c0e2ee384423bcb7aeb58b331fb94fc1a72e07d9
     else
       render :new
     end
@@ -32,35 +35,40 @@ class TradesController < ApplicationController
   def destroy
     @trade = Trade.find(params[:id])
 
-    unless @trade[:status] == "Aceita" || @trade[:status] == "Concluída"
-      @trade.destroy
-      redirect_to meu_perfil_path, notice: 'Proposta retirada'
-    else
+    if @trade.user_id != current_user.id
+      # raise
+      redirect_to meu_perfil_path, notice: "Proposta só pode ser retirada pelo usuário que a criou."
+    elsif @trade[:status] == "Aceita"
       redirect_to meu_perfil_path, notice: "Proposta não pôde ser retirada, pois já estava #{@trade[:status].downcase}."
+    else
+      @trade.destroy
+      redirect_to meu_perfil_path, notice: 'Proposta retirada.'
     end
-  end
-  
-  def deal
-    @trade = Trade.find(params[:trade_id])
-    @area = Area.find(params[:area_id])
-    
   end
 
   def aprove
     @trade = Trade.find(params[:trade_id])
     @area = Area.find(params[:area_id])
 
-    @area.update(available?: false)
-
-    @area.trades.each do |trade|
-      trade.update(status: "Recusada") unless trade.status == "Concluída" || trade.status == "Recusada"
+    if @area.available?
+      @area.trades.each do |trade|
+        trade.update(status: "Recusada") unless trade.status == "Recusada"
+      end
+      @trade.update(status: 'Aceita')
+      @area.update(available?: false)
+      redirect_to area_trade_my_deal_path
+    else
+      redirect_to meu_perfil_path, notice: 'Já há uma proposta aceita para esta área.'
     end
+<<<<<<< HEAD
 
     @trade.update(status: 'Aceita') unless @trade.status == "Concluída"
     mail = TradeMailer.with(user: @trade.user.name, area: @area).aprove
     mail.deliver_now
 
     redirect_to area_trade_my_deal_path #criar página para proposta aceita
+=======
+>>>>>>> c0e2ee384423bcb7aeb58b331fb94fc1a72e07d9
   end
 
   def refuse
@@ -68,13 +76,21 @@ class TradesController < ApplicationController
     @area = Area.find(params[:area_id])
     @area.update(available?: true) unless @area.available? == true
 
+<<<<<<< HEAD
     @trade.update(status: "Recusada") unless @trade.status == "Concluída" || @trade.status == "Recusada"
     mail = TradeMailer.with(user: @trade.user.name, area: @area).refuse
     mail.deliver_now
+=======
+    @trade.update(status: "Recusada") unless @trade.status == "Recusada"
+>>>>>>> c0e2ee384423bcb7aeb58b331fb94fc1a72e07d9
 
-    redirect_to meu_perfil_path
+    redirect_to meu_perfil_path, notice: "Proposta recusada."
   end
 
+  def deal
+    @trade = Trade.find(params[:trade_id])
+    @area = Area.find(params[:area_id])
+  end
 
   private
 

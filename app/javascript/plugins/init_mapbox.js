@@ -78,16 +78,17 @@ const drawPolygon = (map, draw) => {
   map.addControl(draw, 'top-left');
          
           map.on('draw.create', updateArea);
-          map.on('draw.delete', updateArea);
           map.on('draw.update', updateArea);
 
+          
+          
           map.on('mousemove', function (e) {
-           document.getElementById('info').innerHTML =
-           JSON.stringify(e.point) +
-           '<br />' +
-           JSON.stringify(e.lngLat.wrap());
+            document.getElementById('info').innerHTML =
+            JSON.stringify(e.point) +
+            '<br />' +
+            JSON.stringify(e.lngLat.wrap());
           });
-       
+          
           function updateArea(e) {
             const data = draw.getAll();
             const answer = document.getElementById('calculated-area');
@@ -96,7 +97,7 @@ const drawPolygon = (map, draw) => {
               // restrict to area to 2 decimal points
               const rounded_area = Math.round(area * 100) / 100;
               const area_ha = rounded_area / 10000
-
+              
               const extension = document.getElementById('area_extension');
               extension.value = area_ha.toFixed(2);
               answer.innerHTML = '<p><strong>' + 
@@ -105,9 +106,23 @@ const drawPolygon = (map, draw) => {
             } else {
               answer.innerHTML = '';
               if (e.type !== 'draw.delete')
-                  alert('Use the draw tools to draw a polygon!');
+              alert('Use the draw tools to draw a polygon!');
             }
-
+         
+            map.on('draw.delete', function () {
+              const areaCoordinates = document.getElementById('area_coordinates');
+              areaCoordinates.value = null;
+              const areaExtension = document.getElementById('area_extension');
+              areaExtension.value = null;
+              const areaLongitude = document.getElementById('area_longitude');
+              areaLongitude.value = null;
+              const areaLatitude = document.getElementById('area_latitude');
+              areaLatitude.value = null;
+              const areaDisplay = document.getElementById('calculated-area').querySelector('p');
+              areaDisplay.innerText = null;
+              console.log('deleted');
+            });
+            
             const userPolygon = data.features[0].geometry.coordinates;
             const areaCoordinates = document.getElementById('area_coordinates');
             areaCoordinates.value = userPolygon.toString();
@@ -137,7 +152,8 @@ const initMapbox = () => {
 
     map.addControl(new MapboxGeocoder({ accessToken: mapboxgl.accessToken,
     mapboxgl: mapboxgl }));
-
+    //adicionando controle de navegacao
+    map.addControl(new mapboxgl.NavigationControl());
 
     const title = document.querySelector('title');
     
