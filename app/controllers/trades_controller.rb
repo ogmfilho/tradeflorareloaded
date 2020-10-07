@@ -16,6 +16,10 @@ class TradesController < ApplicationController
     if @trade.save
       area = Area.find(@trade.area_id)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 34d4b7b6879a34193577ec38ea65cd1595c0cddd
       # area.status = true      mudar o nome de status
       # if area.save
       #  redirect_to user_path(area.user_id), notice: 'Nova trade criada.'
@@ -24,9 +28,13 @@ class TradesController < ApplicationController
       maiprop = TradeMailer.with(user: current_user, area: @area).newtrade
       redirect_to my_trades_path, notice: 'Nova trade criada.'
       # redirect_to root_path, notice: 'Nova trade criada.'
+<<<<<<< HEAD
 =======
       redirect_to meu_perfil_path, notice: 'Nova trade criada.'
 >>>>>>> c0e2ee384423bcb7aeb58b331fb94fc1a72e07d9
+=======
+
+>>>>>>> 34d4b7b6879a34193577ec38ea65cd1595c0cddd
     else
       render :new
     end
@@ -61,14 +69,22 @@ class TradesController < ApplicationController
       redirect_to meu_perfil_path, notice: 'Já há uma proposta aceita para esta área.'
     end
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 34d4b7b6879a34193577ec38ea65cd1595c0cddd
 
     @trade.update(status: 'Aceita') unless @trade.status == "Concluída"
     mail = TradeMailer.with(user: @trade.user.name, area: @area).aprove
     mail.deliver_now
 
     redirect_to area_trade_my_deal_path #criar página para proposta aceita
+<<<<<<< HEAD
 =======
 >>>>>>> c0e2ee384423bcb7aeb58b331fb94fc1a72e07d9
+=======
+
+>>>>>>> 34d4b7b6879a34193577ec38ea65cd1595c0cddd
   end
 
   def refuse
@@ -77,12 +93,20 @@ class TradesController < ApplicationController
     @area.update(available?: true) unless @area.available? == true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     @trade.update(status: "Recusada") unless @trade.status == "Concluída" || @trade.status == "Recusada"
     mail = TradeMailer.with(user: @trade.user.name, area: @area).refuse
     mail.deliver_now
 =======
     @trade.update(status: "Recusada") unless @trade.status == "Recusada"
 >>>>>>> c0e2ee384423bcb7aeb58b331fb94fc1a72e07d9
+=======
+
+    @trade.update(status: "Recusada") unless @trade.status == "Concluída" || @trade.status == "Recusada"
+    mail = TradeMailer.with(user: @trade.user.name, area: @area).refuse
+    mail.deliver_now
+
+>>>>>>> 34d4b7b6879a34193577ec38ea65cd1595c0cddd
 
     redirect_to meu_perfil_path, notice: "Proposta recusada."
   end
