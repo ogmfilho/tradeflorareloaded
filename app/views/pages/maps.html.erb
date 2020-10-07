@@ -1,12 +1,11 @@
 <% provide(:title, 'Todas as áreas') %>
-<h2>Mapa de Todas as Áreas</h2>
-
-<p><%= link_to "Voltar para Áreas Disponíveis", areas_path, class: "br-button primary" %>
 
 <div id="map"
-      style="width: 100%; height: 800px;"
+      style="width: 100%; height: 600px; z-index:1;"
       data-markers="<%= @markers.to_json %>"
       data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
 </div>
+<br>
+<p align="center"><%= link_to "Voltar para Áreas Disponíveis", areas_path, class: "br-button primary"  %>
+<br>
 
-<!-- MELHORAR PQ NAO ESTÁ DANDO PRA PASSAR PRA SHOW DIREITO SEM AS COORDENADAS DO POLIGONO NAS SEEDS -->
