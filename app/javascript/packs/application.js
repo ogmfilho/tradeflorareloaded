@@ -28,11 +28,14 @@ require("channels")
 import "bootstrap";
 import { initSelect2 } from '../plugins/init_select2';
 import { initSelectmult } from '../plugins/init_selectmult';
-
+//mini-mapa dinamico do show das areas: 
 import { initBrToolTip } from '../plugins/init_brtooltip';
-
-// Internal imports, e.g:
-// import { initSelect2 } from '../components/init_select2';
+//nav-bar do gov:
+import { initBrHeader } from '../plugins/init_brheader';
+//mini-menu do avatar:
+import { initBrNotification } from '../plugins/init_brnotification';
+//footer do gov:
+import { initFooter } from '../plugins/init_footer';
 
 import { initMapbox } from '../plugins/init_mapbox';
 
@@ -41,4 +44,7 @@ document.addEventListener('turbolinks:load', () => {
   initSelect2();
   initSelectmult();
   initBrToolTip();
+  initBrHeader();
+  initBrNotification();
+  initFooter();
 })
