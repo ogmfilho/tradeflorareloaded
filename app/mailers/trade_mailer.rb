@@ -9,8 +9,8 @@ class TradeMailer < ApplicationMailer
     @user = params[:user]
     @area = params[:area]
     mail(
-      to:       @user,
-      subject:  "Nova proposta para área disponibilizada em #{@area.city}"
+      to:       @user.email,
+      subject:  "Nova proposta para área disponibilizada em #{@area.city.name}"
     )
   end
 
@@ -25,7 +25,7 @@ class TradeMailer < ApplicationMailer
 
     mail(
       to:       @area.user.email,
-      subject:  "Nova proposta para área disponibilizada em #{@area.city}"
+      subject:  "Nova proposta para área disponibilizada em #{@area.city.name}"
     )
   end
 
@@ -38,8 +38,8 @@ class TradeMailer < ApplicationMailer
     @user = params[:user]
     @area = params[:area]
     mail(
-      to:       @interested,
-      subject:  "Informações sobre sua proposta para área disponibilizada em #{@area.city}"
+      to:       @user.email,
+      subject:  "Informações sobre sua proposta para área disponibilizada em #{@area.city.name}"
     )
     
   end
@@ -53,8 +53,8 @@ class TradeMailer < ApplicationMailer
     @user = params[:user]
     @area = params[:area]
     mail(
-      to:       @interested,
-      subject:  "Informações sobre sua proposta para área disponibilizada em #{@area.city}"
+      to:       @user.email,
+      subject:  "Informações sobre sua proposta para área disponibilizada em #{@area.city.name}"
     )
   end
 end

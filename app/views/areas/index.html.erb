@@ -19,19 +19,16 @@
               <%= cl_image_tag area.photos[0].key, crop: :fill %>
             <% end %>
               <div class="card-areas-infos">
-                <p class="alignright">Bacia: <%= area.basin.name %></p>
-                <h2><%= area.description %></h2>
-                <p>Cod. da Área: <%= area.id %></p>
-                <p class="mb-1">Área de: <%= area.user.name %></p>
-                <p><i class="fas fa-globe-americas"></i> Coordenadas:</p>
-                <ul>
-                  <li>
-                    Latitude: <%= area.latitude.round(6) %>
-                  </li>
-                  <li>
-                    Longitude: <%= area.longitude.round(6) %>
-                  </li>
-                </ul>
+                <p class="alignright"><%= image_tag "areas/brazil-icon.png", alt: "Mapa do Brasil", width: 25 %> <%= area.city.name %>, <%=area.city.state.name %>
+                </p>
+                <h2 style="margin-bottom: 5px;"><%= area.description %></h2>
+                <hr>
+                <div class="code-owner">
+                  <p style="margin-bottom: 3px;">Cod. da Área: <%= area.id %> </p>
+                  <p>Área de: <%= area.user.name %></p>
+                </div>
+                <p style="margin: 4px 0px 4px 0px;"><i class="fas fa-water"></i>Bacia: <%= area.basin.name %></p>
+                <p><%= image_tag "areas/dimension-icon-sm.png", alt: "Ícone - Tamanho", width: 19 %> Extensão: <%= area.extension %> hectares</p>
                 <br>
                 <br>
                 <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
@@ -42,24 +39,24 @@
     <% end %>
 
 
-  <div id="searchbox" class="col-lg-3">
+  <div id="searchbox">
     <h4>Pesquisa</h4>
     <%= simple_form_for @search, url: area_searches_path do |s| %>
-      <div class="field">
-        <%= s.text_field :keywords %>
+      <div>
+        <%= s.text_field :keywords, placeholder: 'Digite Aqui' %>
        </div>
-       <div class="field">
+       <div>
         <%= s.input :states_id, label: "Estado", collection: @states.sort_by { |state| state[:name]}, input_html:  { class: "selectmult", multiple: true } %>
        </div>
-       <div class="field">
+       <div>
         <%= s.input :cities_id, label: 'Município', collection: State.all.sort_by {|state| state[:name]}, as: :grouped_select, group_method: :cities, input_html:  { class: "selectmult", multiple: true } %>
        </div>
-       <div class="field">
-        <%= s.input :basins_id, label: "Bacia hidrográfica", collection: @basins, input_html:  { class: "selectmult", multiple: true } %>
+       <div>
+        <%= s.input :basins_id, label: "Bacia Hidrográfica", collection: @basins, input_html:  { class: "selectmult", multiple: true } %>
        </div>
-       <div class="field">
-         <p><%= s.label "Extensão mínima (hectares)"%> - <%= s.text_field :min_extension, size: 10 %></p>
-          <p><%= s.label "Extensão máxima (hectares)"%> - <%= s.text_field :max_extension, size: 10 %></p>
+       <div>
+         <p><%= s.label "Extensão Mín (hectares)" %> - <%= s.text_field :min_extension, size: 7 %></p>
+          <p><%= s.label "Extensão Máx (hectares)" %> - <%= s.text_field :max_extension, size: 7 %></p>
        </div>
        <br>
        <div>
