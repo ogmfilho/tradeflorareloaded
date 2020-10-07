@@ -31,10 +31,15 @@ import { initSelectmult } from '../plugins/init_selectmult';
 
 import { initBrTabs } from '../plugins/init_brtabs';
 
-import { initBrToolTip } from '../plugins/init_brtooltip';
+//mini-mapa dinamico do show das areas: 
 
-// Internal imports, e.g:
-// import { initSelect2 } from '../components/init_select2';
+import { initBrToolTip } from '../plugins/init_brtooltip';
+//nav-bar do gov:
+import { initBrHeader } from '../plugins/init_brheader';
+//mini-menu do avatar:
+import { initBrNotification } from '../plugins/init_brnotification';
+//footer do gov:
+import { initFooter } from '../plugins/init_footer';
 
 import { initMapbox } from '../plugins/init_mapbox';
 
@@ -44,4 +49,7 @@ document.addEventListener('turbolinks:load', () => {
   initSelectmult();
   initBrToolTip();
   initBrTabs();
+  initBrHeader();
+  initBrNotification();
+  initFooter();
 })

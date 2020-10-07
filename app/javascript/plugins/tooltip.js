@@ -179,12 +179,8 @@ class BRTooltip {
     }
   }
 }
-
-const initBrToolTip = () => {
-  const tooltipList = [];
-  for (const brTooltip of window.document.querySelectorAll('.br-tooltip')) {
-    tooltipList.push(new BRTooltip('br-tooltip', brTooltip));
-  };
-};
-
-export {initBrToolTip};
+const tooltipList = []
+for (const brTooltip of window.document.querySelectorAll('.br-tooltip')) {
+  tooltipList.push(new BRTooltip('br-tooltip', brTooltip))
+}
+export default BRTooltip
