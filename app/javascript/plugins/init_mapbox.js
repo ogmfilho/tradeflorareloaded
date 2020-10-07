@@ -86,13 +86,12 @@ const loadPolygonEdit = (map, polygon) => {
               'fill-opacity',
               parseInt(e.target.value, 10) / 100
               );
-            sliderValue.textContent = e.target.value + '%';
           });
   });
 }
 
 const drawPolygon = (map, draw) => {
-  map.addControl(draw, 'top-left');
+  map.addControl(draw, 'bottom-left');
          
           map.on('draw.create', updateArea);
           map.on('draw.update', updateArea);
