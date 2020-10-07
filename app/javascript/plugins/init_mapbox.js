@@ -159,7 +159,7 @@ const initMapbox = () => {
       container: 'map',
       style: 'mapbox://styles/mapbox/satellite-streets-v11',
       center: [-47, -15],
-      zoom: 4
+      zoom: 2
     }
 
     const map = new mapboxgl.Map(attributes);

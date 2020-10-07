@@ -103,11 +103,11 @@
                         <!-- <td style="border-top: none"><%#= link_to "Detalhes", area_path(area), class: "br-button primary" %></td> -->
                         <td style="border-top: none">
                           <%= link_to area_path(area) do %>
-                            <i class="fa fa-info-circle destroy_trade"></i><span>Detalhes</span>
+                            <i class="fa fa-info-circle"></i><span>Detalhes</span>
                           <% end %>
                           <% unless trade.status == "Aceita" %>
                             <%= link_to area_trade_path(area, trade), method: :delete, data: { confirm: "Deseja retirar a sua proposta?" } do %>
-                                <i class="fa fa-times-circle update_area"></i><span>Retirar proposta</span>
+                                <i class="fa fa-times-circle destroy_trade"></i><span>Retirar proposta</span>
                             <% end %>
                           <% end %>
                         </td>
