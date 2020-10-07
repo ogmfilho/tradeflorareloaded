@@ -49,3 +49,12 @@
   width: 100px;
   height: 100px;
 }
+
+.gradiente {
+  background: rgb(24,73,153);
+  background: linear-gradient(142deg, rgba(24,73,153,1) 0%, rgba(7,29,65,1) 55%);
+}
+
+.fontwhite {
+  color: #FFFFFF
+}
