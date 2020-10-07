@@ -24,7 +24,7 @@ const fitMapToPolygon = (map, boundpoly) => {
 
 const loadPolygon = (map, polygon) => {
   map.on('load', function () {
-          map.addSource('maine', {
+          map.addSource('polygon', {
             'type': 'geojson',
             'data': {
               'type': 'Feature',
@@ -35,9 +35,9 @@ const loadPolygon = (map, polygon) => {
             }
            });
           map.addLayer({
-            'id': 'maine',
+            'id': 'polygon',
             'type': 'fill',
-            'source': 'maine',
+            'source': 'polygon',
             'layout': {},
             'paint': {
               'fill-color': '#088',
@@ -45,12 +45,21 @@ const loadPolygon = (map, polygon) => {
               'fill-outline-color': '#088'
             }
           });
-        });
+
+          slider.addEventListener('input', function (e) {
+            map.setPaintProperty(
+              'polygon',
+              'fill-opacity',
+              parseInt(e.target.value, 10) / 100
+              );
+            sliderValue.textContent = e.target.value + '%';
+          });
+  });
 }
 
 const loadPolygonEdit = (map, polygon) => {
   map.on('load', function () {
-          map.addSource('maine', {
+          map.addSource('polygon', {
             'type': 'geojson',
             'data': {
               'type': 'Feature',
@@ -61,9 +70,9 @@ const loadPolygonEdit = (map, polygon) => {
             }
            });
           map.addLayer({
-            'id': 'maine',
+            'id': 'polygon',
             'type': 'fill',
-            'source': 'maine',
+            'source': 'polygon',
             'layout': {},
             'paint': {
               'fill-color': 'red',
@@ -71,7 +80,15 @@ const loadPolygonEdit = (map, polygon) => {
               'fill-outline-color': 'red'
             }
           });
-        });
+          slider.addEventListener('input', function (e) {
+            map.setPaintProperty(
+              'polygon',
+              'fill-opacity',
+              parseInt(e.target.value, 10) / 100
+              );
+            sliderValue.textContent = e.target.value + '%';
+          });
+  });
 }
 
 const drawPolygon = (map, draw) => {
@@ -174,6 +191,8 @@ const initMapbox = () => {
       if (title.innerText.toLowerCase() === 'Editar Área | TradeFlora'.toLowerCase()){
         const polygon = JSON.parse(mapElement.dataset.polygon);
         const boundpoly = JSON.parse(mapElement.dataset.boundpoly);
+        const slider = document.getElementById('slider');
+        const sliderValue = document.getElementById('slider-value');
         const draw = new MapboxDraw({
           displayControlsDefault: false,
           controls: {
@@ -195,6 +214,8 @@ const initMapbox = () => {
       if (title.innerText.toLowerCase() === 'Ver Área | TradeFlora'.toLowerCase()){
         const polygon = JSON.parse(mapElement.dataset.polygon);
         const boundpoly = JSON.parse(mapElement.dataset.boundpoly);
+        const slider = document.getElementById('slider');
+        const sliderValue = document.getElementById('slider-value');
         fitMapToPolygon(map, boundpoly);
         loadPolygon(map, polygon);
         
