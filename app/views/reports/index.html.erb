@@ -77,23 +77,29 @@
                     </div>
                   </div>
                   <div class="flex-grow-1">
-                    <p class="h5 text-primary-default mb-0"> <%= report.user.name %> </p><span> <%= report.created_at %> </span>
+                    <p class="h5 text-primary-default mb-0"> <%= report.user.name %> </p><span> <%= report.created_at.getlocal.strftime("Em %d/%m/%Y, às %H:%M:%S:") %> </span>
                   </div>
                 </div>
               </div>
-              <div class="content"><!-- <img src="https://picsum.photos/id/10/1080" alt="Imagem de exemplo"> -->
+
+              <div class="content d-flex align-items-center ml-4">
+                <img src="https://picsum.photos/id/10/1080" alt="Imagem de exemplo" class="w-25">
                 <p class="mt-3 mx-5"> <%= report.content %> </p>
               </div>
+
               <div class="footer d-flex justify-content-between align-items-center">
                 <div>&nbsp</div>
                 <div>
                   <!-- BOTÕES -->
-                  <%= link_to meu_perfil_path do %>
-                    <i class="fa fa-edit"></i><span>Editar</span>
-                  <% end %>
+                  <%#= raise %>
+                  <%if current_user == @area.user || current_user == @trade.user %>
+                    <%= link_to edit_area_trade_report_path(@area, @trade, report), data: { confirm: "Editar este comentário?" } do %>
+                      <i class="fa fa-edit"></i><span>Editar</span>
+                    <% end %>
 
-                  <%= link_to meu_perfil_path do %>
-                      <i class="fa fa-times-circle"></i><span>Apagar</span>
+                    <%= link_to area_trade_report_path(@area, @trade, report), method: :delete, data: { confirm: "Excluir este comentário?" } do %>
+                        <i class="fa fa-times-circle"></i><span>Apagar</span>
+                    <% end %>
                   <% end %>
 
                 </div>
@@ -109,11 +115,19 @@
 
     <br>
     <div>
-      <%= link_to new_area_trade_report_path do %>
-        <button class="br-button mb-3" type="button" primary>Adicionar comentário</button>
+      <%if current_user == @area.user || current_user == @trade.user %>
+        <%= link_to new_area_trade_report_path do %>
+          <button class="br-button mb-3" type="button" primary>Adicionar comentário</button>
+        <% end %>
       <% end %>
-     <%= link_to meu_perfil_path do %>
-        <button class="br-button mb-3" type="button" primary>Voltar para meu perfil</button>
+      <% if user_signed_in? %>
+        <%= link_to meu_perfil_path do %>
+          <button class="br-button mb-3" type="button" primary>Voltar para Meu Perfil</button>
+        <% end %>
+      <% else %>
+        <%= link_to areas_path do %>
+          <button class="br-button mb-3" type="button" primary>Voltar para Áreas Disponíveis</button>
+        <% end %>
       <% end %>
     </div>
   </div>
