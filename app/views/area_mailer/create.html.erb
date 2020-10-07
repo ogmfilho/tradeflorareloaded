@@ -1,16 +1,37 @@
-<h2>Prezado <%= @area.user.name %>,</h2>
+<style>
+h1 {
+font-family: "rawline";
+color: rgb(7,29,65);
+font-size: 25px;
+position: relative;
+padding: 15px;
+text-align: justify;
+font-style: bold
+}
+ 
+p {
+font-family: "rawline";
+font-size: 18px;
+position: relative;
+padding: 15px;
+text-align: justify;
+font-style: normal
+}
+</style>
+
+<h1>Prezado <%= @area.user.name %>,</h1>
 
 <p> Uma nova área foi disponibilizada no município de <%= @area.city.name %> </p>
-<div>
-<h3>Área Disponibilizada por <%= @area.user.name %>:</h3>
 
-<h4>Descrição </h4><p><%= @area.description %></p>
-<h4>Estado </h4><p><%= @area.city.state.name %></p>
-<h4>Município </h4><p><%= @area.city.name %></p>
-<h4>Hectares </h4><p><p><%= @area.extension %></p>
-<h4>Bacia </h4><p><%= @area.basin.name %></p>
-<div>
-Para maiores informações visite <a href="https://tradeflora.herokuapp.com"/>nossa página</a>.
+<p><strong>Área Disponibilizada por <%= @area.user.name %>:</strong></p>
+
+<p><strong>Descrição</strong></p><p><%= @area.description %></p>
+<p><strong>Estado</strong></p><p><%= @area.city.state.name %></p>
+<p><strong>Município</strong></p><p><%= @area.city.name %></p>
+<p><strong>Hectares</strong></p><p><p><%= @area.extension %></p>
+<p><strong>Bacia</strong></p><p><%= @area.basin.name %></p>
+
+Para maiores informações visite <a href="https://tradeflora.herokuapp.com"/>nossa página 🌳</a>.
 
 
 
