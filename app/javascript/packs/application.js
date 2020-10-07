@@ -29,6 +29,8 @@ import "bootstrap";
 import { initSelect2 } from '../plugins/init_select2';
 import { initSelectmult } from '../plugins/init_selectmult';
 
+import { initBrTabs } from '../plugins/init_brtabs';
+
 import { initBrToolTip } from '../plugins/init_brtooltip';
 
 // Internal imports, e.g:
@@ -41,4 +43,5 @@ document.addEventListener('turbolinks:load', () => {
   initSelect2();
   initSelectmult();
   initBrToolTip();
+  initBrTabs();
 })
