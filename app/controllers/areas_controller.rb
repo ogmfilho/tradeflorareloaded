@@ -43,6 +43,8 @@ class AreasController < ApplicationController
     @area.user = current_user
 
     if @area.save
+      mail = AreaMailer.with(area: @area).create
+      mail.deliver_now
       redirect_to area_path(@area), notice: 'Nova área criada.'
     else
       flash.now[:alert] = 'Dados inválidos'

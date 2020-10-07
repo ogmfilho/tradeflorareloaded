@@ -3,6 +3,7 @@ require 'brazilian_documents'
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  after_create :send_welcome_email
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -19,6 +20,10 @@ class User < ApplicationRecord
   private
   def document_valid
     errors.add(:document_number, 'Número do documento inválido.') unless BRDocuments::CPF.valid?(document_number) ||  BRDocuments::CNPJ.valid?(document_number)
+  end
+
+  def send_welcome_email
+    UserMailer.with(user: self).welcome.deliver_now
   end
 
 end

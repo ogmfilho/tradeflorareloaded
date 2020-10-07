@@ -15,7 +15,16 @@ class TradesController < ApplicationController
     @area = Area.find(params[:area_id])
     if @trade.save
       area = Area.find(@trade.area_id)
-      redirect_to meu_perfil_path, notice: 'Nova trade criada.'
+
+      # area.status = true      mudar o nome de status
+      # if area.save
+      #  redirect_to user_path(area.user_id), notice: 'Nova trade criada.'
+        # end
+      mailint = TradeMailer.with(user: current_user, area: @area).newtrade
+      maiprop = TradeMailer.with(user: current_user, area: @area).newtrade
+      redirect_to my_trades_path, notice: 'Nova trade criada.'
+      # redirect_to root_path, notice: 'Nova trade criada.'
+
     else
       render :new
     end
@@ -49,6 +58,14 @@ class TradesController < ApplicationController
     else
       redirect_to meu_perfil_path, notice: 'Já há uma proposta aceita para esta área.'
     end
+
+
+    @trade.update(status: 'Aceita') unless @trade.status == "Concluída"
+    mail = TradeMailer.with(user: @trade.user.name, area: @area).aprove
+    mail.deliver_now
+
+    redirect_to area_trade_my_deal_path #criar página para proposta aceita
+
   end
 
   def refuse
@@ -56,7 +73,11 @@ class TradesController < ApplicationController
     @area = Area.find(params[:area_id])
     @area.update(available?: true) unless @area.available? == true
 
-    @trade.update(status: "Recusada") unless @trade.status == "Recusada"
+
+    @trade.update(status: "Recusada") unless @trade.status == "Concluída" || @trade.status == "Recusada"
+    mail = TradeMailer.with(user: @trade.user.name, area: @area).refuse
+    mail.deliver_now
+
 
     redirect_to meu_perfil_path, notice: "Proposta recusada."
   end

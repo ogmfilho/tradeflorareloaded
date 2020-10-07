@@ -1,0 +1,24 @@
+<h2>Prezado <%= @area.user.name %>,</h2>
+
+<p> Uma nova área foi disponibilizada no município de <%= @area.city.name %> </p>
+<div>
+<h3>Área Disponibilizada por <%= @area.user.name %>:</h3>
+
+<h4>Descrição </h4><p><%= @area.description %></p>
+<h4>Estado </h4><p><%= @area.city.state.name %></p>
+<h4>Município </h4><p><%= @area.city.name %></p>
+<h4>Hectares </h4><p><p><%= @area.extension %></p>
+<h4>Bacia </h4><p><%= @area.basin.name %></p>
+<div>
+Para maiores informações visite <a href="https://tradeflora.herokuapp.com"/>nossa página</a>.
+
+
+
+
+              
+              
+              
+              
+              
+             
+

@@ -92,3 +92,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 
 gem 'turf-rails', '~> 5.1', '>= 5.1.6.1'
+
+gem 'letter_opener', group: :development
+
+gem 'postmark-rails'
