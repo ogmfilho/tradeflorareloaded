@@ -10,14 +10,39 @@
 <br>
 <br>
 
+  <div class="container">
+    <div>
+      <div class="row pt-5 m-auto homecard">
+        <div class="card-parceiros">
+          <%= link_to "http://www.ibama.gov.br/", target: :_blank do %>
+            <%= image_tag "homeimages/Logo_IBAMA.svg", alt: "Logo Ibama" %>
+          <% end %>
+        </div>
+        <div class="card-parceiros">
+           <%= link_to "http://www.icmbio.gov.br/portal/", target: :_blank do %>
+            <%= image_tag "homeimages/Logo-ICMBio.jpg", alt: "Logo ICMBio" %>
+          <% end %>
+        </div>
+        <div class="card-parceiros">
+          <%= link_to "http://www.jbrj.gov.br/", target: :_blank do %>
+            <%= image_tag "homeimages/Logo-jardimbotrio.png", alt: "Logo Jardim Botânico Rio de Janeiro" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="mt-2" style="text-align: center">Órgãos Vinculados</p>
+
+<br>
+<br>
+
 <div class="jumbotron jumbotron-fluid gradiente mb-0" id="SaibaMais">
   <div class="container fontwhite">
-      <h1 class="display-4">Por Dentro do Programa</h1>
+      <h1 class="display-4">Por Dentro do TradeFlora</h1>
       <p class="lead">O programa TradeFlora surge como uma estratégia para disseminar a formalização de parcerias entre detentores de áreas que precisam ser recuperadas e interessados em encontrar áreas de plantio pelos mais diversos motivos.</p>
   </div>
 
   <div class="container">
-
     <div>
       <div class="row pt-5 m-auto homecard">
 
@@ -49,8 +74,6 @@
               <p class="card-text">Empresas interessadas também podem se cadastrar e procurar por áreas à disposição. <em>TradeFlora</em> promove o encontro entre as partes e agiliza o negócio. </p>
             </div>
             <div class="card-footer" style="background: inherit; border-color: inherit;">
-                <!-- <a href="#" class="btn btn-primary">Option</a>
-                <a href="#" class="btn btn-outline-primary">Other option</a> -->
             </div>
           </div>
         </div>
