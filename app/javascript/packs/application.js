@@ -41,6 +41,11 @@ import { initBrNotification } from '../plugins/init_brnotification';
 //footer do gov:
 import { initFooter } from '../plugins/init_footer';
 
+
+import { initCarousel } from '../plugins/init_carousel';
+
+
+
 import { initMapbox } from '../plugins/init_mapbox';
 
 document.addEventListener('turbolinks:load', () => {
@@ -52,4 +57,6 @@ document.addEventListener('turbolinks:load', () => {
   initBrHeader();
   initBrNotification();
   initFooter();
+
+  //initCarousel();
 })

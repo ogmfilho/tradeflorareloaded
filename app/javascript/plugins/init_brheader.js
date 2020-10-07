@@ -147,7 +147,6 @@ const initBrHeader = () => {
   for (const brHeader of window.document.querySelectorAll('.br-header')) {
     headerList.push(new BRHeader('br-header', brHeader));
   };
-  console.log(headerList);
 };
 
 export {initBrHeader};
