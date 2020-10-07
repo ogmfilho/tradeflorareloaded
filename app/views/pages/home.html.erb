@@ -13,37 +13,25 @@
   <div class="container">
     <div>
       <div class="row pt-5 m-auto homecard">
-        <div class="card" style="width: 18rem;">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="https://www.gov.br/ibama/pt-br" target="_blank"><button class="br-button mt-1" type="button" primary>Saiba Mais</button></a>
-          </div>
+        <div class="card-parceiros">
+          <%= link_to "http://www.ibama.gov.br/", target: :_blank do %>
+            <%= image_tag "homeimages/Logo_IBAMA.svg", alt: "Logo Ibama" %>
+          <% end %>
         </div>
-
-        <div class="card" style="width: 18rem;">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="https://www.icmbio.gov.br/portal/" target=_blank><button class="br-button mt-1" type="button" primary>Saiba Mais</button></a>
-          </div>
+        <div class="card-parceiros">
+           <%= link_to "http://www.icmbio.gov.br/portal/", target: :_blank do %>
+            <%= image_tag "homeimages/Logo-ICMBio.jpg", alt: "Logo ICMBio" %>
+          <% end %>
         </div>
-
-        <div class="card" style="width: 18rem;">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="http://www.jbrj.gov.br/" target=_blank><button class="br-button mt-1" type="button" primary>Saiba Mais</button></a>
-          </div>
+        <div class="card-parceiros">
+          <%= link_to "http://www.jbrj.gov.br/", target: :_blank do %>
+            <%= image_tag "homeimages/Logo-jardimbotrio.png", alt: "Logo Jardim Botânico Rio de Janeiro" %>
+          <% end %>
         </div>
-
-
       </div>
     </div>
   </div>
+  <p class="mt-2" style="text-align: center">Órgãos Vinculados</p>
 
 <br>
 <br>
