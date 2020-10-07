@@ -1,5 +1,26 @@
-<h1>Trade#proposal</h1>
+<style>
+h1 {
+font-family: "rawline";
+color: rgb(7,29,65);
+font-size: 25px;
+position: relative;
+padding: 15px;
+text-align: justify;
+font-style: bold
+}
+ 
+p {
+font-family: "rawline";
+font-size: 18px;
+position: relative;
+padding: 15px;
+text-align: justify;
+font-style: normal
+}
+</style>
 
-<p>
-  <%= @greeting %>, find me in app/views/trade_mailer/proposal.html.erb
-</p>
+
+<h1>Prezado <%= @area.user.name %></h1>
+
+<p>Foi registrada uma nova proposta em nome de <%= @user.name %> para sua área localizada no município de <%= @area.city.name%>.</p>
+<p>Para maiores informações visite <a href="https://tradeflora.herokuapp.com"/>nossa página</a> 🌳.</p>
