@@ -41,10 +41,37 @@
         <% end %>
       </div>
     <% end %>
+  <style>
+    #check{
+      display: none;
+    }
+
+    #check:checked ~ #searchbox{
+      width: 500px;
+      opacity: 1;
+    }
+
+    #icone{
+      cursor: pointer;
+      position: relative;
+      z-index 1;
+    }
+
+    #searchbox{
+      position: relative;
+      width: 100px;
+      transition: all .2s linear;
+      opacity: 0;
+    }
+
+  </style>
+  
+  <input type="checkbox" id="check">
+  <label id="icone" for="check"><h4> Pesquisa </h4><i class="fa fa-search" aria-hidden="true"></i></label>
+  
 
 
   <div id="searchbox">
-    <h4>Pesquisa</h4>
     <%= simple_form_for @search, url: area_searches_path do |s| %>
       <div>
         <%= s.text_field :keywords, placeholder: 'Digite Aqui' %>
@@ -77,6 +104,7 @@
   </div>
 </div>
 
+  
 <!-- Abaixo o link para a paginação, da gem Pagy - para mais informações, ver o gemfile -->
 <div class="d-flex justify-content-center">
   <%= pagy_bootstrap_nav(@pagy).html_safe %>
