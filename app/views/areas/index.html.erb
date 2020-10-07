@@ -19,12 +19,16 @@
               <%= cl_image_tag area.photos[0].key, crop: :fill %>
             <% end %>
               <div class="card-areas-infos">
-                <p class="alignright"><%= image_tag "areas/brazil-icon.png", alt: "Mapa do Brasil", width: 25 %> Bacia: <%= area.basin.name %></p>
-                <h2><%= area.description %></h2>
-                <p style="margin-bottom: 3px;">Cod. da Área: <%= area.id %></p>
-                <p class="mb-1"><i class="fas fa-user-circle"></i>Área de: <%= area.user.name %></p>
-                <p style="margin-bottom: 5px; font-size: 15px;">Extensão:</p>
-                  <p style="font-size: 20px;"><%= image_tag "areas/dimension-icon-sm.png", alt: "Ícone - Tamanho", width: 40 %> <%= area.extension %><span> hectares</span></p>
+                <p class="alignright"><%= image_tag "areas/brazil-icon.png", alt: "Mapa do Brasil", width: 25 %> <%= area.city.name %>, <%=area.city.state.name %>
+                </p>
+                <h2 style="margin-bottom: 5px;"><%= area.description %></h2>
+                <hr>
+                <div class="code-owner">
+                  <p style="margin-bottom: 3px;">Cod. da Área: <%= area.id %> </p>
+                  <p>Área de: <%= area.user.name %></p>
+                </div>
+                <p style="margin: 4px 0px 4px 0px;"><i class="fas fa-water"></i>Bacia: <%= area.basin.name %></p>
+                <p><%= image_tag "areas/dimension-icon-sm.png", alt: "Ícone - Tamanho", width: 19 %> Extensão: <%= area.extension %> hectares</p>
                 <br>
                 <br>
                 <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>

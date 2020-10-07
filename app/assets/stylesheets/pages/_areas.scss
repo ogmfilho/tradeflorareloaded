@@ -38,7 +38,7 @@
 }
 
 .card-areas p {
-  font-size: 13px;
+  font-size: 14px;
   opacity: .9;
   margin: 0;
 }
@@ -74,6 +74,12 @@
 #paddingleft16 {
   padding-left: 16px
 }
+
+.code-owner {
+  display: flex;
+  justify-content: space-between;
+}
+
 
 /*Media Queries*/
 
