@@ -53,6 +53,7 @@ class TradesController < ApplicationController
     else
       redirect_to meu_perfil_path, notice: 'Já há uma proposta aceita para esta área.'
     end
+  end
 
   def refuse
     @trade = Trade.find(params[:trade_id])
@@ -74,4 +75,5 @@ class TradesController < ApplicationController
   def trade_params
     params.require(:trade).permit(:user_id, :area_id, :status, :details)
   end
+
 end
