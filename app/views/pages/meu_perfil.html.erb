@@ -45,7 +45,11 @@
                   <div class="card-areas-infos">
                     <p class="alignright"><%= image_tag "areas/brazil-icon.png", alt: "Mapa do Brasil", width: 25 %> <%= area.city.name %>, <%=area.city.state.name %>
                     </p>
-                    <h2 style="margin-top: 5px;"><%= area.description %></h2>
+                    <% if area.description.size > 140 %>
+                      <h2 style="margin-top: 5px;"><%= area.description[0..140] %>...</h2>
+                    <% else %>
+                      <h2 style="margin-top: 5px;"><%= area.description %></h2>
+                    <% end %>
                     <hr>
                     <div class="code-owner">
                       <p style="margin-bottom: 3px;">Cod. da Área: <%= area.id %> </p>
