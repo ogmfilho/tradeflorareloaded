@@ -14,9 +14,9 @@
       <% if user_signed_in? %>
           <ul>
             <li class="title">Acesso Rápido</li>
-            <li><%= link_to "Áreas Disponíveis", areas_path %></li>
-            <li><%= link_to "Criar Área", new_area_path %></li>
-            <li><%= link_to "Meu Perfil", meu_perfil_path %></li>
+            <li><%= link_to "Áreas Disponíveis", areas_path, style: 'font-size: 1.2em;' %></li>
+            <li><%= link_to "Criar Área", new_area_path, style: 'font-size: 1.2em;' %></li>
+            <li><%= link_to "Meu Perfil", meu_perfil_path, style: 'font-size: 1.2em;' %></li>
           </ul>
       <% else %>
       <%= link_to "Cadastre-se", new_user_registration_path %>
