@@ -1,5 +1,18 @@
 class ReportsController < ApplicationController
 
+  def index
+    @basins = Basin.all
+    @trade = Trade.find(params[:trade_id])
+    @area = Area.find(params[:area_id])
+    @markers = [{
+      lat: @area.latitude,
+      lng: @area.longitude
+    }]
+    coordinates = @area.coordinates.split(",").in_groups_of(2)
+    @polygon = coordinates.map{ |pair| pair.map{ |coord| coord.to_f } }
+    @reports = Report.where(trade_id: @trade.id)
+  end
+
   def new
     @report = Report.new()
     @trade = Trade.find(params[:trade_id])
@@ -24,7 +37,7 @@ class ReportsController < ApplicationController
   private
 
   def report_params
-    params.require(:report).permit(:content)
+    params.require(:report).permit(:user_id, :area_id, :trade_id, :content)
   end
 
 

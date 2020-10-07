@@ -128,49 +128,54 @@
 
 
 
-      <div id="propostas-recebidas" class="tab-panel"><br>
-        <%if @user.proposals.count > 0 %>
-          <div class="row">
-            <div class="col-sm-12 col-md-6">
-              <h3>Propostas Recebidas</h3>
-              <table class="table">
-                <thead>
-                  <th>No. da Área</th>
-                  <th>Descrição da Área</th>
-                  <th>Bacia Hidrográfica</th>
-                  <th>Interessado</th>
-                  <th>Email</th>
-                  <th>Telefone</th>
-                  <th>Detalhes da Proposta</th>
-                  <th>Situação da Proposta</th>
-                  <th>Ações</th>
-                </thead>
-                <tbody>
-                  <% @user.proposals.sort_by {|proposal| proposal.area_id}.each do |proposal| %>
-                    <% user = proposal.user %>
-                    <% area = proposal.area %>
-                    <tr>
-                      <td><%= area.id %></td>
-                      <td><%= area.description %></td>
-                      <td><%= area.basin.name %></td>
-                      <td><%= user.name %></td>
-                      <td><%= user.email %></td>
-                      <td><%= user.phone_number %></td>
-                      <td><%= proposal.details %></td>
-                      <td><%= proposal.status %></td>
-                      <td style="border-top: none">
-                        <% unless proposal.status == "Recusada" %>
-                          <%= link_to area_trade_refuse_path(area, proposal), method: :patch, data: { confirm: "Recusar proposta?" } do %>
-                            <i class="fa fa-times-circle destroy_trade"></i><span> Recusar </span>
-                          <% end %>
+      <div id="propostas-recebidas" class="container tab-pane fade"><br>
+      <%if @user.proposals.count > 0 %>
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <h3>Propostas Recebidas</h3>
+            <table class="table">
+              <thead>
+                <th>No. da Área</th>
+                <th>Descrição da Área</th>
+                <th>Bacia Hidrográfica</th>
+                <th>Interessado</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Detalhes da Proposta</th>
+                <th>Situação da Proposta</th>
+                <th>Ações</th>
+              </thead>
+              <tbody>
+                <% @user.proposals.sort_by {|proposal| proposal.area_id}.each do |proposal| %>
+                  <% user = proposal.user %>
+                  <% area = proposal.area %>
+                  <tr>
+                    <td><%= area.id %></td>
+                    <td><%= area.description %></td>
+                    <td><%= area.basin.name %></td>
+                    <td><%= user.name %></td>
+                    <td><%= user.email %></td>
+                    <td><%= user.phone_number %></td>
+                    <td><%= proposal.details %></td>
+                    <td><%= proposal.status %></td>
+                    <td style="border-top: none">
+                      <% unless proposal.status == "Recusada" %>
+                        <%= link_to area_trade_refuse_path(area, proposal), method: :patch, data: { confirm: "Recusar proposta?" } do %>
+                          <i class="fa fa-times-circle destroy_trade"></i><span> Recusar </span>
                         <% end %>
-                        <% if proposal.status != "Aceita" && area.trades.find_by(status: "Aceita") == nil %>
-                          <%= link_to area_trade_aprove_path(area, proposal), method: :patch, data: { confirm: "Aceitar proposta? Atenção: outras popostas para esta área serão automaticamente recusadas." } do %>
-                            <i class="fa fa-check-circle update_area"></i><span> Aceitar </span>
-                          <% end %>
+                      <% end %>
+                      <% if proposal.status != "Aceita" && area.trades.find_by(status: "Aceita") == nil %>
+                        <%= link_to area_trade_aprove_path(area, proposal), method: :patch, data: { confirm: "Aceitar proposta? Atenção: outras popostas para esta área serão automaticamente recusadas." } do %>
+                          <i class="fa fa-check-circle update_area"></i><span> Aceitar </span>
                         <% end %>
-                      </td>
-                    </tr>
+                      <% end %>
+                      <% if proposal.status == "Aceita" %>
+                        <%= link_to area_trade_reports_path(area,proposal) do %>
+                          <i class="fa fa-handshake update_area"></i><span> Relatos </span>
+                        <% end  %>
+                      <% end %>
+                    </td>
+                  </tr>
                   <% end %>
                 </tbody>
               </table>
@@ -180,6 +185,7 @@
           <h5> Você ainda não recebeu nenhuma proposta </h5>
         <%end%>
       </div>
+
 
         <div id="dados-cadastrais" class="tab-panel"><br>
           <div class="card-body">
@@ -197,6 +203,7 @@
                 <hr>
                 <%= link_to edit_user_registration_path do %>
                 <button class="br-button mb-3" type="button" primary>Editar Dados</button>
+
                 <% end %>
               </div>
             </div>
