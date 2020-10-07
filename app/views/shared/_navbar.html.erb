@@ -19,7 +19,7 @@
             <li><%= link_to "Meu Perfil", meu_perfil_path, style: 'font-size: 1.2em;' %></li>
           </ul>
       <% else %>
-      <%= link_to "Cadastre-se", new_user_registration_path %>
+      <%= link_to "Cadastre-se", new_user_registration_path, style: 'font-size: 1.2em;' %>
       <% end %>
         </div>
         <div class="functions">
@@ -95,7 +95,7 @@
         <div class="avatar"></div>
         <div class="login">
           <%= link_to new_user_session_path do %>
-          <button class="br-button" type="button" mini><i class="fas fa-user"></i><span class="ml-1">Entrar</span>
+          <button style="font-size: 1.1em" class="br-button" type="button" mini><i class="fas fa-user"></i><span class="ml-1">Entrar</span>
           </button>
           <% end %>
         </div>
