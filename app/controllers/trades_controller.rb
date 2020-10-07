@@ -54,17 +54,17 @@ class TradesController < ApplicationController
       end
       @trade.update(status: 'Aceita')
       @area.update(available?: false)
+      mail = TradeMailer.with(user: @trade.user.name, area: @area).aprove
+      mail.deliver_now
       redirect_to area_trade_my_deal_path
     else
       redirect_to meu_perfil_path, notice: 'Já há uma proposta aceita para esta área.'
     end
 
 
-    @trade.update(status: 'Aceita') unless @trade.status == "Concluída"
-    mail = TradeMailer.with(user: @trade.user.name, area: @area).aprove
-    mail.deliver_now
 
-    redirect_to area_trade_my_deal_path #criar página para proposta aceita
+
+
 
   end
 

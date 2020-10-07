@@ -1,3 +1,120 @@
 <div class= "container mt-5">
-  <h1>Index reports</h1>
+  <h1>Relato da Negociação</h1>
+  <h4>Proposta aceita por <%= @area.user.name %><br>Interessado: <%= @trade.user.name %> </h4>
+</div>
+
+<% provide(:title, 'Ver Área') %>
+<div class="container">
+   <div id="map"
+    style="width: 100%; height: 300px;"
+    data-polygon="<%= @polygon %>"
+    data-boundpoly="<%= [@polygon.first, @polygon[(@polygon.count/2).to_i]] %>"
+    data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+  </div>
+  <div style="width: 100%; margin: 2px 0px 0px 0px;"><i class="far fa-question-circle fa-2x"></i>
+     <div class="br-tooltip" id="tt10" info popover timer="8000" place="right">
+      <div class="popover-image"><img src="../assets/z-map-helper-squared-100.gif" alt="Avatar">
+      </div>
+      <div><p class="text" style="color: white; font-size: 20px;">Gire ou Incline o Mapa com Ctrl (ou Cmd) + Mouse!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-10">
+      <h4>Área:</h4>
+      <table class="table table-bordered">
+        <thead>
+          <th>No. da Área</th>
+          <th>Descrição</th>
+          <th>Estado</th>
+          <th>Município</th>
+          <th>Hectares</th>
+          <th>Bacia</th>
+        </thead>
+
+        <tbody>
+            <tr>
+              <td><%= @area.id %></td>
+              <td><%= @area.description %></td>
+              <td><%= @area.city.state.name %></td>
+              <td><%= @area.city.name %></td>
+              <td><%= @area.extension %></td>
+              <td><%= @area.basin.name %></td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <br>
+
+    <!-- FOTOS DA ÁREA -->
+    <!-- <div class="col-10">
+      <h5>Fotos</h5>
+      <%# if !@area.photos.attached? %>
+        <p> Nenhuma foto da área foi carregada </p>
+      <% #else %>
+        <div class="cards-areas">
+          <% #@area.photos.each do |photo| %>
+            <div class="card-areas">
+              <%#= cl_image_tag photo.key, crop: :fill %>
+            </div>
+          <%# end %>
+        </div>
+      <%# end %>
+    </div> -->
+    <div class="col-sm-12 col-md-12 col-lg-12 mt-5 mt-sm-0">
+      <h4>Comentários</h4>
+      <% @reports.each do |report| %>
+        <div >
+          <div class="br-card">
+            <div class="front">
+              <div class="header d-flex justify-content-between">
+                <div class="d-flex">
+                  <div class="mr-3">
+                    <div class="br-avatar">
+                      <div class="image"><img src="https://picsum.photos/id/823/400" alt="Avatar"></div>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1">
+                    <p class="h5 text-primary-default mb-0"> <%= report.user.name %> </p><span> <%= report.created_at %> </span>
+                  </div>
+                </div>
+              </div>
+              <div class="content"><!-- <img src="https://picsum.photos/id/10/1080" alt="Imagem de exemplo"> -->
+                <p class="mt-3 mx-5"> <%= report.content %> </p>
+              </div>
+              <div class="footer d-flex justify-content-between align-items-center">
+                <div>&nbsp</div>
+                <div>
+                  <!-- BOTÕES -->
+                  <%= link_to meu_perfil_path do %>
+                    <i class="fa fa-edit"></i><span>Editar</span>
+                  <% end %>
+
+                  <%= link_to meu_perfil_path do %>
+                      <i class="fa fa-times-circle"></i><span>Apagar</span>
+                  <% end %>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+
+
+
+    <br>
+    <div>
+      <%= link_to new_area_trade_report_path do %>
+        <button class="br-button mb-3" type="button" primary>Adicionar comentário</button>
+      <% end %>
+     <%= link_to meu_perfil_path do %>
+        <button class="br-button mb-3" type="button" primary>Voltar para meu perfil</button>
+      <% end %>
+    </div>
+  </div>
 </div>
