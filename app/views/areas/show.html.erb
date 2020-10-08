@@ -24,15 +24,15 @@
   </div>
 
   <div style="width: 100%; margin: 2px 0px 0px 0px;"><i class="far fa-question-circle fa-2x"></i>
-     <div class="br-tooltip" id="tt10" info popover timer="8000" place="right">
+     <div class="br-tooltip" id="tt10" info popover timer="6700" place="right">
       <div class="popover-image"><img src="../assets/z-map-helper-squared-100.gif" alt="Avatar">
       </div>
-      <div><p class="text" style="color: white; font-size: 20px;">Gire ou incline o mapa com Ctrl (ou Cmd) + mouse</p>
+      <div><p class="text" style="color: white; font-size: 20px;">Gire ou incline o mapa com Ctrl + mouse</p>
       </div>
     </div>
   </div>
 <div class="row d-flex m-3">
-  
+
     <div class="col-lg-5 col-sm-12">
         <% if !@area.photos.attached? %>
             <p> Nenhuma foto da área foi carregada </p>
@@ -84,9 +84,9 @@
       </div>
         <% end %>
       </div>
-  
+
   <div class="col-lg-7 col-sm-12">
-    
+
       <table class="table table-bordered">
         <tbody>
           <thead>
@@ -128,22 +128,22 @@
         </tbody>
       </table>
       <p>Área Disponibilizada por <%= @area.user.name %></p>
-    
+
       <% if user_signed_in? %>
         <% if current_user.id != @area.user.id && %>
         <%   (@area.trades.find_by(user_id: current_user).nil? || %>
         <%    @area.trades.find_by(user_id: current_user).status == "Recusada") %>
-          <%= link_to "Estou interessado", new_area_trade_path(@area), class: "br-button primary mt-5" %>
+          <%= link_to "Estou interessado", new_area_trade_path(@area), class: "br-button primary mt-5", style: "text-decoration: none;" %>
         <%end%>
       <%end%>
 
-      <p> <%= link_to 'Voltar para áreas disponíveis', areas_path, class: "br-button primary mt-5" %> </p>
+      <p> <%= link_to 'Voltar para áreas disponíveis', areas_path, class: "br-button primary mt-5", style: "text-decoration: none;" %> </p>
 </div>
     <br>
 
 
 
     </div>
-    
+
     </div>
-  
+
