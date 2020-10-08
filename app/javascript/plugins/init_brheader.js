@@ -9,10 +9,10 @@ class BRHeader {
     this.links_btn = component.querySelector('.links button')
     this.functions_btn = component.querySelector('.functions button')
     this.menu = component.querySelector('.menu')
-    //this.search = component.querySelector('.search')
-    //this.search_btn = component.querySelector('.search-btn button')
-    //this.search_input = component.querySelector('.search input')
-    //this.search_close = component.querySelector('.search .search-close')
+    this.search = component.querySelector('.search')
+    this.search_btn = component.querySelector('.search-btn button')
+    this.search_input = component.querySelector('.search input')
+    this.search_close = component.querySelector('.search .search-close')
     this.sticky = component.hasAttribute('sticky')
     this._setBehavior()
   }
@@ -20,8 +20,8 @@ class BRHeader {
     // Inicializa Layout
     this.avatar.setAttribute('hidden', '')
     if (this.sticky) {
-      //this.component.style.paddingTop = `${this.flex_container.offsetHeight}px`
-      //this.component.setAttribute('compact', '')
+      this.component.style.paddingTop = `${this.flex_container.offsetHeight}px`
+      this.component.setAttribute('compact', '')
       const compact = this.component.hasAttribute('compact')
       const noSubtitle = this.component.hasAttribute('no-subtitle')
       window.onscroll = () => {
@@ -53,23 +53,23 @@ class BRHeader {
         this._openPop(event)
       })
     }
-    //if (this.search_btn) {
-    //  this.search_btn.addEventListener('click', (event) => {
-    //    this._openPop(event)
-    //  })
-   // }
-    //if (this.search_input) {
-     // this.search_input.addEventListener('focus', (event) => {
-       // this.search.setAttribute('active', '')
-       // this.menu.style.display = 'none'
-     // })
-    //}
-   // if (this.search_close) {
-     // this.search_close.addEventListener('click', (event) => {
-       // this.search.removeAttribute('active')
-       // this.menu.style.display = 'flex'
-      //})
-    //}
+    if (this.search_btn) {
+     this.search_btn.addEventListener('click', (event) => {
+       this._openPop(event)
+     })
+   }
+    if (this.search_input) {
+     this.search_input.addEventListener('focus', (event) => {
+       this.search.setAttribute('active', '')
+       this.menu.style.display = 'none'
+     })
+    }
+   if (this.search_close) {
+     this.search_close.addEventListener('click', (event) => {
+       this.search.removeAttribute('active')
+       this.menu.style.display = 'flex'
+      })
+    }
   }
   _openPop() {
     let parentTag = event.target.parentNode
@@ -143,7 +143,7 @@ class BRHeader {
 
 const initBrHeader = () => {
   const headerList = [];
-  
+
   for (const brHeader of window.document.querySelectorAll('.br-header')) {
     headerList.push(new BRHeader('br-header', brHeader));
   };
