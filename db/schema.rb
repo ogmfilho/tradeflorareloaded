@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(version: 2020_10_06_175016) do
   end
 
   create_table "trades", force: :cascade do |t|
-    t.string "status", default: "Proposta"
+    t.string "status", default: "Enviada pelo proponente"
     t.bigint "user_id", null: false
     t.bigint "area_id", null: false
     t.datetime "created_at", precision: 6, null: false
