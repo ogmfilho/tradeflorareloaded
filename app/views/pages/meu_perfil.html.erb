@@ -64,8 +64,10 @@
                 </div>
             <% end %>
             <% else %>
-              <h5> Você ainda não disponibilizou nenhuma área </h5>
-              <p><%= link_to "Crie uma área", new_area_path(@area), class: "br-button primary" %></p>
+              <div style="display: block">
+                <h5 class="mt-0"> Você ainda não disponibilizou nenhuma área </h5>
+                <p><%= link_to "Crie uma área", new_area_path(@area), class: "br-button primary", style: "text-decoration: none;" %></p>
+              </div>
             <% end %>
           </div>
         </div>
