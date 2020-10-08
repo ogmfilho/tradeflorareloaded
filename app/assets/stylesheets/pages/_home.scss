@@ -7,7 +7,7 @@
 
 .card-custom {
   overflow: hidden;
-  min-height: 450px;
+  height: 460px;
   box-shadow: 0 0 15px rgba(10, 10, 10, 0.3);
 }
 
@@ -38,6 +38,7 @@
   border-right-color: transparent;
   border-bottom-color: transparent;
   border-left-color: inherit;
+  opacity: 1;
 }
 
 .card-custom-avatar img {
@@ -48,13 +49,172 @@
   left: 1.25rem;
   width: 100px;
   height: 100px;
+  opacity: 0.7;
 }
 
 .gradiente {
   background: rgb(24,73,153);
-  background: linear-gradient(142deg, rgba(24,73,153,1) 0%, rgba(7,29,65,1) 55%);
+  background: linear-gradient(180deg, rgba(24,73,153,1) 0%, rgba(7,29,65,1) 55%);
 }
 
 .fontwhite {
   color: #FFFFFF
+}
+
+.fontwhite h1 {
+  color: #FFFFFF;
+  text-shadow: 2px 2px 3px rgba(0,0,0,0.2);
+}
+
+// Cards do IBAMA, ICMBio e Jardim Botânico do Rio de Janeiro
+
+.card-parceiros {
+  overflow: hidden;
+  height: 320px;
+  width: 320px;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  align-items: center;
+  padding: 12px;
+  margin: 5px;
+}
+
+.card-parceiros img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100%;
+}
+
+// Cards/Accordion do fim da Home - Objetivos
+
+  // html,body{
+  //   width: 100%;
+  //   height: 100%;
+  // }
+
+.container-accordion{
+  padding: 75px 0;
+  margin: 0 auto;
+  width: 1140px;
+}
+
+.gallery-wrap {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 50vh;
+}
+
+.item {
+  flex: 1;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: none;
+  transition: flex 0.8s ease;
+
+  &:hover{
+    flex: 7;
+    p {
+      display: block;
+    }
+  }
+}
+
+.item p {
+  display: none;
+  font-size: 1.5em;
+  color: white;
+  font-weight: bold;
+  text-shadow: 2px 2px 3px rgb(20, 20, 20);
+  margin: 5px 0px 0px 16px;
+}
+
+.item-1 {
+  background-image: url('accordion/biodiversidade.jpg');
+}
+
+.item-2 {
+  background-image: url('accordion/clima.jpg');
+}
+
+.item-3 {
+  background-image: url('accordion/manancial.jpg');
+}
+
+.item-4 {
+  background-image: url('accordion/desenvolvimento.jpg');
+}
+
+.item-5 {
+  background-image: url('accordion/parceria.jpg');
+}
+
+// Responsividade
+
+@media (min-width: 100px) and (max-width: 500px) {
+  .container-accordion {
+    padding: 55px 0;
+    margin: 0 auto;
+    width: 400px;
+  }
+  .gallery-wrap {
+    height: 35vh;
+  }
+}
+
+@media (min-width: 501px) {
+  .container-accordion {
+    padding: 55px 0;
+    margin: 0 auto;
+    width: 450px;
+  }
+  .gallery-wrap {
+    height: 40vh;
+  }
+}
+
+@media (min-width: 801px) {
+  .container-accordion {
+    padding: 55px 0;
+    margin: 0 auto;
+    width: 700px;
+  }
+}
+
+@media (min-width: 1001px) {
+  .container-accordion {
+    padding: 55px 0;
+    margin: 0 auto;
+    width: 900px;
+  }
+}
+
+@media (min-width: 1201px) {
+  .container-accordion {
+    padding: 55px 0;
+    margin: 0 auto;
+    width: 1100px;
+  }
+  .item p {
+    font-size: 1.7em;
+  }
+  .gallery-wrap {
+    height: 55vh;
+  }
+}
+
+@media (min-width: 1401px) {
+  .container-accordion {
+    padding: 55px 0;
+    margin: 0 auto;
+    width: 1300px;
+  }
+  .item p {
+    font-size: 1.7em;
+  }
+  .gallery-wrap {
+    height: 60vh;
+  }
 }

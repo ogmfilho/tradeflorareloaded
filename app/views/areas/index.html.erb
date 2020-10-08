@@ -98,19 +98,20 @@
     <%= simple_form_for @search, url: area_searches_path do |s| %>
       <div>
         <h4>Pesquisa</h4>
-        <%= s.text_field :keywords, placeholder: 'Digite sua busca'%>
+        <label>Palavras-chave</label>
+        <%= s.text_field :keywords, placeholder: 'Digite Aqui' %>
         </div>
         <div>
         <i data-toggle="tooltip" data-placement="top" title="Clique em + para adicionar parâmetros à sua pesquisa">Pressione enter para buscar</i>
-      </div>
-       <div id="detalhe">
-        <%= s.input :states_id, label: "Estado",collection: @states.sort_by { |state| state[:name]}, input_html:  { class: "selectmult teste", multiple: true } %>
-       </div>
-       <div id="detalhe">
-        <%= s.input :cities_id, label: "Município", collection: State.all.sort_by {|state| state[:name]}, as: :grouped_select, group_method: :cities, input_html:  { class: "selectmult", multiple: true } %>
-       </div>
-       <div id="detalhe">
-        <%= s.input :basins_id, label: "Bacia Hidrográfica", collection: @basins, input_html:  { class: "selectmult", multiple: true } %>
+        </div>
+        <div id="detalhe">
+        <%= s.input :states_id, label: "Unidade(s) Federativa(s)",collection: @states.sort_by { |state| state[:name]}, input_html:  { class: "selectmult teste", multiple: true } %>
+        </div>
+        <div id="detalhe">
+        <%= s.input :cities_id, label: "Município(s)", collection: State.all.sort_by {|state| state[:name]}, as: :grouped_select, group_method: :cities, input_html:  { class: "selectmult", multiple: true } %>
+        </div>
+        <div id="detalhe">
+        <%= s.input :basins_id, label: "Bacia(s) Hidrográfica(s)", collection: @basins, input_html:  { class: "selectmult", multiple: true } %>
        </div>
        <div id="detalhe">
          <p><%= s.label "Extensão Mín (hectares)" %></p>
@@ -118,8 +119,10 @@
          <p><%= s.label "Extensão Máx (hectares)" %></p>
          <p><%= s.text_field :max_extension, size: 7 %></p>
        </div>
+
        <br>
        <div id="detalhe">
+
          <%= s.submit "Procurar", class: "br-button primary"%>
          <hr>
        </div>

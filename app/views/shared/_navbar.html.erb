@@ -14,12 +14,12 @@
       <% if user_signed_in? %>
           <ul>
             <li class="title">Acesso Rápido</li>
-            <li><%= link_to "Áreas Disponíveis", areas_path %></li>
-            <li><%= link_to "Criar Área", new_area_path %></li>
-            <li><%= link_to "Meu Perfil", meu_perfil_path %></li>
+            <li><%= link_to "Áreas Disponíveis", areas_path, style: 'font-size: 1.2em;' %></li>
+            <li><%= link_to "Criar Área", new_area_path, style: 'font-size: 1.2em;' %></li>
+            <li><%= link_to "Meu Perfil", meu_perfil_path, style: 'font-size: 1.2em;' %></li>
           </ul>
       <% else %>
-      <%= link_to "Cadastre-se", new_user_registration_path %>
+      <%= link_to "Cadastre-se", new_user_registration_path, style: 'font-size: 1.2em;' %>
       <% end %>
         </div>
         <div class="functions">
@@ -52,11 +52,17 @@
         <% if user_signed_in? %>
         <div class="avatar d-block">
           <div class="br-badge" success>
-            <div class="icon">1</div>
+            <!-- <div class="icon">1</div> -->
             <div class="content">
               <div class="br-avatar">
                 <!-- <div class="image"><img src="https://avatars0.githubusercontent.com/u/43585963?v=4" alt="Avatar"> -->
-                <div class="image"><img src="https://images-na.ssl-images-amazon.com/images/I/813NvJJYsML.png" alt="Avatar">
+                <div class="image">
+                  <%#= raise %>
+                  <% if current_user.photo.attached?%>
+                    <%= cl_image_tag current_user.photo.key, crop: :thumb, gravity: :face %>
+                  <% else %>
+                    <img src="https://images-na.ssl-images-amazon.com/images/I/813NvJJYsML.png" alt="Avatar">
+                  <% end %>
                 </div>
               </div>
             </div>
@@ -76,7 +82,7 @@
                     <button type="button" data-panel="panel-1"><span class="name">Meu Perfil<i class="fas fa-user-circle"></i></span></button>
                     <% end %>
                   </li>
-                  <li class="tab-item is-active">
+                  <li class="tab-item">
                     <%= link_to edit_user_registration_path do %>
                     <button type="button" data-panel="panel-2"><span class="name">Editar Meus Dados<i class="fas fa-edit"></i></span></button>
                     <% end %>
@@ -95,7 +101,7 @@
         <div class="avatar"></div>
         <div class="login">
           <%= link_to new_user_session_path do %>
-          <button class="br-button" type="button" mini><i class="fas fa-user"></i><span class="ml-1">Entrar</span>
+          <button style="font-size: 1.1em" class="br-button" type="button" mini><i class="fas fa-user"></i><span class="ml-1">Entrar</span>
           </button>
           <% end %>
         </div>

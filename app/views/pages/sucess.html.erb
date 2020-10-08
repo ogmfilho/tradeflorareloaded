@@ -1,0 +1,53 @@
+<div>
+  <h2 id="h2-areas">Casos de sucesso</h2>
+</div>
+
+  <div class="content-areas">
+    <% if @areas.empty? %>
+      <div id="paddingleft16">
+        <p>Nenhuma área encontrada com os parâmetros da busca</p>
+        <%# end %>
+      </div>
+    <% else %>
+      <div class="cards-areas">
+        <% @areas.each do |area| %>
+          <div class="card-areas">
+            <% if !area.photos.attached? %>
+              <img src="assets/<%=area.basin.name%>.jpg" style="filter: grayscale(100%)">
+              <div>
+                <i class="fa fa-check-circle fa-3x" aria-hidden="true"style="position: absolute; width: 100px; color: #036D19; top:1rem; left:0.5rem"></i>
+               <!-- <i class="fa fa-tree fa-3x" aria-hidden="true"style="position: absolute; width: 100px; color: #036D19; top:11rem; left:0.5rem"></i> -->
+              </div>
+            <% else %>
+              <%= cl_image_tag area.photos[0].key, crop: :fill, effect: "grayscale" %>
+            <% end %>
+              <div class="card-areas-infos">
+                <p class="alignright"><%= image_tag "areas/brazil-icon.png", alt: "Mapa do Brasil", width: 25 %> <%= area.city.name %>, <%=area.city.state.name %>
+                </p>
+                <% if area.description.size > 140 %>
+                  <h2 style="margin-top: 5px;"><%= area.description[0..140] %>...</h2>
+                <% else %>
+                  <h2 style="margin-top: 5px;"><%= area.description %></h2>
+                <% end %>
+                <hr>
+                <div class="code-owner">
+                  <p style="margin-bottom: 3px;">Cod. da Área: <%= area.id %> </p>
+                  <p>Área de: <%= area.user.name %></p>
+                </div>
+                <p style="margin: 4px 0px 4px 0px;"><i class="fas fa-water"></i>Bacia: <%= area.basin.name %></p>
+                <p><%= image_tag "areas/dimension-icon-sm.png", alt: "Ícone - Tamanho", width: 19 %> Extensão: <%= area.extension %> hectares</p>
+                <br>
+                <br>
+                <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
+              </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<!-- Abaixo o link para a paginação, da gem Pagy - para mais informações, ver o gemfile -->
+<div class="d-flex justify-content-center">
+  <% if @areas.count > 9 %>
+    <%= pagy_bootstrap_nav(@pagy).html_safe %>
+  <% end %>
+</div>

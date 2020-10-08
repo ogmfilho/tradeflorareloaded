@@ -59,7 +59,7 @@
                     <p><%= image_tag "areas/dimension-icon-sm.png", alt: "Ícone - Tamanho", width: 19 %> Extensão: <%= area.extension %> hectares</p>
                     <br>
                     <br>
-                    <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
+                    <%= link_to "Detalhes", area_path(area), class: "br-button primary", style: "text-decoration: none;" %>
                   </div>
                 </div>
             <% end %>
@@ -103,11 +103,11 @@
                         <!-- <td style="border-top: none"><%#= link_to "Detalhes", area_path(area), class: "br-button primary" %></td> -->
                         <td style="border-top: none">
                           <%= link_to area_path(area) do %>
-                            <i class="fa fa-info-circle destroy_trade"></i><span>Detalhes</span>
+                            <i class="fa fa-info-circle"></i><span>Detalhes</span>
                           <% end %>
                           <% unless trade.status == "Aceita" %>
                             <%= link_to area_trade_path(area, trade), method: :delete, data: { confirm: "Deseja retirar a sua proposta?" } do %>
-                                <i class="fa fa-times-circle update_area"></i><span>Retirar proposta</span>
+                                <i class="fa fa-times-circle destroy_trade"></i><span>Retirar proposta</span>
                             <% end %>
                           <% end %>
                         </td>
@@ -128,7 +128,7 @@
 
 
 
-      <div id="propostas-recebidas" class="container tab-pane fade"><br>
+      <div id="propostas-recebidas" class="container tab-panel"><br>
       <%if @user.proposals.count > 0 %>
         <div class="row">
           <div class="col-sm-12 col-md-6">

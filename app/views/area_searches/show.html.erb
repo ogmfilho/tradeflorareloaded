@@ -1,138 +1,172 @@
-<div>
-  <% if @search.pesquisa.empty? %>
-  <h3>Nenhuma área encontrada com os parâmetros da busca</h3>
-</div>
-<div class="content-areas">
-  <div id="paddingleft16">
-    <p> O resultado precisava incluir obrigatoriamente:
-    <br>
-    <% if @search.keywords.present? %>
-      <%=@search.keywords%>
-      <br>
-    <%end%>
-    <% if @search.min_extension.present? %>
-      Área com no mínimo de <%=@search.min_extension%> hectares
-      <br>
-    <%end%>
-    <% if @search.max_extension.present? %>
-      Área com no máximo de <%=@search.max_extension%> hectares
-      <br>
-    <%end%>
-
-    <%@search.states_id.reject!(&:empty?) %>
-    <%if @search.states_id.present? %>
-      <%= @search.plural(@search.states_id.count, "estado") %>
-      <br>
-      <% @search.states_id.each_with_index do |state_id, index| %>
-        <%="#{index+1} - #{State.find(state_id).name}"%>
-        <br>
-      <%end%>
-    <%end%>
-
-    <% @search.cities_id.reject!(&:empty?) %>
-    <% if @search.cities_id.present? %>
-      <%=@search.plural(@search.cities_id.count, "município") %>
-      <br>
-      <% @search.cities_id.each_with_index do |city_id, index| %>
-        <%= "#{index+1} - #{City.find(city_id).name}"%>
-        <br>
-      <%end%>
-    <%end%>
-
-    <% @search.basins_id.reject!(&:empty?) %>
-    <% if @search.basins_id.present? %>
-      <%=@search.plural(@search.basins_id.count, "Bacia Hidrográfica") %>
-      <br>
-      <% @search.basins_id.each_with_index do |basin_id, index| %>
-        <%= "#{index+1} - #{Basin.find(basin_id).name}"%>
-        <br>
-      <%end%>
-    <%end%>
-  </div>
-
-  <% else %>
-    <div class="cards-areas">
-    <h2>
-      <p><%=@search.pesquisa.count %> resultados para sua pesquisa </p>
-      <br>
-      <%if @search.pesquisa.count< Area.all.count%>
-        <p> filtros</p>
-      <% end %>
-      <br>
-      <p>
+<% if @search.pesquisa.empty? %>
+<div class="mx-4 row justify-content-center">     
+  <div class="m-4 p-4 br-card col-lg-4 col-sm-12">
+    <h5>Nenhuma área encontrada com os parâmetros da busca</h5>
+    
+      <p> <strong>O resultado precisava incluir obrigatoriamente: </strong>
+      <br><br>
       <% if @search.keywords.present? %>
         <%=@search.keywords%>
+        <br>
       <%end%>
       <% if @search.min_extension.present? %>
-      Área com no mínimo de <%=@search.min_extension%> hectares
-      <br>
-    <%end%>
-    <% if @search.max_extension.present? %>
-      Área com no máximo de <%=@search.max_extension%> hectares
-      <br>
-    <%end%>
-
-    <%@search.states_id.reject!(&:empty?) %>
-    <%if @search.states_id.present? %>
-      <%= @search.plural(@search.states_id.count, "estado") %>
-      <br>
-      <% @search.states_id.each_with_index do |state_id, index| %>
-        <%="#{index+1} - #{State.find(state_id).name}"%>
-        <br>
+        Área com no mínimo de <%=@search.min_extension%> hectares
+        <br><hr>
       <%end%>
-    <%end%>
-
-    <% @search.cities_id.reject!(&:empty?) %>
-    <% if @search.cities_id.present? %>
-      <%=@search.plural(@search.cities_id.count, "município") %>
-      <br>
-      <% @search.cities_id.each_with_index do |city_id, index| %>
-        <%= "#{index+1} - #{City.find(city_id).name}"%>
-        <br>
+      <% if @search.max_extension.present? %>
+        Área com no máximo de <%=@search.max_extension%> hectares
+        <br><hr>
       <%end%>
-    <%end%>
 
-    <% @search.basins_id.reject!(&:empty?) %>
-    <% if @search.basins_id.present? %>
-      <%=@search.plural(@search.basins_id.count, "Bacia Hidrográfica") %>
-      <br>
-      <% @search.basins_id.each_with_index do |basin_id, index| %>
-        <%= "#{index+1} - #{Basin.find(basin_id).name}"%>
+      <%@search.states_id.reject!(&:empty?) %>
+      <%if @search.states_id.present? %>
+        <%= @search.plural(@search.states_id.count, "estado") %>
         <br>
+        <% @search.states_id.each_with_index do |state_id, index| %>
+          <%="#{index+1} - #{State.find(state_id).name}"%>
+          <br>
+        <%end%><hr>
       <%end%>
-    <%end%>
 
-      </p>
-      </h2>
+      <% @search.cities_id.reject!(&:empty?) %>
+      <% if @search.cities_id.present? %>
+        <%=@search.plural(@search.cities_id.count, "município") %>
+        <br>
+        <% @search.cities_id.each_with_index do |city_id, index| %>
+          <%= "#{index+1} - #{City.find(city_id).name}"%>
+          <br>
+          <%end%><hr>
+        <%end%>
+
+      <% @search.basins_id.reject!(&:empty?) %>
+      <% if @search.basins_id.present? %>
+        <%=@search.plural(@search.basins_id.count, "Bacia Hidrográfica") %>
+        <br>
+        <% @search.basins_id.each_with_index do |basin_id, index| %>
+          <%= "#{index+1} - #{Basin.find(basin_id).name}"%>
+          <br>
+        <%end%><hr>
+      <%end%>
+  <p> <%= link_to 'Voltar para áreas disponíveis', areas_path, class: "br-button primary" %> </p>
+  </div>
+</div>
+
+  <% else %>
+  <div class="content-areas row">
+    <div class="cards-areas col-sm-12 col-md-6 col-lg-8 order-2">
       <%@search.pesquisa.each do |area|%>
-          <div class="card-areas">
-            <%= image_tag area.basin.name %>
-            <div class="card-areas-infos">
-              <p class="alignright">Bacia: <%= area.basin.name %></p>
-              <h2><%= area.description %></h2>
-              <p>Área de: <%= area.user.name %></p>
-              <p><%=area.city.state.name %></p>
-              <p><%= area.city.name %></p>
-              <p><%= area.extension %> hectares</p>
-              <p><i class="fas fa-globe-americas"></i> Coordenadas:</p>
-              <p class="mb-1">Área de: <%= area.user.name %></p>
-              <p><i class="fas fa-globe-americas"></i> Coordenadas:</p>
-              <ul>
-                <li>
-                  Latitude: <%= area.latitude.round(6) %>
-                </li>
-                <li>
-                  Longitude: <%= area.longitude.round(6) %>
-                </li>
-              </ul>
-              <br>
-              <br>
-              <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
-            </div>
+          <div class="card-areas"style="height: 460px">
+            <% if !area.photos.attached? %>
+              <%= image_tag area.basin.name+".jpg"%>
+            <% else %>
+              <%= cl_image_tag area.photos[0].key, crop: :fill %>
+            <% end %>
+              <div class="card-areas-infos">
+                <p class="alignright"><%= image_tag "areas/brazil-icon.png", alt: "Mapa do Brasil", width: 25 %> <%= area.city.name %>, <%=area.city.state.name %>
+                </p>
+                <% if area.description.size > 140 %>
+                  <h2 style="margin-top: 5px;"><%= area.description[0..140] %>...</h2>
+                <% else %>
+                  <h2 style="margin-top: 5px;"><%= area.description %></h2>
+                <% end %>
+                <hr>
+                <div class="code-owner">
+                  <p style="margin-bottom: 3px;">Cod. da Área: <%= area.id %> </p>
+                  <p>Área de: <%= area.user.name %></p>
+                </div>
+                <p style="margin: 4px 0px 4px 0px;"><i class="fas fa-water"></i>Bacia: <%= area.basin.name %></p>
+                <p><%= image_tag "areas/dimension-icon-sm.png", alt: "Ícone - Tamanho", width: 19 %> Extensão: <%= area.extension %> hectares</p>
+                <br>
+                <br>
+                <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
+              </div>
           </div>
         <% end %>
-        </div>
-      <% end %>
-  <p> <%= link_to 'Voltar para áreas disponíveis', areas_path, class: "br-button primary" %> </p>
+    </div>  
 
-</div>
+    <div class="my-4 py-4 mx-2 px-2 br-card col-sm-12 col-md-3 col-lg-3 order-1" style="height: min-content">
+        <h3><%=@search.pesquisa.count %> resultados para sua pesquisa </h3>
+        <h4>Filtros</h4>
+        <%if @search.pesquisa.count< Area.all.count%>
+        <% end %>
+        <br>
+        <div>
+        <p>
+        <% if @search.keywords.present? %>
+          <%=@search.keywords%>
+        <%else%>
+          <label>Palavras-chave</label><br>
+          <p>-----------</p>
+        <%end%>
+          <hr>
+        </div>
+        <div>
+        <% if @search.min_extension.present? %>
+          <label>Área com no mínimo </label>
+          <p><%=@search.min_extension%> hectares</p>
+        <br>
+        <%else%>
+          <label>Área mínima</label><br>
+          <p>-----------</p>
+        <%end%>
+        <hr>
+      </div>
+      <div>
+      <% if @search.max_extension.present? %>
+        <label>Área com no máximo </label>
+        <p><%=@search.max_extension%> hectares</P>
+        <br>
+        <%else%>
+          <label>Área máxima</label><br>
+          <p>-----------</p>
+      <%end%>
+        <hr>
+      </div>
+      <div>
+      <%@search.states_id.reject!(&:empty?) %>
+      <%if @search.states_id.present? %>
+        <label><%= @search.plural(@search.states_id.count, "unidade federativa") %></label>
+        <br>
+        <% @search.states_id.each_with_index do |state_id, index| %>
+          <p><%="#{index+1} - #{State.find(state_id).name}"%></p>
+        <%end%>
+        <%else%>
+          <label>Estados</label><br>
+          <p>-----------</p>
+        <%end%>
+        <hr>
+      </div>
+      <div>
+      <% @search.cities_id.reject!(&:empty?) %>
+      <% if @search.cities_id.present? %>
+        <label><%=@search.plural(@search.cities_id.count, "município") %></label>
+        <br>
+        <% @search.cities_id.each_with_index do |city_id, index| %>
+          <p><%= "#{index+1} - #{City.find(city_id).name}"%></p>
+        <%end%>
+      <%else%>
+        <label>Municípios</label><br>
+        <p>-----------</p>
+      <%end%>
+        <hr>
+      </div>
+      <div>
+      <% @search.basins_id.reject!(&:empty?) %>
+      <% if @search.basins_id.present? %>
+        <label><%=@search.plural(@search.basins_id.count, "Bacia Hidrográfica") %></label>
+        <br>
+        <% @search.basins_id.each_with_index do |basin_id, index| %>
+          <p><%= "#{index+1} - #{Basin.find(basin_id).name}"%></p>
+        <%end%>
+        <%else%>
+          <label>Bacias hidrográficas</label><br>
+          <p>-----------</p>
+        <%end%>
+        <hr>
+      </div>
+      </p>
+  <%= link_to 'nova pesquisa', areas_path, class: "br-button primary mt-5" %>
+
+    </div>
+  <% end %>
+  </div>

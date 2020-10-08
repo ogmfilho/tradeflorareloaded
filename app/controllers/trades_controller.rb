@@ -75,4 +75,5 @@ class TradesController < ApplicationController
   def trade_params
     params.require(:trade).permit(:user_id, :area_id, :status, :details)
   end
+
 end

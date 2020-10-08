@@ -106,7 +106,10 @@ require 'brazilian_documents'
      normalized_name = I18n.transliterate(attributes[:name]).downcase
      attributes[:email]="watila@mail.com"
      attributes[:city_id] = City.all.sample.id
-     new_user = User.create!(attributes)
+     avatar = file = URI.open("https://avatars0.githubusercontent.com/u/43585963?v=4")
+     new_user = User.new(attributes)
+     new_user.photo.attach(io: avatar, filename: "watila.jpeg", content_type: 'image/jpeg')
+     new_user.save!
      puts "Creating #{new_user[:name]}"
     end
 
