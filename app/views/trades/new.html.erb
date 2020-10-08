@@ -6,7 +6,7 @@
   <%= simple_form_for([@area, @trade], url: area_trades_path(@area)) do |f| %>
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.hidden_field :area_id, value: @area.id %>
-    <%= f.hidden_field :status, value: "Proposta" %>
+    <%= f.hidden_field :status, value: "Enviada pelo proponente" %>
     <%= f.input :details, label: "Indique seu interesse", placeholder: 'Detalhe seu interesse aqui'%>
     <%= f.button :submit, "Registrar", class: "br-button primary" %>
 
