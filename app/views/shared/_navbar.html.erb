@@ -56,7 +56,13 @@
             <div class="content">
               <div class="br-avatar">
                 <!-- <div class="image"><img src="https://avatars0.githubusercontent.com/u/43585963?v=4" alt="Avatar"> -->
-                <div class="image"><img src="https://images-na.ssl-images-amazon.com/images/I/813NvJJYsML.png" alt="Avatar">
+                <div class="image">
+                  <%#= raise %>
+                  <% if current_user.photo.attached?%>
+                    <%= cl_image_tag current_user.photo.key, crop: :thumb, gravity: :face %>
+                  <% else %>
+                    <img src="https://images-na.ssl-images-amazon.com/images/I/813NvJJYsML.png" alt="Avatar">
+                  <% end %>
                 </div>
               </div>
             </div>

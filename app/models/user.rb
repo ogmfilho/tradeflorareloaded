@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :trades, dependent: :destroy
   has_many :areas, dependent: :destroy
   has_many :proposals, through: :areas, source: :trades, dependent: :destroy
+  has_one_attached :photo
 
   validates :name, :phone_number, :address, :document_number, presence: true
   validate :document_valid
