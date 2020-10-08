@@ -1,8 +1,11 @@
 <!--página copiada do beta, falta formatação -->
-<div>
-  <h2 id="h2-areas">Áreas disponíveis</h2>
+<div class="row justify-content-center">
+  <br>
 </div>
-
+<div class="row justify-content-center">
+  <br>
+<p><%= link_to "Ver no Mapa", maps_path, class: "br-button primary" %></p>
+</div>
   <div class="content-areas">
     <% if @areas.empty? %>
       <div id="paddingleft16">
@@ -47,11 +50,11 @@
     }
 
     #check:checked ~ #searchbox{
-      width: 500px;
+      width: 300px;
     }
 
     #check:checked ~ #searchbox  #detalhe{
-      width: 500px;
+      width: 300px;
       display: block;
       height: 100%;
       opacity: 1;
@@ -68,7 +71,7 @@
     }
 
     #searchbox{
-      width: 300px;
+      width: 200px;
       transition: all .2s linear;
     }
 
@@ -86,7 +89,6 @@
       display: flex;
       flex-direction: column;
     }
-
 
 
   </style>    
@@ -127,7 +129,6 @@
          <hr>
        </div>
     <% end %>
-    <p><%= link_to "Ver no Mapa", maps_path, class: "br-button primary" %></p>
   </div>
 </div>
 
