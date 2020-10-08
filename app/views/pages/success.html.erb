@@ -11,6 +11,8 @@
     <% else %>
       <div class="cards-areas">
         <% @areas.each do |area| %>
+          <% successful_trade = area.trades.find_by(status: "Aceita") %>
+          <%#= raise %>
           <div class="card-areas">
             <% if !area.photos.attached? %>
               <img src="assets/<%=area.basin.name%>.jpg" style="filter: grayscale(100%)">
@@ -38,7 +40,7 @@
                 <p><%= image_tag "areas/dimension-icon-sm.png", alt: "Ícone - Tamanho", width: 19 %> Extensão: <%= area.extension %> hectares</p>
                 <br>
                 <br>
-                <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
+                <%= link_to "Detalhes", area_trade_reports_path(area, successful_trade), class: "br-button primary" %>
               </div>
           </div>
         <% end %>

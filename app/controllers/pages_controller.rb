@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:home]
+  skip_before_action :authenticate_user!, only: [:home, :success]
 
   def home
   end
@@ -34,7 +34,7 @@ class PagesController < ApplicationController
     end
   end
 
-  def sucess
+  def success
     @pagy, @areas = pagy(Area.where(available?: false), items: 9)
   end
 

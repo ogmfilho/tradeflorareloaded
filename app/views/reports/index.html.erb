@@ -49,20 +49,21 @@
     <br>
 
     <!-- FOTOS DA ÁREA -->
-    <!-- <div class="col-10">
+    <div class="col-10">
       <h5>Fotos</h5>
-      <%# if !@area.photos.attached? %>
+      <% if !@area.photos.attached? %>
         <p> Nenhuma foto da área foi carregada </p>
-      <% #else %>
+      <% else %>
         <div class="cards-areas">
-          <% #@area.photos.each do |photo| %>
+          <% @area.photos.each do |photo| %>
             <div class="card-areas">
-              <%#= cl_image_tag photo.key, crop: :fill %>
+              <%= cl_image_tag photo.key, crop: :fill %>
             </div>
-          <%# end %>
+          <% end %>
         </div>
-      <%# end %>
-    </div> -->
+      <% end %>
+    </div>
+
     <div class="col-sm-12 col-md-12 col-lg-12 mt-5 mt-sm-0">
       <h4>Comentários</h4>
       <% @reports.each do |report| %>
@@ -162,15 +163,15 @@
           <button class="br-button mb-3" type="button" primary>Adicionar comentário</button>
         <% end %>
       <% end %>
-      <% if user_signed_in? %>
-        <%= link_to meu_perfil_path do %>
-          <button class="br-button mb-3" type="button" primary>Voltar para Meu Perfil</button>
+      <%# if user_signed_in? %>
+        <%= link_to 'javascript:history.back()' do %>
+          <button class="br-button mb-3" type="button" primary>Voltar</button>
         <% end %>
-      <% else %>
-        <%= link_to areas_path do %>
-          <button class="br-button mb-3" type="button" primary>Voltar para Áreas Disponíveis</button>
-        <% end %>
-      <% end %>
+      <%# else %>
+        <%#= link_to areas_path do %>
+          <!-- <button class="br-button mb-3" type="button" primary>Voltar para Áreas Disponíveis</button> -->
+        <%# end %>
+      <%# end %>
     </div>
   </div>
 </div>
