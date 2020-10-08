@@ -119,6 +119,14 @@
   }
 }
 
+.item p {
+  font-size: 1.1em;
+  color: white;
+  font-weight: bold;
+  text-shadow: 2px 2px 8px rgb(150, 150, 150);
+  margin: 10px 2px 0px 2px;
+}
+
 .item-1 {
   background-image: url('accordion/biodiversidade.jpg');
 }
