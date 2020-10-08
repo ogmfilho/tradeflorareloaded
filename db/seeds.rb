@@ -105,9 +105,9 @@ require 'brazilian_documents'
                    dont_send_email: true
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
-     attributes[:email]="watila@mail.com"
+     attributes[:email]="watila@floramail.com"
      attributes[:city_id] = City.all.sample.id
-     avatar = file = URI.open("https://avatars0.githubusercontent.com/u/43585963?v=4")
+     avatar = URI.open("https://avatars0.githubusercontent.com/u/43585963?v=4")
      new_user = User.new(attributes)
      new_user.photo.attach(io: avatar, filename: "watila.jpeg", content_type: 'image/jpeg')
      new_user.save!
@@ -125,16 +125,21 @@ require 'brazilian_documents'
                    dont_send_email: true
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
-     attributes[:email]="bali@mail.com"
+     attributes[:email]="bali@floramail.com"
      attributes[:city_id] = City.all.sample.id
-     new_user = User.create!(attributes)
+     avatar = URI.open("https://img2.gratispng.com/20180330/aze/kisspng-bali-visit-indonesia-year-logo-indonesia-5abeeb1ead8c98.4711098215224614707109.jpg")
+     new_user = User.new(attributes)
+     new_user.photo.attach(io: avatar, filename: "bali.jpeg", content_type: 'image/jpeg')
+     new_user.save!
      puts "Creating #{new_user[:name]}"
     end
 
 
   # Pessoa Física
     10.times do
-     attributes = {name: Faker::Name.unique.name,
+     faker_first_name = [Faker::Name.unique.male_first_name, Faker::Name.unique.female_first_name].sample
+     faker_last_name = Faker::Name.unique.last_name
+     attributes = {name: "#{faker_first_name} #{faker_last_name}",
                    password: "123456",
                    document_number: BRDocuments::CPF.generate,
                    phone_number:Faker::PhoneNumber.cell_phone,
@@ -142,7 +147,7 @@ require 'brazilian_documents'
                    dont_send_email: true
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
-     attributes[:email]="#{normalized_name.split.first}.#{rand(10.1000)}@mail.com"
+     attributes[:email]="#{normalized_name.split.first}.#{normalized_name.split.last}@floramail.com"
      attributes[:city_id] = City.all.sample.id
      new_user = User.create!(attributes)
      puts "Creating #{new_user[:name]}"
@@ -150,7 +155,7 @@ require 'brazilian_documents'
 
 
   # Pessoa Jurídica
-    10.times do
+    0.times do
       attributes = {name: Faker::Company.unique.name,
                    password: "123456",
                    document_number: BRDocuments::CNPJ.generate,
@@ -159,7 +164,7 @@ require 'brazilian_documents'
                    dont_send_email: true
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
-     attributes[:email]="#{normalized_name.split.first}.#{rand(10.1000)}@mail.com"
+     attributes[:email]="#{normalized_name.split.first}.#{rand(10.1000)}@floramail.com"
      attributes[:city_id] = City.all.sample.id
      new_user = User.create!(attributes)
      puts "Creating #{new_user[:name]}"
