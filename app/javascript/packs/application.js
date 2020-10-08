@@ -37,13 +37,6 @@ import { initBrToolTip } from '../plugins/init_brtooltip';
 import { initBrHeader } from '../plugins/init_brheader';
 //mini-menu do avatar:
 import { initBrNotification } from '../plugins/init_brnotification';
-//footer do gov:
-import { initFooter } from '../plugins/init_footer';
-
-
-
-import { initBrAccordion } from '../plugins/init_braccordion';
-
 
 import { initMapbox } from '../plugins/init_mapbox';
 
@@ -55,8 +48,7 @@ document.addEventListener('turbolinks:load', () => {
   initBrTabs();
   initBrHeader();
   initBrNotification();
-  initFooter();
-  initBrAccordion();
+
 
   //initCarousel();
 })
