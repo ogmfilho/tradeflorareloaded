@@ -73,7 +73,13 @@
                 <div class="d-flex">
                   <div class="mr-3">
                     <div class="br-avatar">
-                      <div class="image"><img src="https://picsum.photos/id/823/400" alt="Avatar"></div>
+                      <div class="image">
+                        <% if report.user.photo.attached?%>
+                          <%= cl_image_tag report.user.photo.key, crop: :thumb, gravity: :face %>
+                        <% else %>
+                          <img src="https://images-na.ssl-images-amazon.com/images/I/813NvJJYsML.png" alt="Avatar">
+                        <% end %>
+                      </div>
                     </div>
                   </div>
                   <div class="flex-grow-1">
@@ -81,18 +87,21 @@
                   </div>
                 </div>
               </div>
-
-              <div class="content d-flex align-items-center ml-4">
-                <img src="https://picsum.photos/id/10/1080" alt="Imagem de exemplo" class="w-25">
-                <p class="mt-3 mx-5"> <%= report.content %> </p>
-              </div>
+              <%#= raise %>
+                <div class="content d-flex align-items-center ml-4">
+                  <% if report.photos.attached? %>
+                    <% report.photos.each do |photo| %>
+                      <%= cl_image_tag photo.key, crop: :fill, width: 150, height: 150 %>
+                    <% end %>
+                  <% end %>
+                  <p class="mt-3 mx-5"> <%= report.content %> </p>
+                </div>
 
               <div class="footer d-flex justify-content-between align-items-center">
                 <div>&nbsp</div>
                 <div>
                   <!-- BOTÕES -->
-                  <%#= raise %>
-                  <%if current_user == @area.user || current_user == @trade.user %>
+                  <%if current_user == report.user %>
                     <%= link_to edit_area_trade_report_path(@area, @trade, report), data: { confirm: "Editar este comentário?" } do %>
                       <i class="fa fa-edit"></i><span>Editar</span>
                     <% end %>

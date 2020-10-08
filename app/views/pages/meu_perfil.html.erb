@@ -112,6 +112,11 @@
                                 <i class="fa fa-times-circle destroy_trade"></i><span>Retirar proposta</span>
                             <% end %>
                           <% end %>
+                          <% if trade.status == "Aceita" %>
+                            <%= link_to area_trade_reports_path(area,trade) do %>
+                              <i class="fa fa-handshake update_area"></i><span> Relatos </span>
+                            <% end  %>
+                          <% end %>
                         </td>
                       </tr>
                     <% end %>
