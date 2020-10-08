@@ -23,7 +23,6 @@ require("channels")
 // Note(lewagon): ABOVE IS RAILS DEFAULT CONFIGURATION
 // WRITE YOUR OWN JS STARTING FROM HERE 👇
 // ----------------------------------------------------
-
 // External imports
 import "bootstrap";
 import { initSelect2 } from '../plugins/init_select2';
@@ -42,8 +41,8 @@ import { initBrNotification } from '../plugins/init_brnotification';
 import { initFooter } from '../plugins/init_footer';
 
 
-import { initCarousel } from '../plugins/init_carousel';
 
+import { initBrAccordion } from '../plugins/init_braccordion';
 
 
 import { initMapbox } from '../plugins/init_mapbox';
@@ -57,6 +56,7 @@ document.addEventListener('turbolinks:load', () => {
   initBrHeader();
   initBrNotification();
   initFooter();
+  initBrAccordion();
 
   //initCarousel();
 })
