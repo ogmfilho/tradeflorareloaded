@@ -3,6 +3,7 @@ require 'brazilian_documents'
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  attr_accessor :dont_send_email
   after_create :send_welcome_email
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
@@ -24,7 +25,9 @@ class User < ApplicationRecord
   end
 
   def send_welcome_email
+    unless dont_send_email
     UserMailer.with(user: self).welcome.deliver_now
+    end
   end
 
 end

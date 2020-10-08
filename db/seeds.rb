@@ -9,7 +9,7 @@ require 'brazilian_documents'
 # start ============ CLEAR TABLES ======================
 
 
-  puts "Clearing Reviews table"
+  puts "Clearing Report table"
   Review.destroy_all
 
   puts "Clearing Trades table"
@@ -101,7 +101,8 @@ require 'brazilian_documents'
                    document_number: BRDocuments::CPF.generate,
                    phone_number:Faker::PhoneNumber.cell_phone,
                    address: Faker::Address.street_address,
-                   admin: true
+                   admin: true,
+                   dont_send_email: true
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
      attributes[:email]="watila@mail.com"
@@ -120,7 +121,8 @@ require 'brazilian_documents'
                    password: "123456",
                    document_number: BRDocuments::CNPJ.generate,
                    phone_number:Faker::PhoneNumber.cell_phone,
-                   address: Faker::Address.street_address
+                   address: Faker::Address.street_address,
+                   dont_send_email: true
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
      attributes[:email]="bali@mail.com"
@@ -136,7 +138,8 @@ require 'brazilian_documents'
                    password: "123456",
                    document_number: BRDocuments::CPF.generate,
                    phone_number:Faker::PhoneNumber.cell_phone,
-                   address: Faker::Address.street_address
+                   address: Faker::Address.street_address,
+                   dont_send_email: true
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
      attributes[:email]="#{normalized_name.split.first}.#{rand(10.1000)}@mail.com"
@@ -148,11 +151,12 @@ require 'brazilian_documents'
 
   # Pessoa Jurídica
     10.times do
-     attributes = {name: Faker::Company.unique.name,
+      attributes = {name: Faker::Company.unique.name,
                    password: "123456",
                    document_number: BRDocuments::CNPJ.generate,
                    phone_number:Faker::PhoneNumber.cell_phone,
-                   address: Faker::Address.street_address
+                   address: Faker::Address.street_address,
+                   dont_send_email: true
                    }
      normalized_name = I18n.transliterate(attributes[:name]).downcase
      attributes[:email]="#{normalized_name.split.first}.#{rand(10.1000)}@mail.com"
@@ -760,11 +764,11 @@ puts "Seeding Trades table"
 
 
 
-# start ============ REVIEWS ======================
+# start ============ Report ======================
 
-  puts "Seeding Reviews table"
+  puts "Seeding Report table"
   # Support variables for Review seeding
-    review_description_faker = [
+    review_content_faker = [
       "Gostei muito. Recomendo.",
       "Foi tudo muito bem. Recomendo parceria com este usuário.",
       "O reflorestamento já está avançado!",
@@ -775,20 +779,20 @@ puts "Seeding Trades table"
       "Muito bom."
     ]
 
-    finished_trades = Trade.where(status: 'Concluída')
+    finished_trades = Trade.where(status: 'Aceita')
 
   # Review seeding for every Trade seeded as finished
     finished_trades.each do |finished_trade|
       attributes = {
         trade_id: finished_trade[:id],
         user_id: finished_trade[:user_id],
-        description: review_description_faker.sample
+        content: review_content_faker.sample
       }
-      new_review = Review.create!(attributes)
-      puts "Review created for trade #{new_review[:trade_id]}"
+      new_report = Report.create!(attributes)
+      puts "Report created for trade #{new_report[:trade_id]}"
     end
 
-  puts "Reviews seeded!"
+  puts "Report seeded!"
 
 
-#  end ============= REVIEWS ======================
+#  end ============= Report ======================
