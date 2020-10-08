@@ -5,7 +5,7 @@ class Trade < ApplicationRecord
   has_many :reports, dependent: :destroy
 
   validates :status, inclusion: {
-    in: ['Proposta', 'Aceita', 'Recusada'],
+    in: ['Enviada pelo proponente', 'Aceita', 'Recusada'],
     message: "%{value} não é um status válido."
   }
   validates :details, presence: true

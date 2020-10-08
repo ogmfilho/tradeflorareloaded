@@ -714,7 +714,7 @@ puts "Seeding Trades table"
 
   # As opções abaixo são da versão onde havia mais opções para status.
   # No seed para usuários aleatórios, era chamado um sample dessa variável
-  # trade_status_options = ['Proposta', 'Visualizada', 'Aceita', 'Recusada', 'Concluída']
+  # trade_status_options = ['Enviada pelo proponente', 'Visualizada', 'Aceita', 'Recusada', 'Concluída']
 
   trade_details_faker = [
     "Tenho interesse na área. Poderia me contatar?",
@@ -729,7 +729,7 @@ puts "Seeding Trades table"
   3.times do
     attributes = {
       details: trade_details_faker.sample,
-      status: "Proposta",
+      status: "Enviada pelo proponente",
       user_id: user_bali[:id],
       area_id: watila_areas.sample[:id]
     }
@@ -742,7 +742,7 @@ puts "Seeding Trades table"
     30.times do
       attributes = {
         details: trade_details_faker.sample,
-        status:  "Proposta",
+        status:  "Enviada pelo proponente",
         user_id: users_ids.sample,
         area_id: areas_ids.sample
       }
