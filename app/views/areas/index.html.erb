@@ -48,63 +48,86 @@
 
     #check:checked ~ #searchbox{
       width: 500px;
-      opacity: 1;
     }
+
+    #check:checked ~ #searchbox  #detalhe{
+      width: 500px;
+      display: block;
+      height: 100%;
+      opacity: 1;
+
+      
+    }
+
 
     #icone{
       cursor: pointer;
+      padding: 15px;
       position: relative;
       z-index 1;
     }
 
     #searchbox{
-      position: relative;
-      width: 100px;
+      width: 300px;
       transition: all .2s linear;
-      opacity: 0;
     }
 
-  </style>
-  
+    #searchbox #detalhe{
+      position: relative;
+      width: 300px;
+      transition: all .2s linear;
+      display: hidden;
+      height: 10px;
+      opacity: 0;
+     
+    }
+
+    .form-group{
+      display: flex;
+      flex-direction: column;
+    }
+
+
+
+  </style>    
   <input type="checkbox" id="check">
-  <label id="icone" for="check"><h4> Pesquisa </h4><i class="fa fa-search" aria-hidden="true"></i></label>
-  
+  <label id="icone" for="check"><i class="fa fa-plus" aria-hidden="true"></i></label>
 
 
   <div id="searchbox">
     <%= simple_form_for @search, url: area_searches_path do |s| %>
       <div>
-        <%= s.text_field :keywords, placeholder: 'Digite Aqui' %>
+        <h4>Pesquisa</h4>
+        <%= s.text_field :keywords, placeholder: 'Digite sua busca'%>
+        </div>
+        <div>
+        <i data-toggle="tooltip" data-placement="top" title="Clique em + para adicionar parâmetros à sua pesquisa">Pressione enter para buscar</i>
+      </div>
+       <div id="detalhe">
+        <%= s.input :states_id, label: "Estado",collection: @states.sort_by { |state| state[:name]}, input_html:  { class: "selectmult teste", multiple: true } %>
        </div>
-       <div>
-        <%= s.input :states_id, label: "Estado", collection: @states.sort_by { |state| state[:name]}, input_html:  { class: "selectmult", multiple: true } %>
+       <div id="detalhe">
+        <%= s.input :cities_id, label: "Município", collection: State.all.sort_by {|state| state[:name]}, as: :grouped_select, group_method: :cities, input_html:  { class: "selectmult", multiple: true } %>
        </div>
-       <div>
-        <%= s.input :cities_id, label: 'Município', collection: State.all.sort_by {|state| state[:name]}, as: :grouped_select, group_method: :cities, input_html:  { class: "selectmult", multiple: true } %>
-       </div>
-       <div>
+       <div id="detalhe">
         <%= s.input :basins_id, label: "Bacia Hidrográfica", collection: @basins, input_html:  { class: "selectmult", multiple: true } %>
        </div>
-       <div>
-         <p><%= s.label "Extensão Mín (hectares)" %> - <%= s.text_field :min_extension, size: 7 %></p>
-          <p><%= s.label "Extensão Máx (hectares)" %> - <%= s.text_field :max_extension, size: 7 %></p>
+       <div id="detalhe">
+         <p><%= s.label "Extensão Mín (hectares)" %></p>
+         <p><%= s.text_field :min_extension, size: 7 %></p>
+         <p><%= s.label "Extensão Máx (hectares)" %></p>
+         <p><%= s.text_field :max_extension, size: 7 %></p>
        </div>
        <br>
-       <div>
+       <div id="detalhe">
          <%= s.submit "Procurar", class: "br-button primary"%>
+         <hr>
        </div>
     <% end %>
-    <hr>
-    <%if user_signed_in?%>
-      <p><%= link_to "Criar Área", new_area_path(@area), class: "br-button primary" %></p>
-      <hr>
-    <% end %>
     <p><%= link_to "Ver no Mapa", maps_path, class: "br-button primary" %></p>
-    <br>
   </div>
 </div>
 
-  
 <!-- Abaixo o link para a paginação, da gem Pagy - para mais informações, ver o gemfile -->
 <div class="d-flex justify-content-center">
   <%= pagy_bootstrap_nav(@pagy).html_safe %>
