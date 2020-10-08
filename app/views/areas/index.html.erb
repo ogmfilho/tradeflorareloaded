@@ -41,39 +41,91 @@
         <% end %>
       </div>
     <% end %>
+  <style>
+    #check{
+      display: none;
+    }
+
+    #check:checked ~ #searchbox{
+      width: 500px;
+    }
+
+    #check:checked ~ #searchbox  #detalhe{
+      width: 500px;
+      display: block;
+      height: 100%;
+      opacity: 1;
+
+      
+    }
+
+
+    #icone{
+      cursor: pointer;
+      padding: 15px;
+      position: relative;
+      z-index 1;
+    }
+
+    #searchbox{
+      width: 300px;
+      transition: all .2s linear;
+    }
+
+    #searchbox #detalhe{
+      position: relative;
+      width: 300px;
+      transition: all .2s linear;
+      display: hidden;
+      height: 10px;
+      opacity: 0;
+     
+    }
+
+    .form-group{
+      display: flex;
+      flex-direction: column;
+    }
+
+
+
+  </style>    
+  <input type="checkbox" id="check">
+  <label id="icone" for="check"><i class="fa fa-plus" aria-hidden="true"></i></label>
 
 
   <div id="searchbox">
-    <h4>Pesquisa</h4>
     <%= simple_form_for @search, url: area_searches_path do |s| %>
       <div>
+        <h4>Pesquisa</h4>
         <label>Palavras-chave</label>
         <%= s.text_field :keywords, placeholder: 'Digite Aqui' %>
-        
-       </div>
-       <div>
-        <br>
-        <%= s.input :states_id, label: "Unidade(s) Federativa(s)", collection: @states.sort_by { |state| state[:name]}, input_html:  { class: "selectmult", multiple: true } %>
-       </div>
-       <div>
-        <%= s.input :cities_id, label: 'Município(s)', collection: State.all.sort_by {|state| state[:name]}, as: :grouped_select, group_method: :cities, input_html:  { class: "selectmult", multiple: true } %>
-       </div>
-       <div>
+        </div>
+        <div>
+        <i data-toggle="tooltip" data-placement="top" title="Clique em + para adicionar parâmetros à sua pesquisa">Pressione enter para buscar</i>
+        </div>
+        <div id="detalhe">
+        <%= s.input :states_id, label: "Unidade(s) Federativa(s)",collection: @states.sort_by { |state| state[:name]}, input_html:  { class: "selectmult teste", multiple: true } %>
+        </div>
+        <div id="detalhe">
+        <%= s.input :cities_id, label: "Município(s)", collection: State.all.sort_by {|state| state[:name]}, as: :grouped_select, group_method: :cities, input_html:  { class: "selectmult", multiple: true } %>
+        </div>
+        <div id="detalhe">
         <%= s.input :basins_id, label: "Bacia(s) Hidrográfica(s)", collection: @basins, input_html:  { class: "selectmult", multiple: true } %>
        </div>
-       <div>
-         <p><%= s.label "Extensão Mín (hectares)" %> - <%= s.text_field :min_extension, size: 7 %></p>
-          <p><%= s.label "Extensão Máx (hectares)" %> - <%= s.text_field :max_extension, size: 7 %></p>
+       <div id="detalhe">
+         <p><%= s.label "Extensão Mín (hectares)" %></p>
+         <p><%= s.text_field :min_extension, size: 7 %></p>
+         <p><%= s.label "Extensão Máx (hectares)" %></p>
+         <p><%= s.text_field :max_extension, size: 7 %></p>
        </div>
-       
-       <div>
+
+       <br>
+       <div id="detalhe">
+
          <%= s.submit "Procurar", class: "br-button primary"%>
+         <hr>
        </div>
-    <% end %>
-    <hr>
-    <%if user_signed_in?%>
-      <p><%= link_to "Criar Área", new_area_path(@area), class: "br-button primary" %></p>
-      <hr>
     <% end %>
     <p><%= link_to "Ver no Mapa", maps_path, class: "br-button primary" %></p>
   </div>
