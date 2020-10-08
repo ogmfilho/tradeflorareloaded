@@ -27,7 +27,7 @@
      <div class="br-tooltip" id="tt10" info popover timer="8000" place="right">
       <div class="popover-image"><img src="../assets/z-map-helper-squared-100.gif" alt="Avatar">
       </div>
-      <div><p class="text" style="color: white; font-size: 20px;">Gire ou Incline o Mapa com Ctrl (ou Cmd) + Mouse!</p>
+      <div><p class="text" style="color: white; font-size: 20px;">Gire ou incline o mapa com Ctrl (ou Cmd) + mouse</p>
       </div>
     </div>
   </div>
@@ -86,27 +86,27 @@
           <!--<div class="cards-areas">-->
           <div id="carousel-de-imagens" class="carousel slide" data-ride="carousel" data-interval="false">
             <ol class="carousel-indicators">
-              
- 
+
+
               <%@area.photos.each_with_index do |photo, index|%>
-              
-                <li data-target="#carousel-de-imagens" data-slide-to="<%=index%>" 
+
+                <li data-target="#carousel-de-imagens" data-slide-to="<%=index%>"
                 <%if index == 0 %>
                   class="active"
                 <%end%>
                 ></li>
-              
+
               <%end%>
-            
+
             </ol>
 
             <div class="carousel-inner">
               <%@area.photos.each_with_index do |photo, index|%>
-                
-                  <div 
+
+                  <div
                     <%if index == 0  %>
                       class="carousel-item active"
-                      
+
                     <%else %>
                       class="carousel-item"
                       <%end%>
@@ -115,9 +115,9 @@
                     <%= cl_image_tag photo.key, crop: :fill, width:500 %>
                     <!--<img class="d-block w-100" src="..." alt="First slide">-->
                   </div>
-              
+
               <%end%>
-              
+
             <a class="carousel-control-prev" href="#carousel-de-imagens" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="sr-only">Previous</span>
