@@ -38,6 +38,7 @@
   border-right-color: transparent;
   border-bottom-color: transparent;
   border-left-color: inherit;
+  opacity: 1;
 }
 
 .card-custom-avatar img {
@@ -48,11 +49,12 @@
   left: 1.25rem;
   width: 100px;
   height: 100px;
+  opacity: 0.7;
 }
 
 .gradiente {
   background: rgb(24,73,153);
-  background: linear-gradient(142deg, rgba(24,73,153,1) 0%, rgba(7,29,65,1) 55%);
+  background: linear-gradient(180deg, rgba(24,73,153,1) 0%, rgba(7,29,65,1) 55%);
 }
 
 .fontwhite {
