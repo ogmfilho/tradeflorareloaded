@@ -55,7 +55,7 @@
   <div class="content-areas">
     <div class="cards-areas">
       <%@search.pesquisa.each do |area|%>
-          <div class="card-areas" style="height: min-content">
+          <div class="card-areas"style="height: 460px">
             <% if !area.photos.attached? %>
               <%= image_tag area.basin.name+".jpg"%>
             <% else %>
