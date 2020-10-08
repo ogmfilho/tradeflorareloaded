@@ -1,4 +1,6 @@
 class ReportsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:index]
+
   def index
     @basins = Basin.all
     @trade = Trade.find(params[:trade_id])

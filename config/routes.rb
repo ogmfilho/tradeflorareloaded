@@ -22,5 +22,5 @@ Rails.application.routes.draw do
 
   get "maps", to:"pages#maps"
 
-  get "/exitos", to:"pages#sucess"
+  get "/exitos", to:"pages#success"
 end
