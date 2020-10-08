@@ -47,7 +47,7 @@ class TradesController < ApplicationController
       end
       @trade.update(status: 'Aceita')
       @area.update(available?: false)
-      mail = TradeMailer.with(user: @trade.user.name, area: @area).aprove
+      mail = TradeMailer.with(user: @trade.user, area: @area).aprove
       mail.deliver_now
       redirect_to area_trade_my_deal_path
     else
@@ -60,7 +60,7 @@ class TradesController < ApplicationController
     @area = Area.find(params[:area_id])
     @area.update(available?: true) unless @area.available? == true
     @trade.update(status: "Recusada") unless @trade.status == "Recusada"
-    mail = TradeMailer.with(user: @trade.user.name, area: @area).refuse
+    mail = TradeMailer.with(user: @trade.user, area: @area).refuse
     mail.deliver_now
     redirect_to meu_perfil_path, notice: "Proposta recusada."
   end
