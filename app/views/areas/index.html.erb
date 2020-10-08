@@ -2,18 +2,15 @@
 <div class="row justify-content-center">
   <br>
 </div>
-<div class="row justify-content-center">
-  <br>
-<p><%= link_to "Ver no Mapa", maps_path, class: "br-button primary" %></p>
-</div>
-  <div class="content-areas">
+  
+  <div class="content-areas row">
     <% if @areas.empty? %>
       <div id="paddingleft16">
         <p>Nenhuma área encontrada com os parâmetros da busca</p>
         <%# end %>
       </div>
     <% else %>
-      <div class="cards-areas">
+      <div class="cards-areas col-sm-12 col-md-6 col-lg-8 order-2">
         <% @areas.each do |area| %>
           <div class="card-areas">
             <% if !area.photos.attached? %>
@@ -44,6 +41,7 @@
         <% end %>
       </div>
     <% end %>
+
   <style>
     #check{
       display: none;
@@ -72,14 +70,15 @@
 
     #searchbox{
       width: 200px;
+      position: relative;
       transition: all .2s linear;
     }
 
     #searchbox #detalhe{
       position: relative;
-      width: 300px;
+      max-width: 200px;
       transition: all .2s linear;
-      display: hidden;
+      display: none;
       height: 10px;
       opacity: 0;
      
@@ -95,8 +94,7 @@
   <input type="checkbox" id="check">
   <label id="icone" for="check"><i class="fa fa-plus" aria-hidden="true"></i></label>
 
-
-  <div id="searchbox">
+  <div id="searchbox" class="col-sm-12 col-md-3 col-lg-3 order-1" style="height: min-content; width: min-content">
     <%= simple_form_for @search, url: area_searches_path do |s| %>
       <div>
         <h4>Pesquisa</h4>
