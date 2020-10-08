@@ -31,3 +31,9 @@
   background: #1BCB7F;
   color: white;
 }
+
+@media (min-width: 100px) and (max-width: 575px) {
+  .br-button {
+    width: 45% !important;
+  }
+}
