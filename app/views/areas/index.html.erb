@@ -2,7 +2,7 @@
 <div class="row justify-content-center">
   <br>
 </div>
-  
+
   <div class="content-areas row">
     <% if @areas.empty? %>
       <div id="paddingleft16">
@@ -35,7 +35,7 @@
                 <p><%= image_tag "areas/dimension-icon-sm.png", alt: "Ícone - Tamanho", width: 19 %> Extensão: <%= area.extension %> hectares</p>
                 <br>
                 <br>
-                <%= link_to "Detalhes", area_path(area), class: "br-button primary" %>
+                <%= link_to "Detalhes", area_path(area), class: "br-button primary", style: "text-decoration: none;" %>
               </div>
           </div>
         <% end %>
@@ -57,7 +57,7 @@
       height: 100%;
       opacity: 1;
 
-      
+
     }
 
 
@@ -81,7 +81,7 @@
       display: none;
       height: 10px;
       opacity: 0;
-     
+
     }
 
     .form-group{
@@ -90,7 +90,7 @@
     }
 
 
-  </style>    
+  </style>
   <input type="checkbox" id="check">
   <label id="icone" for="check"><i class="fa fa-plus" aria-hidden="true"></i></label>
 
