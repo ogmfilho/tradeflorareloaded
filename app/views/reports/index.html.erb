@@ -90,9 +90,42 @@
               <%#= raise %>
                 <div class="content d-flex align-items-center ml-4">
                   <% if report.photos.attached? %>
-                    <% report.photos.each do |photo| %>
-                      <%= cl_image_tag photo.key, crop: :fill, width: 150, height: 150 %>
-                    <% end %>
+                    <!-- CAROUSEL start -->
+                    <div id="carousel-de-imagens" class="carousel slide" data-ride="carousel" data-interval="false">
+                      <ol class="carousel-indicators">
+                        <%report.photos.each_with_index do |photo, index|%>
+                          <li data-target="#carousel-de-imagens" data-slide-to="<%=index%>"
+                            <%if index == 0 %>
+                              class="active"
+                            <%end%>
+                          >
+                          </li>
+                        <%end%>
+                      </ol>
+                      <div class="carousel-inner text-center">
+                        <%report.photos.each_with_index do |photo, index|%>
+                            <div
+                              <%if index == 0  %>
+                                class="carousel-item active"
+                              <%else %>
+                                class="carousel-item"
+                              <%end%>
+                            >
+                              <%= cl_image_tag photo.key, crop: :fill, width:150, height: 150 %>
+                              <!--<img class="d-block w-100" src="..." alt="First slide">-->
+                            </div>
+                        <%end%>
+                        <a class="carousel-control-prev" href="#carousel-de-imagens" role="button" data-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carousel-de-imagens" role="button" data-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Next</span>
+                        </a>
+                      </div>
+                    </div>
+                    <!-- CAROUSEL end -->
                   <% end %>
                   <p class="mt-3 mx-5"> <%= report.content %> </p>
                 </div>
