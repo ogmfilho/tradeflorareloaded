@@ -1,6 +1,6 @@
 <% if @search.pesquisa.empty? %>
 <div class="mx-4 row justify-content-center">     
-  <div class="m-4 p-4 br-card col-lg-4">
+  <div class="m-4 p-4 br-card col-lg-4 col-sm-12">
     <h5>Nenhuma área encontrada com os parâmetros da busca</h5>
     
       <p> <strong>O resultado precisava incluir obrigatoriamente: </strong>
@@ -52,8 +52,8 @@
 </div>
 
   <% else %>
-  <div class="content-areas">
-    <div class="cards-areas">
+  <div class="content-areas row">
+    <div class="cards-areas col-sm-12 col-md-6 col-lg-8 order-2">
       <%@search.pesquisa.each do |area|%>
           <div class="card-areas"style="height: 460px">
             <% if !area.photos.attached? %>
@@ -84,7 +84,7 @@
         <% end %>
     </div>  
 
-    <div class="m-4 p-4 br-card col-sm-4 col-lg-3" style="height: min-content">
+    <div class="my-4 py-4 mx-2 px-2 br-card col-sm-12 col-md-3 col-lg-3 order-1" style="height: min-content">
         <h3><%=@search.pesquisa.count %> resultados para sua pesquisa </h3>
         <h4>Filtros</h4>
         <%if @search.pesquisa.count< Area.all.count%>
@@ -165,7 +165,7 @@
         <hr>
       </div>
       </p>
-  <%= link_to 'fazer nova pesquisa', areas_path, class: "br-button primary mt-5" %>
+  <%= link_to 'nova pesquisa', areas_path, class: "br-button primary mt-5" %>
 
     </div>
   <% end %>
