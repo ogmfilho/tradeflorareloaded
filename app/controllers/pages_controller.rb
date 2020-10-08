@@ -33,4 +33,9 @@ class PagesController < ApplicationController
     #colocar para enviar na show quando a seed estiver ok
     end
   end
+
+  def sucess
+    @pagy, @areas = pagy(Area.where(available?: false), items: 9)
+  end
+
 end

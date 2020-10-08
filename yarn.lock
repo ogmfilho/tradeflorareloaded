@@ -2534,6 +2534,11 @@ accepts@~1.3.4, accepts@~1.3.5, accepts@~1.3.7:
     mime-types "~2.1.24"
     negotiator "0.6.2"
 
+accordion-js@^2.8.0:
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/accordion-js/-/accordion-js-2.8.0.tgz#478262ff88f4479e4fdb68a7bbbeb371af4daf76"
+  integrity sha512-clL6/FmhtbrLj7zygUmcUsxpSSPf2LSWQqhr+nG2KpOeZFUchgwr816WAKJbeMl3jthKcRZxRNz8lC7yKPIDHQ==
+
 acorn-jsx@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-3.0.1.tgz#afdf9488fb1ecefc8348f6fb22f464e32a58b36b"
