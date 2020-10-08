@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
   <div class="br-card col-sm-6 col-md-4 col-lg-4 my-1 pb-2 rounded">
-    <h2 class= "text-center">Editar dados <%= resource_name.to_s.humanize %></h2>
+    <h2 class= "text-center">Editar dados de <%= resource.name %></h2>
 
     <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
       <%= f.error_notification %>
@@ -28,34 +28,40 @@
                     required: true,
                     autofocus: true,
                     input_html: { autocomplete: "phone-number" } %>
-        <%= f.input :city_id, prompt: 'Selecione o seu município', 
-                    label: 'Município', 
-                    collection: City.all.sort_by { |city| city[:name]}, 
+        <%= f.input :city_id, prompt: 'Selecione o seu município',
+                    label: 'Município',
+                    collection: City.all.sort_by { |city| city[:name]},
                     input_html:  { class: "select2" }%>
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
           <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
         <% end %>
 
         <%= f.input :password,
-                    hint: "leave it blank if you don't want to change it",
+                    hint: "Deixe em branco se você não quer mudara sua senha",
                     required: false,
-                    input_html: { autocomplete: "new-password" } %>
+                    input_html: { autocomplete: "Nova senha" },
+                    label: "Senha"%>
         <%= f.input :password_confirmation,
                     required: false,
-                    input_html: { autocomplete: "new-password" } %>
+                    input_html: { autocomplete: "Nova senha" },
+                    label: "Confirmação da senha"%>
         <%= f.input :current_password,
-                    hint: "we need your current password to confirm your changes",
+                    hint: "Você precisa inserir a sua senha atual para confirmar as mudanças",
                     required: true,
-                    input_html: { autocomplete: "current-password" } %>
+                    input_html: { autocomplete: "Senha atual" },
+                    label: "Senha atual" %>
+        <%= f.input :photo,
+                    as: :file,
+                    label: "Foto do usuário" %>
       </div>
 
       <div class="form-actions text-center">
-        <%= f.button :submit, "Update", class: "br-button primary mb-1"  %>
+        <%= f.button :submit, "Atualizar", class: "br-button primary mb-1"  %>
     <% end %>
 
-        <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "br-button primary mb-1" %>
+        <%= link_to "Cancelar minha conta", registration_path(resource_name), data: { confirm: "Você tem certeza que quer cancelar sua conta?" }, method: :delete, class: "br-button primary mb-1" %>
 
-        <%= link_to "Back", :back, class: "br-button primary" %>
+        <%= link_to "Voltar", :back, class: "br-button primary" %>
       </div>
   </div>
 </div>
