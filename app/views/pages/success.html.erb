@@ -17,11 +17,15 @@
             <% if !area.photos.attached? %>
               <img src="assets/<%=area.basin.name%>.jpg" style="filter: grayscale(100%)">
               <div>
-                <i class="fa fa-check-circle fa-3x" aria-hidden="true"style="position: absolute; width: 100px; color: #036D19; top:1rem; left:0.5rem"></i>
+                <i class="fa fa-check-circle fa-3x" aria-hidden="true"style="position: absolute; width: 100px; color: #036D19; top:1rem; right: -2rem; opacity: 0.6"></i>
                <!-- <i class="fa fa-tree fa-3x" aria-hidden="true"style="position: absolute; width: 100px; color: #036D19; top:11rem; left:0.5rem"></i> -->
               </div>
             <% else %>
               <%= cl_image_tag area.photos[0].key, crop: :fill, effect: "grayscale" %>
+              <div>
+                <i class="fa fa-check-circle fa-3x" aria-hidden="true"style="position: absolute; width: 100px; color: #036D19; top:1rem; right: -2rem; opacity: 0.6"></i>
+               <!-- <i class="fa fa-tree fa-3x" aria-hidden="true"style="position: absolute; width: 100px; color: #036D19; top:11rem; left:0.5rem"></i> -->
+              </div>
             <% end %>
               <div class="card-areas-infos">
                 <p class="alignright"><%= image_tag "areas/brazil-icon.png", alt: "Mapa do Brasil", width: 25 %> <%= area.city.name %>, <%=area.city.state.name %>
