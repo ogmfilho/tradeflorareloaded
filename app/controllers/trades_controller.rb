@@ -18,7 +18,7 @@ class TradesController < ApplicationController
       area = Area.find(@trade.area_id)
       mailint = TradeMailer.with(trade: @trade).newtrade
       maiprop = TradeMailer.with(trade: @trade).newtrade
-      redirect_to meu_perfil_path, notice: 'Nova proposta criada.'
+      redirect_to areas_path, notice: 'Nova proposta criada.'
     else
       render :new
     end
