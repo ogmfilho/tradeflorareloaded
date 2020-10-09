@@ -10,7 +10,7 @@ class AreaMailer < ApplicationMailer
 
     mail(
       to:       @area.user.email,
-      subject:  "Nova área disponibilizada em #{@area.city}"
+      subject:  "Nova área disponibilizada em #{@area.city.name}"
     )
   end
 end
