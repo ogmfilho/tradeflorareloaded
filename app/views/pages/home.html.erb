@@ -2,8 +2,8 @@
   <div class="container">
     <h1>TradeFlora</h1>
     <p>Programa de Reflorestamento - Unindo Esforços</p>
-    <a href="#SaibaMais"><button class="br-button mt-1" type="button" primary>Saiba Mais</button></a>
-    <%= link_to "Áreas Disponíveis", areas_path, class:"br-button primary mt-1", style: "text-decoration: none;" %>
+    <a href="#SaibaMais"><button class="br-button px-1" type="button" primary>Saiba Mais</button></a>
+    <%= link_to "Mapa de Áreas", maps_path, class:"br-button primary mt-1 px-1", style: "text-decoration: none;" %>
   </div>
 </div>
 
@@ -52,12 +52,12 @@
             <div class="card-custom-avatar">
               <img class="img-fluid" src="assets/homeimages/icon-map-2.png" alt="Avatar" />
             </div>
-            <div class="card-body pt-0" style="overflow-y: auto">
+            <div class="card-body pt-0 pb-1" style="overflow-y: auto">
               <h4 class="card-title" style="margin-top: 3px !important; font-size: 20px;">Mapeando Áreas</h4>
               <p class="card-text">Cadastre sua área e disponibilize-a para reflorestamento em qualquer ponto do Brasil. O <em>TradeFlora</em> permite que você identifique com precisão sua propriedade.</p>
             </div>
-            <div class="card-footer" style="padding-top: 0px; background: inherit; border-color: inherit;">
-              <%= link_to "Crie uma Área", new_area_path, class:"br-button primary mt-1", style: "text-decoration: none;" %>
+            <div class="card-footer d-flex justify-content-center" style="padding-top: 0px; background: inherit; border-color: inherit;">
+              <%= link_to "Crie uma Área", new_area_path, class:"br-button primary mt-1 px-2", style: "text-decoration: none; width: 80% !important" %>
             </div>
           </div>
         </div>
@@ -68,12 +68,12 @@
             <div class="card-custom-avatar">
               <img class="img-fluid" src="assets/homeimages/icon-search-2.png" alt="Avatar" />
             </div>
-            <div class="card-body pt-0" style="overflow-y: auto">
+            <div class="card-body pt-0 pb-1" style="overflow-y: auto">
               <h4 class="card-title" style="margin-top: 3px !important; font-size: 20px;">Promovendo o Trade</h4>
               <p class="card-text">Empresas interessadas também podem se cadastrar e procurar por áreas à disposição. <em>TradeFlora</em> promove o encontro entre as partes e agiliza o negócio. </p>
             </div>
-            <div class="card-footer" style="padding-top: 0px; background: inherit; border-color: inherit;">
-              <%= link_to "Veja o Mapa", maps_path, class:"br-button primary mt-1", style: "text-decoration: none;" %>
+            <div class="card-footer d-flex justify-content-center" style="padding-top: 0px; background: inherit; border-color: inherit;">
+              <%= link_to "Veja o Mapa", maps_path, class:"br-button primary mt-1 px-2", style: "text-decoration: none; width: 80% !important" %>
             </div>
           </div>
         </div>
@@ -84,12 +84,12 @@
             <div class="card-custom-avatar">
               <img class="img-fluid" src="assets/homeimages/icon-plant-2.png" alt="Avatar" />
             </div>
-            <div class="card-body pt-0" style="overflow-y: auto">
+            <div class="card-body pt-0 pb-1" style="overflow-y: auto">
               <h4 class="card-title" style="margin-top: 3px !important; font-size: 20px;">Recuperando a Natureza</h4>
               <p class="card-text">Ao final todos saem ganhando, quem tem a obrigação legal de compensar e quem tem áreas disponíveis para reflorestar.</p>
             </div>
-            <div class="card-footer" style="padding-top: 0px; background: inherit; border-color: inherit;">
-              <%= link_to "Casos de Sucesso", exitos_path, class:"br-button primary mt-1", style: "text-decoration: none;" %>
+            <div class="card-footer d-flex justify-content-center" style="padding-top: 0px; background: inherit; border-color: inherit;">
+              <%= link_to "Casos de Sucesso", exitos_path, class:"br-button primary mt-1 px-1", style: "text-decoration: none; width: 80% !important" %>
             </div>
           </div>
         </div>
