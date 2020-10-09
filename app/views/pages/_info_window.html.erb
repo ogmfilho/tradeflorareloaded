@@ -6,7 +6,12 @@
 	<% end %>
   <div class="card-areas-infos">
     <p class="alignright">Bacia: <%= area.basin.name %></p>
-    <h2><%= area.description %></h2>
+    <% if area.description.size > 140 %>
+      <h2 style="margin-top: 5px;"><%= area.description[0..140] %>...</h2>
+    <% else %>
+      <h2 style="margin-top: 5px;"><%= area.description %></h2>
+    <% end %>
+    <hr>
     <p>Cod. da Área: <%= area.id %></p>
     <p class="mb-1">Área de: <%= area.user.name %></p>
     <p><i class="fas fa-globe-americas"></i> Coordenadas:</p>
