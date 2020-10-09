@@ -11,12 +11,13 @@ class TradesController < ApplicationController
   end
 
   def create
+    @user = current_user
     @trade = Trade.new(trade_params)
     @area = Area.find(params[:area_id])
     if @trade.save
       area = Area.find(@trade.area_id)
-      mailint = TradeMailer.with(user: current_user, area: @area).newtrade
-      maiprop = TradeMailer.with(user: current_user, area: @area).newtrade
+      mailint = TradeMailer.with(user: @user, area: @area).newtrade
+      maiprop = TradeMailer.with(user: @user, area: @area).newtrade
       redirect_to meu_perfil_path, notice: 'Nova proposta criada.'
     else
       render :new
@@ -24,6 +25,7 @@ class TradesController < ApplicationController
   end
 
   def destroy
+    @user = current_user
     @trade = Trade.find(params[:id])
 
     if @trade.user_id != current_user.id
@@ -38,6 +40,7 @@ class TradesController < ApplicationController
   end
 
   def aprove
+    @user = current_user
     @trade = Trade.find(params[:trade_id])
     @area = Area.find(params[:area_id])
 
@@ -56,6 +59,7 @@ class TradesController < ApplicationController
   end
 
   def refuse
+    @user = current_user
     @trade = Trade.find(params[:trade_id])
     @area = Area.find(params[:area_id])
     @area.update(available?: true) unless @area.available? == true
