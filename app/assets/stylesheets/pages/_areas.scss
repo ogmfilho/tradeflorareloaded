@@ -84,7 +84,7 @@
 /*Media Queries*/
 
 /*Smallest device*/
-@media (min-width: 100px) and (max-width: 800px) {
+@media (min-width: 100px) and (max-width: 850px) {
   .cards-areas {
     grid-template-columns: 1fr;
   }
@@ -97,7 +97,7 @@
 }
 
 /*Small devices ()*/
-@media (min-width: 801px) {
+@media (min-width: 851px) {
   .cards-areas {
     grid-template-columns: 1fr 1fr;
   }
@@ -107,7 +107,7 @@
 }
 
 /*Medium devices ()*/
-@media (min-width: 1200px) {
+@media (min-width: 1300px) {
   .cards-areas {
     grid-template-columns: 1fr 1fr 1fr;
   }
