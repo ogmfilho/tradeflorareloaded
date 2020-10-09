@@ -3,30 +3,26 @@ class TradeMailerPreview < ActionMailer::Preview
 
   # Preview this email at http://localhost:3000/rails/mailers/trade_mailer/newtrade
   def newtrade
-    area = Area.first
-    user = User.last
-    TradeMailer.with(area: area, user: user).newtrade
+    trade = Trade.first
+    TradeMailer.with(trade: trade).newtrade
   end
 
   # Preview this email at http://localhost:3000/rails/mailers/trade_mailer/proposal
   def proposal
-    area = Area.first
-    user = User.last
-    TradeMailer.with(area: area, user: user).proposal
+    trade = Trade.first 
+    TradeMailer.with(trade: trade).proposal
   end
 
   # Preview this email at http://localhost:3000/rails/mailers/trade_mailer/aprove
   def aprove
-    area = Area.first
-    user = User.last
-    TradeMailer.with(area: area, user: user).aprove
+    trade = Trade.first
+    TradeMailer.with(trade: trade).aprove
   end
 
   # Preview this email at http://localhost:3000/rails/mailers/trade_mailer/refuse
   def refuse
-    area = Area.first
-    user = User.last
-    TradeMailer.with(area: area, user: user).refuse
+    trade = Trade.first
+    TradeMailer.with(trade: trade).refuse
   end
 
 end

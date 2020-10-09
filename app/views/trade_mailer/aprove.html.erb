@@ -21,7 +21,7 @@ font-style: normal
 
 
 
-<h1>Prezado <%= @user.name %></h1>
+<h1>Prezado <%= @trade.user.name %></h1>
 
-<p>A proposta enviada para  <%= @area.user.name  %> em relação à área localizada no município de <%= @area.city.name%> foi aprovada!</p>
+<p>A proposta enviada para  <%= @trade.area.user.name  %> em relação à área localizada no município de <%= @trade.area.city.name%> foi aprovada!</p>
 <p>Para maiores informações visite <a href="https://tradeflora.herokuapp.com"/>nossa página</a>🌳.</p>

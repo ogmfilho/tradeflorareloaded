@@ -20,7 +20,7 @@ font-style: normal
 </style>
 
 
-<h1>Prezado <%= @user.name %></h1>
+<h1>Prezado <%= @trade.user.name %></h1>
 
-<p>Foi registrada uma nova proposta para área de <%= @area.user.name  %> localizada no município de <%= @area.city.name%>.</p>
+<p>Foi registrada uma nova proposta para área de <%= @trade.area.user.name  %> localizada no município de <%= @trade.area.city.name%>.</p>
 <p>Para maiores informações visite <a href="https://tradeflora.herokuapp.com"/>nossa página</a> 🌳.</p>

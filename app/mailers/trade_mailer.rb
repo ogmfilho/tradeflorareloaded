@@ -6,11 +6,10 @@ class TradeMailer < ApplicationMailer
   #   en.trade_mailer.newtrade.subject
   #
   def newtrade
-    @user = params[:user]
-    @area = params[:area]
+    @trade = params[:trade]
     mail(
-      to:       @user.email,
-      subject:  "Nova proposta para área disponibilizada em #{@area.city.name}"
+      to:       @trade.user.email,
+      subject:  "Nova proposta para área disponibilizada em #{@trade.area.city.name}"
     )
   end
 
@@ -20,12 +19,11 @@ class TradeMailer < ApplicationMailer
   #   en.trade_mailer.proposal.subject
   #
   def proposal
-    @user = params[:user]
-    @area = params[:area]
+    @trade = params[:trade]
 
     mail(
-      to:       @area.user.email,
-      subject:  "Nova proposta para área disponibilizada em #{@area.city.name}"
+      to:       @trade.area.user.email,
+      subject:  "Nova proposta para área disponibilizada em #{@trade.area.city.name}"
     )
   end
 
@@ -35,11 +33,10 @@ class TradeMailer < ApplicationMailer
   #   en.trade_mailer.aprove.subject
   #
   def aprove
-    @user = params[:user]
-    @area = params[:area]
+    @trade = params[:trade]
     mail(
-      to:       @user.email,
-      subject:  "Informações sobre sua proposta para área disponibilizada em #{@area.city.name}"
+      to:       @trade.user.email,
+      subject:  "Informações sobre sua proposta para área disponibilizada em #{@trade.area.city.name}"
     )
     
   end
@@ -50,11 +47,10 @@ class TradeMailer < ApplicationMailer
   #   en.trade_mailer.refuse.subject
   #
   def refuse
-    @user = params[:user]
-    @area = params[:area]
+    @trade = params[:trade]
     mail(
-      to:       @user.email,
-      subject:  "Informações sobre sua proposta para área disponibilizada em #{@area.city.name}"
+      to:       @trade.user.email,
+      subject:  "Informações sobre sua proposta para área disponibilizada em #{@trade.area.city.name}"
     )
   end
 end
