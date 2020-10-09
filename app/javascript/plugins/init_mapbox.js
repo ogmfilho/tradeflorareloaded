@@ -1,6 +1,7 @@
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import MapboxDraw from "@mapbox/mapbox-gl-draw"
+import {updateMunicipioInput} from "./init_select2"
 
 const addMarkersToMap = (map, markers) => {
   markers.forEach((marker) => {
@@ -148,6 +149,39 @@ const drawPolygon = (map, draw) => {
     centroidlat.value = usercentroid[1];
     const centroidlong = document.getElementById('area_longitude');
     centroidlong.value = usercentroid[0];
+
+  
+
+    
+    
+    const mostrar = () => {
+      let municipio;
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${centroidlat.value}&lon=${centroidlong.value}`)
+        .then(response => response.json())
+        .then((data) => {
+        
+          if (data.address.state === "Distrito Federal") {
+            console.log("Brasília");
+            municipio = "Brasília";
+          }
+          else {
+            if (data.address.city === undefined){
+              console.log(data.address.town)
+              municipio = data.address.town
+            }
+            else {
+              console.log(data.address.city);
+              municipio = data.address.city;
+            }
+
+          }
+          updateMunicipioInput(municipio);
+           
+        });
+    };
+    
+    mostrar();
+
   }
 }
 
